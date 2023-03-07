@@ -13,7 +13,7 @@ struct OutputButton: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.accentColor)
+                .fill(Color("AccentColor"))
             Text(label)
                 .padding()
                 .foregroundColor(.white)
