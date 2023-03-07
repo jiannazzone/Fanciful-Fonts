@@ -36,5 +36,5 @@ extension String {
 
 struct FancyText: Identifiable {
     let id = UUID()
-    var value = " "
+    var value = ""
 }
