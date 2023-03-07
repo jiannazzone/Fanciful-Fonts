@@ -47,7 +47,7 @@ struct ContentView: View {
                     Button {
                         userInput = String()
                     } label: {
-                        Image(systemName: "x.square")
+                        Image(systemName: "x.square.fill")
                             .imageScale(.large)
                     } // Button
                 }
@@ -90,7 +90,6 @@ struct ContentView: View {
                     Text(currentFancyText)
                 }
             }
-            .font(.headline)
             .multilineTextAlignment(.center)
             .foregroundColor(Color("AccentColor"))
             .frame(maxHeight: 34.0)
