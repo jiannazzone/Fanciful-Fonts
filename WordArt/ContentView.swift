@@ -9,8 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var userInput:String = ""
+    @State private var userInput = String()
     @State private var outputs = [FancyText]()
+    @FocusState private var inputIsFocused: Bool
+    @State private var currentFancyText = "fancy"
+    @State private var bottomText = "Tap any icon to copy it to your clipboard."
     
     var body: some View {
         
@@ -29,6 +32,17 @@ struct ContentView: View {
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .foregroundColor(Color("AccentColor"))
+                    .font(.title3)
+                    .focused($inputIsFocused)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button("Done") {
+                                inputIsFocused = false
+                            }
+                        }
+                    }
+                
                 if (userInput != String()) {
                     Button {
                         userInput = String()
@@ -49,38 +63,74 @@ struct ContentView: View {
                         ForEach(outputs, id: \.id) { output in
                             Button {
                                 UIPasteboard.general.string = output.value
+                                withAnimation {
+                                    bottomText = "Copied to clipboard"
+                                }
+                                Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
+                                    withAnimation{
+                                        bottomText = "Tap any icon to copy it to your clipboard."
+                                    }
+                                } // Timer
                             } label: {
                                 OutputButton(label: output.value)
                             } // Button
                         } // ForEach
                     } // LazyVGrid
                 } // ScrollView
-            } else {
-                Spacer()
-                Text("Start typing to get\nｆａｎｃｙ！")
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Color("AccentColor"))
-            } // if-else
+            } // if
             
             Spacer()
-            if userInput != String() {
-                Text("Tap any icon to copy it to your clipboard.")
-            } // if
+
+            VStack {
+                if userInput != String() {
+                    Text(bottomText)
+                } else {
+                    Text("Start typing to get ")
+                        .animation(nil)
+                    Text(currentFancyText)
+                }
+            }
+            .font(.headline)
+            .multilineTextAlignment(.center)
+            .foregroundColor(Color("AccentColor"))
+            .frame(maxHeight: 34.0)
             
         } // VStack
         .padding()
         .onChange(of: userInput) { _ in
             convertText()
         } // onChange
+        .onAppear {
+            var i = 0
+            Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
+                let fancyText = [
+                    "ⓕⓐⓝⓒⓨ",
+                    "ｆａｎｃｙ",
+                    "🄵🄰🄽🄲🅈",
+                    "🅵🅰🅽🅲🆈",
+                    "f̶a̶n̶c̶y̶",
+                    "fancy"
+                ]
+                withAnimation {
+                    currentFancyText = fancyText[i]
+                }
+                if i == fancyText.count - 1 {
+                    i = 0
+                } else {
+                    i += 1
+                } // if-else
+            } // Timer
+        } // onAppear
     } // View
     
     func convertText() {
         
         outputs = [FancyText]()
         
+        let sanitizedInput = userInput.applyingTransform(.stripDiacritics, reverse: false) ?? ""
+        
         var stringAsUnicode = [Int]()
-        for char in userInput.unicodeScalars {
+        for char in sanitizedInput.unicodeScalars {
             stringAsUnicode.append(Int(char.value))
         }
         
