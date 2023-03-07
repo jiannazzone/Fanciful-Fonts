@@ -13,6 +13,7 @@
 		667921C329B769E60026AF42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921C229B769E60026AF42 /* Preview Assets.xcassets */; };
 		667921CA29B786FC0026AF42 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921C929B786FC0026AF42 /* Helpers.swift */; };
 		667921CD29B78F350026AF42 /* OutputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CC29B78F350026AF42 /* OutputButton.swift */; };
+		667921CF29B7D6270026AF42 /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CE29B7D6270026AF42 /* OutputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		667921C929B786FC0026AF42 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		667921CB29B78A750026AF42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		667921CC29B78F350026AF42 /* OutputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputButton.swift; sourceTree = "<group>"; };
+		667921CE29B7D6270026AF42 /* OutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				667921BB29B769E50026AF42 /* WordArtApp.swift */,
 				667921BD29B769E50026AF42 /* ContentView.swift */,
 				667921CC29B78F350026AF42 /* OutputButton.swift */,
+				667921CE29B7D6270026AF42 /* OutputView.swift */,
 				667921C929B786FC0026AF42 /* Helpers.swift */,
 				667921BF29B769E60026AF42 /* Assets.xcassets */,
 				667921C129B769E60026AF42 /* Preview Content */,
@@ -145,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				667921CF29B7D6270026AF42 /* OutputView.swift in Sources */,
 				667921BE29B769E50026AF42 /* ContentView.swift in Sources */,
 				667921CA29B786FC0026AF42 /* Helpers.swift in Sources */,
 				667921CD29B78F350026AF42 /* OutputButton.swift in Sources */,

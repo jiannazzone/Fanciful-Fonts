@@ -55,28 +55,9 @@ struct ContentView: View {
             .padding(.bottom)
             
             // MARK: OUTPUT AREA
-            let columns = [GridItem(.flexible()), GridItem(.flexible())]
             
             if userInput != String() {
-                ScrollView(showsIndicators: false){
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(outputs, id: \.id) { output in
-                            Button {
-                                UIPasteboard.general.string = output.value
-                                withAnimation {
-                                    bottomText = "Copied to clipboard"
-                                }
-                                Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
-                                    withAnimation{
-                                        bottomText = "Tap any icon to copy it to your clipboard."
-                                    }
-                                } // Timer
-                            } label: {
-                                OutputButton(label: output.value)
-                            } // Button
-                        } // ForEach
-                    } // LazyVGrid
-                } // ScrollView
+                OutputView(outputs: outputs, bottomText: $bottomText)
             } // if
             
             Spacer()
