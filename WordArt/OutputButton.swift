@@ -16,6 +16,7 @@ struct OutputButton: View {
                 .fill(Color.accentColor)
             Text(label)
                 .padding()
+                .foregroundColor(.white)
         }
     }
 }

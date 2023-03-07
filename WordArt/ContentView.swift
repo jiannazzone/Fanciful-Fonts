@@ -32,19 +32,24 @@ struct ContentView: View {
             .padding(.bottom)
             
             let columns = [GridItem(.flexible()), GridItem(.flexible())]
-
-            LazyVGrid(columns: columns, spacing: 20) {
-                if userInput != String() {
+            if userInput != String() {
+                LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(outputs, id: \.id) { output in
-                        OutputButton(label: output.value)
+                        Button {
+                            UIPasteboard.general.string = output.value
+                        } label: {
+                            OutputButton(label: output.value)
+                        }
                     } // ForEach
-                } else {
-                    Text("Start typing to generate fancy text!")
-                }
-            } // LazyVGrid
-            
+                } // LazyVGrid
+            } else {
+                Text("Start typing to get fancy!")
+            }
             Spacer()
-        }
+            if userInput != String() {
+                Text("Tap any icon to copy it to your clipboard.")
+            }
+        } // VStack
         .padding()
         .onChange(of: userInput) { _ in
             convertText()
