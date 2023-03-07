@@ -8,16 +8,14 @@
 import SwiftUI
 
 struct TitleView: View {
+    
+    let gradient = [Color("AccentColor"), Color("GradientEnd")]
+    
     var body: some View {
         Text("🆆🅾🆁🅳 🅰🆁🆃")
             .font(.system(size: 42))
             .bold()
-            .foregroundStyle(
-            LinearGradient(
-                colors: [Color("AccentColor"), Color("GradientEnd")],
-                startPoint: .leading,
-                endPoint: .trailing)
-            )
+            .foregroundStyle(LinearGradient(colors: gradient, startPoint: .leading, endPoint: .trailing))
     }
 }
 

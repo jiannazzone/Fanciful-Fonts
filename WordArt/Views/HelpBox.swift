@@ -10,17 +10,14 @@ import SwiftUI
 struct HelpBox: View {
     let label: String
     let icon: String?
-    @State var gradientIndex = 0
-    let gradients = [
-        [Color("AccentColor"), Color("GradientEnd")],
-        [Color("GradientEnd"), Color("AccentColor")]
-    ]
+    let gradient = [Color("AccentColor"), Color("GradientEnd")]
     
     var body: some View {
+
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(LinearGradient(
-                    colors: gradients[gradientIndex],
+                    colors: gradient,
                     startPoint: .leading,
                     endPoint: .trailing))
             HStack {

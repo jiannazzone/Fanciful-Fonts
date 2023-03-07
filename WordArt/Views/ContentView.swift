@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var userInput = String()
     @State private var outputs = [FancyText]()
     @State private var currentFancyText = "fancy"
@@ -203,6 +205,70 @@ struct ContentView: View {
             }
         }
         outputs.append(spongeText)
+        
+        // Bold Text Serif
+        var boldTextSerif = FancyText()
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+            
+            if thisChar.isUppercase {
+                boldTextSerif.value += String(UnicodeScalar(num + 119743) ?? UnicodeScalar(0))
+            } else if thisChar.isLowercase {
+                boldTextSerif.value += String(UnicodeScalar(num + 119737) ?? UnicodeScalar(0))
+            } else {
+                boldTextSerif.value += String(thisChar)
+            }
+        }
+        outputs.append(boldTextSerif)
+        
+        // Bold Text Sans
+        var boldTextSans = FancyText()
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+            
+            if thisChar.isUppercase {
+                boldTextSans.value += String(UnicodeScalar(num + 120211) ?? UnicodeScalar(0))
+            } else if thisChar.isLowercase {
+                boldTextSans.value += String(UnicodeScalar(num + 120205) ?? UnicodeScalar(0))
+            } else {
+                boldTextSans.value += String(thisChar)
+            }
+        }
+        outputs.append(boldTextSans)
+        
+        // Italic Text Serif
+        var italicTextSerif = FancyText()
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+            
+            if thisChar.isUppercase {
+                italicTextSerif.value += String(UnicodeScalar(num + 119795) ?? UnicodeScalar(0))
+            } else if thisChar.isLowercase {
+                italicTextSerif.value += String(UnicodeScalar(num + 119789) ?? UnicodeScalar(0))
+            } else {
+                italicTextSerif.value += String(thisChar)
+            }
+        }
+        outputs.append(italicTextSerif)
+        
+        // Italic Text Sans
+        var italicTextSans = FancyText()
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+            
+            if thisChar.isUppercase {
+                italicTextSans.value += String(UnicodeScalar(num + 120263) ?? UnicodeScalar(0))
+            } else if thisChar.isLowercase {
+                italicTextSans.value += String(UnicodeScalar(num + 120257) ?? UnicodeScalar(0))
+            } else {
+                italicTextSans.value += String(thisChar)
+            }
+        }
+        outputs.append(italicTextSans)
         
     } // convertText
     

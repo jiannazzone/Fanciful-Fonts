@@ -9,17 +9,15 @@ import SwiftUI
 
 struct OutputButton: View {
     let label: String
-    @State var gradientIndex = 0
-    let gradients = [
-        [Color("AccentColor"), Color("GradientEnd")],
-        [Color("GradientEnd"), Color("AccentColor")]
-    ]
+    let gradient = [Color("AccentColor"), Color("GradientEnd")]
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
+        
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(LinearGradient(
-                    colors: gradients[gradientIndex],
+                    colors: gradient,
                     startPoint: .leading,
                     endPoint: .trailing))
             Text(label)

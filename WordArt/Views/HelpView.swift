@@ -23,29 +23,21 @@ struct HelpView: View {
             
             TitleView()
             
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
-                    Section {
-                        Text("Word Art functions by converting your input into Unicode values, then manipulating those values to create interesting text effects.")
-                        Divider()
-                            .overlay(Color("AccentColor"))
-                    } // Section
                     
                     Section {
-                        Text("Unicode is an international standard for encoding letters, characters, and symbols. Its adoption ensures that any device can properly interpret and display symbols from languages all around the world.")
+                        HelpBox(label: "Unicode is an international standard for encoding letters, characters, and symbols. Its adoption ensures that any device can properly interpret and display symbols from languages all around the world.", icon: nil)
+                        Text("WORD ART functions by converting your input into Unicode values, then manipulating those values to create interesting text effects.")
                         
                         Link(destination: URL(string: "https://en.wikipedia.org/wiki/Unicode")!) {
-                            HelpBox(label: "Learn More About Unicode", icon: "safari")
-                        }
+                            HelpBox(label: "Learn more about Unicode", icon: "safari")
+                        } // Link
                         
-                        Text("Not every combination is available in the Unicode standards. For example, we can create full-width text with any roman characters, but can only create boxed text with uppercase letters.")
+                        Text("Not every combination is available in the Unicode standards. For example, we can create full-width text with any roman characters, but we can only create boxed text with uppercase letters.")
                         
-                        HStack {
-                            HelpBox(label: "Ｆｕｌｌ\nＷｉｄｔｈ", icon: nil)
-                            Spacer()
-                            HelpBox(label: "🄱🄾🅇🄴🄳\n🅃🄴🅇🅃", icon: nil)
-                        } // HStack
-                        .multilineTextAlignment(.center)
+                        HelpBox(label: "Ｆｕｌｌ Ｗｉｄｔｈ　１２３", icon: nil)
+                        HelpBox(label: "🄱🄾🅇🄴🄳 🅃🄴🅇🅃", icon: nil)
                     } // Section
                     
                     Section {
@@ -56,15 +48,16 @@ struct HelpView: View {
                             Spacer()
                             HelpBox(label: "S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶", icon: nil)
                         } // HStack
-                        .multilineTextAlignment(.center)
                     } // Section
                     
                     Text("There are many more ways to cusomize text. Expect more to be added in the future!")
                     
-                    Divider()
-                        .overlay(Color("AccentColor"))
                     
-                    Text("When working with Unicode, devices and operating systems are able to customize how each character is displayed. This means that when you send text to a friend, it might not look exactly the same as it did on your device, but they'll get the message!")
+                    HelpBox(label: "When working with Unicode, devices and operating systems are able to customize how each character is displayed. This means that when you send text to a friend, it might not look exactly the same as it did on your device, but they'll get the message!", icon: nil)
+                    
+                    Link(destination: URL(string: "https://github.com/jiannazzone")!) {
+                        HelpBox(label: "Check out my other work!", icon: "arrow.down.circle")
+                    }
 
                 } // VStack
                 .multilineTextAlignment(.leading)
