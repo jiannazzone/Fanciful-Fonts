@@ -30,15 +30,7 @@ struct ContentView: View {
         VStack {
             
             // MARK: TITLE
-            Text("🆆🅾🆁🅳 🅰🆁🆃")
-                .font(.system(size: 42))
-                .bold()
-                .foregroundStyle(
-                LinearGradient(
-                    colors: [Color("AccentColor"), Color("GradientEnd")],
-                    startPoint: .leading,
-                    endPoint: .trailing)
-                )
+            TitleView()
             
             // MARK: INPUT AREA
             HStack {
@@ -90,8 +82,12 @@ struct ContentView: View {
                 
                 HStack {
                     Spacer()
-                    Image(systemName: "questionmark.circle.fill")
-                        .imageScale(.large)
+                    Button {
+                        showHelpView = true
+                    } label: {
+                        Image(systemName: "questionmark.circle.fill")
+                            .imageScale(.large)
+                    }
                 }
             }
             .multilineTextAlignment(.center)
@@ -116,6 +112,9 @@ struct ContentView: View {
                 } // if-else
             } // Timer
         } // onAppear
+        .sheet(isPresented: $showHelpView) {
+            HelpView()
+        }
     } // View
     
     func convertText() {

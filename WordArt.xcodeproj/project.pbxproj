@@ -15,6 +15,8 @@
 		667921CD29B78F350026AF42 /* OutputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CC29B78F350026AF42 /* OutputButton.swift */; };
 		667921CF29B7D6270026AF42 /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CE29B7D6270026AF42 /* OutputView.swift */; };
 		667921D129B7E0FA0026AF42 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D029B7E0FA0026AF42 /* HelpView.swift */; };
+		667921D429B7E4A10026AF42 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D329B7E4A10026AF42 /* TitleView.swift */; };
+		66FBCAC929B7EF3600B7600F /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FBCAC829B7EF3600B7600F /* HelpBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		667921CC29B78F350026AF42 /* OutputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputButton.swift; sourceTree = "<group>"; };
 		667921CE29B7D6270026AF42 /* OutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputView.swift; sourceTree = "<group>"; };
 		667921D029B7E0FA0026AF42 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		667921D329B7E4A10026AF42 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		66FBCAC829B7EF3600B7600F /* HelpBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,8 @@
 				667921CC29B78F350026AF42 /* OutputButton.swift */,
 				667921CE29B7D6270026AF42 /* OutputView.swift */,
 				667921D029B7E0FA0026AF42 /* HelpView.swift */,
+				667921D329B7E4A10026AF42 /* TitleView.swift */,
+				66FBCAC829B7EF3600B7600F /* HelpBox.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -161,7 +167,9 @@
 			files = (
 				667921CF29B7D6270026AF42 /* OutputView.swift in Sources */,
 				667921D129B7E0FA0026AF42 /* HelpView.swift in Sources */,
+				66FBCAC929B7EF3600B7600F /* HelpBox.swift in Sources */,
 				667921BE29B769E50026AF42 /* ContentView.swift in Sources */,
+				667921D429B7E4A10026AF42 /* TitleView.swift in Sources */,
 				667921CA29B786FC0026AF42 /* Helpers.swift in Sources */,
 				667921CD29B78F350026AF42 /* OutputButton.swift in Sources */,
 				667921BC29B769E50026AF42 /* WordArtApp.swift in Sources */,
