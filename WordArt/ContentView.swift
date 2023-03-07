@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var userInput:String = ""
-    @State private var outputs = [String]()
+    @State private var outputs = [FancyText]()
     
     var body: some View {
         
@@ -34,9 +34,13 @@ struct ContentView: View {
             let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(outputs, id: \.self) { output in
-                    OutputButton(label: output)
-                } // ForEach
+                if userInput != String() {
+                    ForEach(outputs, id: \.id) { output in
+                        OutputButton(label: output.value)
+                    } // ForEach
+                } else {
+                    Text("Start typing to generate fancy text!")
+                }
             } // LazyVGrid
             
             Spacer()
@@ -49,7 +53,7 @@ struct ContentView: View {
     
     func convertText() {
         
-        outputs = [String]()
+        outputs = [FancyText]()
         
         var stringAsUnicode = [Int]()
         for char in userInput.unicodeScalars {
@@ -57,48 +61,48 @@ struct ContentView: View {
         }
         
         // Full-Width Romaji
-        var fullWidth = String()
+        var fullWidth = FancyText()
         for i in 0..<stringAsUnicode.count {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
             if thisChar == " " {
-                fullWidth += String(thisChar)
+                fullWidth.value += String(thisChar)
             } else {
-                fullWidth += String(UnicodeScalar(num + 65248) ?? UnicodeScalar(0))
+                fullWidth.value += String(UnicodeScalar(num + 65248) ?? UnicodeScalar(0))
             }
         }
         outputs.append(fullWidth)
         
         // Circle Text
-        var circleText = String()
+        var circleText = FancyText()
         for i in 0..<stringAsUnicode.count {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
             
             if thisChar.isNumber {
-                circleText += String(UnicodeScalar(num + 9263) ?? UnicodeScalar(0))
+                circleText.value += String(UnicodeScalar(num + 9263) ?? UnicodeScalar(0))
             } else if thisChar.isLowercase {
-                circleText += String(UnicodeScalar(num + 9327) ?? UnicodeScalar(0))
+                circleText.value += String(UnicodeScalar(num + 9327) ?? UnicodeScalar(0))
             } else if thisChar.isUppercase {
-                circleText += String(UnicodeScalar(num + 9333) ?? UnicodeScalar(0))
+                circleText.value += String(UnicodeScalar(num + 9333) ?? UnicodeScalar(0))
             } else {
-                circleText += String(thisChar)
+                circleText.value += String(thisChar)
             }
         }
         outputs.append(circleText)
         
         // Sharp Box Text
-        var sharpBox = String()
+        var sharpBox = FancyText()
         for i in 0..<stringAsUnicode.count {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
             
             if thisChar.isLowercase {
-                sharpBox += String(UnicodeScalar(num + 127183) ?? UnicodeScalar(0))
+                sharpBox.value += String(UnicodeScalar(num + 127183) ?? UnicodeScalar(0))
             } else if thisChar.isUppercase {
-                sharpBox += String(UnicodeScalar(num + 127215) ?? UnicodeScalar(0))
+                sharpBox.value += String(UnicodeScalar(num + 127215) ?? UnicodeScalar(0))
             } else {
-                sharpBox += String(thisChar)
+                sharpBox.value += String(thisChar)
             }
         }
         outputs.append(sharpBox)

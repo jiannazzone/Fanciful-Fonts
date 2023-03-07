@@ -33,3 +33,8 @@ extension String {
         return String(self[start ..< end])
     }
 }
+
+struct FancyText: Identifiable {
+    let id = UUID()
+    var value = " "
+}
