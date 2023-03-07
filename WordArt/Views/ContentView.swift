@@ -11,9 +11,19 @@ struct ContentView: View {
     
     @State private var userInput = String()
     @State private var outputs = [FancyText]()
-    @FocusState private var inputIsFocused: Bool
     @State private var currentFancyText = "fancy"
+    let fancyText = [
+        "ⓕⓐⓝⓒⓨ",
+        "ｆａｎｃｙ",
+        "🄵🄰🄽🄲🅈",
+        "🅵🅰🅽🅲🆈",
+        "f̶a̶n̶c̶y̶",
+        "fancy"
+    ]
     @State private var bottomText = "Tap any icon to copy it to your clipboard."
+    @State private var showHelpView = false
+    
+    @FocusState private var inputIsFocused: Bool
     
     var body: some View {
         
@@ -22,8 +32,13 @@ struct ContentView: View {
             // MARK: TITLE
             Text("🆆🅾🆁🅳 🅰🆁🆃")
                 .font(.system(size: 42))
-                .foregroundColor(Color("AccentColor"))
                 .bold()
+                .foregroundStyle(
+                LinearGradient(
+                    colors: [Color("AccentColor"), Color("GradientEnd")],
+                    startPoint: .leading,
+                    endPoint: .trailing)
+                )
             
             // MARK: INPUT AREA
             HStack {
@@ -39,9 +54,9 @@ struct ContentView: View {
                             Spacer()
                             Button("Done") {
                                 inputIsFocused = false
-                            }
-                        }
-                    }
+                            } // Button
+                        } // ToolbarItemGroup
+                    } // toolbar
                 
                 if (userInput != String()) {
                     Button {
@@ -50,7 +65,7 @@ struct ContentView: View {
                         Image(systemName: "x.square.fill")
                             .imageScale(.large)
                     } // Button
-                }
+                } // if
             } // HStack
             .padding(.bottom)
             
@@ -61,14 +76,22 @@ struct ContentView: View {
             } // if
             
             Spacer()
-
-            VStack {
-                if userInput != String() {
-                    Text(bottomText)
-                } else {
-                    Text("Start typing to get ")
-                        .animation(nil)
-                    Text(currentFancyText)
+            
+            ZStack {
+                VStack {
+                    if userInput != String() {
+                        Text(bottomText)
+                    } else {
+                        Text("Start typing to get ")
+                            .animation(nil)
+                        Text(currentFancyText)
+                    } // if-else
+                } // VStack
+                
+                HStack {
+                    Spacer()
+                    Image(systemName: "questionmark.circle.fill")
+                        .imageScale(.large)
                 }
             }
             .multilineTextAlignment(.center)
@@ -83,17 +106,9 @@ struct ContentView: View {
         .onAppear {
             var i = 0
             Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
-                let fancyText = [
-                    "ⓕⓐⓝⓒⓨ",
-                    "ｆａｎｃｙ",
-                    "🄵🄰🄽🄲🅈",
-                    "🅵🅰🅽🅲🆈",
-                    "f̶a̶n̶c̶y̶",
-                    "fancy"
-                ]
                 withAnimation {
                     currentFancyText = fancyText[i]
-                }
+                } // withAnimation
                 if i == fancyText.count - 1 {
                     i = 0
                 } else {
