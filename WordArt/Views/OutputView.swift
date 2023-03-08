@@ -15,7 +15,7 @@ struct OutputView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false){
-            LazyVGrid(columns: columns, spacing: 20) {
+            LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(outputs, id: \.id) { output in
                     Button {
                         UIPasteboard.general.string = output.value
@@ -28,7 +28,11 @@ struct OutputView: View {
                             }
                         } // Timer
                     } label: {
-                        OutputButton(label: output.value)
+                        VStack (spacing: 5){
+                            OutputButton(label: output.value)
+                            Text(output.description)
+                                .font(.caption)
+                        }
                     } // Button
                 } // ForEach
             } // LazyVGrid
