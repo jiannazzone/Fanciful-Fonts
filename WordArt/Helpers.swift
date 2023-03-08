@@ -122,11 +122,15 @@ func convertText(userInput: String) -> [FancyText] {
     
     // Sponge Text
     var spongeText = FancyText("Sarcastic")
-    for i in 0..<userInput.count {
-        if i % 2 == 0 {
-            spongeText.value += userInput[i].lowercased()
+    var spongeCounter = 0
+    for char in userInput {
+        if spongeCounter % 2 == 0 {
+            spongeText.value += char.lowercased()
         } else {
-            spongeText.value += userInput[i].uppercased()
+            spongeText.value += char.uppercased()
+        }
+        if char.isLetter {
+            spongeCounter += 1
         }
     }
     outputs.append(spongeText)
