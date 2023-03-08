@@ -36,7 +36,7 @@ struct HelpView: View {
                         
                         Text("Not every combination is available in the Unicode standards. For example, we can create full-width text with any roman characters, but we can only create boxed text with uppercase letters.")
                         
-                        HelpBox(label: "Ｆｕｌｌ Ｗｉｄｔｈ　１２３", icon: nil)
+                        HelpBox(label: "Ｆｕｌｌ　Ｗｉｄｔｈ　１２３", icon: nil)
                         HelpBox(label: "🄱🄾🅇🄴🄳 🅃🄴🅇🅃", icon: nil)
                     } // Section
                     

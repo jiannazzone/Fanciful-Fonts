@@ -244,7 +244,9 @@ struct ContentView: View {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
             
-            if thisChar.isUppercase {
+            if thisChar == "h" {
+                italicTextSerif.value += "ℎ"
+            } else if thisChar.isUppercase {
                 italicTextSerif.value += String(UnicodeScalar(num + 119795) ?? UnicodeScalar(0))
             } else if thisChar.isLowercase {
                 italicTextSerif.value += String(UnicodeScalar(num + 119789) ?? UnicodeScalar(0))
