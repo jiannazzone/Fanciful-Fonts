@@ -59,6 +59,7 @@ struct ContentView: View {
                         Image(systemName: "x.square.fill")
                             .imageScale(.large)
                     } // Button
+                    .keyboardShortcut(.cancelAction)
                 } // if
             } // HStack
             .padding(.bottom)
@@ -113,6 +114,7 @@ struct ContentView: View {
                     i += 1
                 } // if-else
             } // Timer
+            inputIsFocused = true
         } // onAppear
         .sheet(isPresented: $showHelpView) {
             HelpView()
