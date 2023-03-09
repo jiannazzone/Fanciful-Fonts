@@ -18,8 +18,8 @@ struct HelpBox: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(LinearGradient(
                     colors: gradient,
-                    startPoint: .leading,
-                    endPoint: .trailing))
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing))
             HStack {
                 if icon != nil {
                     Image(systemName: icon!)

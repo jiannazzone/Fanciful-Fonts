@@ -33,6 +33,11 @@ class MessagesViewController: MSMessagesAppViewController {
             self.requestPresentationStyle(.expanded)
         }
         
+        outputModel.insert = {
+            self.activeConversation?.insertText(self.outputModel.finalOutput)
+            self.dismiss()
+        }
+        
         outputModel.dismiss = {
             self.dismiss()
         }

@@ -23,6 +23,7 @@ struct ContentView: View {
     @State private var showHelpView = false
     
     @FocusState private var inputIsFocused: Bool
+    @Environment(\.colorScheme) var colorScheme
     
     
     var body: some View {
@@ -41,7 +42,7 @@ struct ContentView: View {
                         .textFieldStyle(.roundedBorder)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
-                        .foregroundColor(Color("AccentColor"))
+                        .foregroundColor(colorScheme == .dark ? .accentColor : .black)
                         .font(.title3)
                         .focused($inputIsFocused)
                         .onAppear {
@@ -100,8 +101,8 @@ struct ContentView: View {
                     }
                 }
                 .multilineTextAlignment(.center)
-                .foregroundColor(Color("AccentColor"))
-                
+                .foregroundColor(colorScheme == .dark ? .accentColor : .black)
+
             } else {
                 Button {
                     outputModel.expand()
@@ -115,6 +116,7 @@ struct ContentView: View {
             
         } // VStack
         .padding()
+        .background(Color("BackgroundColor"))
         .transition(.slide)
         .onChange(of: outputModel.userInput) { _ in
             outputModel.convertText(outputModel.userInput)

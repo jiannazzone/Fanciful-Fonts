@@ -10,6 +10,7 @@ import SwiftUI
 struct HelpView: View {
     
     @Environment(\.presentationMode) var presentationValue
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack(spacing: 10) {
@@ -63,8 +64,9 @@ struct HelpView: View {
                 .multilineTextAlignment(.leading)
             } // ScrollView
         } // VStack
-        .foregroundColor(Color("AccentColor"))
+        .foregroundColor(colorScheme == .dark ? .accentColor : .black)
         .padding()
+        .background(Color("BackgroundColor"))
     } // View
 }
 

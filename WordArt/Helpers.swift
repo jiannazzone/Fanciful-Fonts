@@ -55,7 +55,7 @@ class FancyTextModel: ObservableObject {
     
     var expand: (() -> Void)!
     var dismiss: (() -> Void)!
-    var select: (() -> Void)!
+    var insert: (() -> Void)!
     
     init(_ val: Bool) {
         isFullApp = val

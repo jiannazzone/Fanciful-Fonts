@@ -18,8 +18,8 @@ struct OutputButton: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(LinearGradient(
                     colors: gradient,
-                    startPoint: .leading,
-                    endPoint: .trailing))
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing))
             Text(label)
                 .padding()
                 .foregroundColor(.white)

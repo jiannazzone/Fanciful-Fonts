@@ -12,14 +12,22 @@ struct OutputView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     let outputModel: FancyTextModel
     @Binding var bottomText: String
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         ScrollView(showsIndicators: false){
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(outputModel.outputs, id: \.id) { output in
                     Button {
+                        // Clipboard and iMessage logic
                         outputModel.finalOutput = output.value
                         UIPasteboard.general.string = output.value
+                        if !outputModel.isFullApp {
+                            outputModel.userInput = String()
+                            outputModel.insert()
+                        }
+                        
+                        // Animation
                         withAnimation {
                             bottomText = "Copied to clipboard"
                         }
@@ -28,16 +36,12 @@ struct OutputView: View {
                                 bottomText = "Tap any icon to copy it to your clipboard."
                             }
                         } // Timer
-                        if !outputModel.isFullApp {
-                            outputModel.userInput = String()
-                            outputModel.dismiss()
-                        }
                     } label: {
                         VStack (spacing: 5){
                             OutputButton(label: output.value)
                             Text(output.description)
                                 .font(.caption)
-                                .foregroundColor(Color("AccentColor"))
+                                .foregroundColor(colorScheme == .dark ? .accentColor : .black)
                         }
                     } // Button
                 } // ForEach

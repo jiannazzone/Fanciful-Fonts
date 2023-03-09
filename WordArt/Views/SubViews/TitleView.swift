@@ -15,7 +15,10 @@ struct TitleView: View {
         Text("🆆🅾🆁🅳 🅰🆁🆃")
             .font(.system(size: 42))
             .bold()
-            .foregroundStyle(LinearGradient(colors: gradient, startPoint: .leading, endPoint: .trailing))
+            .foregroundStyle(LinearGradient(
+                colors: gradient,
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing))
     }
 }
 
