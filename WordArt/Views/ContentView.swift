@@ -26,13 +26,16 @@ struct ContentView: View {
     @State private var showHelpView = false
     
     @FocusState private var inputIsFocused: Bool
+    @State var fullApp: Bool
     
     var body: some View {
         
         VStack {
             
             // MARK: TITLE
-            TitleView()
+            if fullApp {
+                TitleView()
+            }
             
             // MARK: INPUT AREA
             HStack {
@@ -58,6 +61,7 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "x.square.fill")
                             .imageScale(.large)
+                            .foregroundColor(Color("AccentColor"))
                     } // Button
                     .keyboardShortcut(.cancelAction)
                 } // if
@@ -125,6 +129,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(fullApp: true)
     }
 }

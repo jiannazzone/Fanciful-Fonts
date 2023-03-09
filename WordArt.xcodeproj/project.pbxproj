@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		663A83D029B9189F0003F2C8 /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 663A83CF29B9189F0003F2C8 /* Messages.framework */; };
+		663A83D329B9189F0003F2C8 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663A83D229B9189F0003F2C8 /* MessagesViewController.swift */; };
+		663A83DC29B918A00003F2C8 /* WordArtMessage.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 663A83CD29B9189F0003F2C8 /* WordArtMessage.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		663A83E129B918FE0003F2C8 /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CE29B7D6270026AF42 /* OutputView.swift */; };
+		663A83E229B918FE0003F2C8 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D029B7E0FA0026AF42 /* HelpView.swift */; };
+		663A83E329B918FE0003F2C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BD29B769E50026AF42 /* ContentView.swift */; };
+		663A83E429B919010003F2C8 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D329B7E4A10026AF42 /* TitleView.swift */; };
+		663A83E529B919010003F2C8 /* OutputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CC29B78F350026AF42 /* OutputButton.swift */; };
+		663A83E629B919010003F2C8 /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FBCAC829B7EF3600B7600F /* HelpBox.swift */; };
+		663A83E729B919030003F2C8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921C929B786FC0026AF42 /* Helpers.swift */; };
+		663A83E829B919050003F2C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
+		663A83EA29B919260003F2C8 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663A83E929B919260003F2C8 /* MessageView.swift */; };
 		667921BC29B769E50026AF42 /* WordArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BB29B769E50026AF42 /* WordArtApp.swift */; };
 		667921BE29B769E50026AF42 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BD29B769E50026AF42 /* ContentView.swift */; };
 		667921C029B769E60026AF42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
@@ -19,7 +31,36 @@
 		66FBCAC929B7EF3600B7600F /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FBCAC829B7EF3600B7600F /* HelpBox.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		663A83DA29B918A00003F2C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 667921B029B769E50026AF42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 663A83CC29B9189F0003F2C8;
+			remoteInfo = WordArtMessage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		663A83E029B918A00003F2C8 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				663A83DC29B918A00003F2C8 /* WordArtMessage.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		663A83CD29B9189F0003F2C8 /* WordArtMessage.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WordArtMessage.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		663A83CF29B9189F0003F2C8 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
+		663A83D229B9189F0003F2C8 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		663A83D929B918A00003F2C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		663A83E929B919260003F2C8 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		667921B829B769E50026AF42 /* WordArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		667921BB29B769E50026AF42 /* WordArtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordArtApp.swift; sourceTree = "<group>"; };
 		667921BD29B769E50026AF42 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -35,6 +76,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		663A83CA29B9189F0003F2C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				663A83D029B9189F0003F2C8 /* Messages.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		667921B529B769E50026AF42 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -55,10 +104,30 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
+		663A83CE29B9189F0003F2C8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				663A83CF29B9189F0003F2C8 /* Messages.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		663A83D129B9189F0003F2C8 /* WordArtMessage */ = {
+			isa = PBXGroup;
+			children = (
+				663A83D229B9189F0003F2C8 /* MessagesViewController.swift */,
+				663A83E929B919260003F2C8 /* MessageView.swift */,
+				663A83D929B918A00003F2C8 /* Info.plist */,
+			);
+			path = WordArtMessage;
+			sourceTree = "<group>";
+		};
 		667921AF29B769E50026AF42 = {
 			isa = PBXGroup;
 			children = (
 				667921BA29B769E50026AF42 /* WordArt */,
+				663A83D129B9189F0003F2C8 /* WordArtMessage */,
+				663A83CE29B9189F0003F2C8 /* Frameworks */,
 				667921B929B769E50026AF42 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				667921B829B769E50026AF42 /* WordArt.app */,
+				663A83CD29B9189F0003F2C8 /* WordArtMessage.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +176,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		663A83CC29B9189F0003F2C8 /* WordArtMessage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 663A83DD29B918A00003F2C8 /* Build configuration list for PBXNativeTarget "WordArtMessage" */;
+			buildPhases = (
+				663A83C929B9189F0003F2C8 /* Sources */,
+				663A83CA29B9189F0003F2C8 /* Frameworks */,
+				663A83CB29B9189F0003F2C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WordArtMessage;
+			productName = WordArtMessage;
+			productReference = 663A83CD29B9189F0003F2C8 /* WordArtMessage.appex */;
+			productType = "com.apple.product-type.app-extension.messages";
+		};
 		667921B729B769E50026AF42 /* WordArt */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 667921C629B769E60026AF42 /* Build configuration list for PBXNativeTarget "WordArt" */;
@@ -113,10 +200,12 @@
 				667921B429B769E50026AF42 /* Sources */,
 				667921B529B769E50026AF42 /* Frameworks */,
 				667921B629B769E50026AF42 /* Resources */,
+				663A83E029B918A00003F2C8 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				663A83DB29B918A00003F2C8 /* PBXTargetDependency */,
 			);
 			name = WordArt;
 			productName = WordArt;
@@ -133,6 +222,9 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					663A83CC29B9189F0003F2C8 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					667921B729B769E50026AF42 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -152,11 +244,20 @@
 			projectRoot = "";
 			targets = (
 				667921B729B769E50026AF42 /* WordArt */,
+				663A83CC29B9189F0003F2C8 /* WordArtMessage */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		663A83CB29B9189F0003F2C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				663A83E829B919050003F2C8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		667921B629B769E50026AF42 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,6 +270,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		663A83C929B9189F0003F2C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				663A83D329B9189F0003F2C8 /* MessagesViewController.swift in Sources */,
+				663A83E229B918FE0003F2C8 /* HelpView.swift in Sources */,
+				663A83E329B918FE0003F2C8 /* ContentView.swift in Sources */,
+				663A83EA29B919260003F2C8 /* MessageView.swift in Sources */,
+				663A83E729B919030003F2C8 /* Helpers.swift in Sources */,
+				663A83E129B918FE0003F2C8 /* OutputView.swift in Sources */,
+				663A83E529B919010003F2C8 /* OutputButton.swift in Sources */,
+				663A83E629B919010003F2C8 /* HelpBox.swift in Sources */,
+				663A83E429B919010003F2C8 /* TitleView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		667921B429B769E50026AF42 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,7 +303,67 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		663A83DB29B918A00003F2C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 663A83CC29B9189F0003F2C8 /* WordArtMessage */;
+			targetProxy = 663A83DA29B918A00003F2C8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		663A83DE29B918A00003F2C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4KVDEM64KR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordArtMessage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WordArtMessage;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ianazzone.WordArt.WordArtMessage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		663A83DF29B918A00003F2C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4KVDEM64KR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordArtMessage/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WordArtMessage;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ianazzone.WordArt.WordArtMessage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		667921C429B769E60026AF42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -304,6 +481,7 @@
 		667921C729B769E60026AF42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -334,6 +512,7 @@
 		667921C829B769E60026AF42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -364,6 +543,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		663A83DD29B918A00003F2C8 /* Build configuration list for PBXNativeTarget "WordArtMessage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				663A83DE29B918A00003F2C8 /* Debug */,
+				663A83DF29B918A00003F2C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		667921B329B769E50026AF42 /* Build configuration list for PBXProject "WordArt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

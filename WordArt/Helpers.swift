@@ -44,6 +44,13 @@ struct FancyText: Identifiable {
     }
 }
 
+class MessageViewObservable: ObservableObject {
+    @Published var isExpanded = false
+    var onButtonPress: (() -> Void)!
+    var onItemSelect: (() -> Void)!
+}
+
+
 func convertText(userInput: String) -> [FancyText] {
     
     var outputs = [FancyText]()

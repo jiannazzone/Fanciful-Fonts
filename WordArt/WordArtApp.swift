@@ -11,7 +11,7 @@ import SwiftUI
 struct WordArtApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(fullApp: true)
         }
     }
 }

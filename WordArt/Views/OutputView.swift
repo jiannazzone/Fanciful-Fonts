@@ -12,6 +12,7 @@ struct OutputView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     let outputs: [FancyText]
     @Binding var bottomText: String
+
     
     var body: some View {
         ScrollView(showsIndicators: false){
@@ -32,6 +33,7 @@ struct OutputView: View {
                             OutputButton(label: output.value)
                             Text(output.description)
                                 .font(.caption)
+                                .foregroundColor(Color("AccentColor"))
                         }
                     } // Button
                 } // ForEach
