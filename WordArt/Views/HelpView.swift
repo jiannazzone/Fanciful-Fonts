@@ -10,6 +10,7 @@ import SwiftUI
 struct HelpView: View {
     
     @Environment(\.presentationMode) var presentationValue
+    @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -17,20 +18,21 @@ struct HelpView: View {
             
             HStack {
                 Spacer()
-                Button("Done") {
-                    presentationValue.wrappedValue.dismiss()
-                } // Button
-                .foregroundColor(Color("AccentColor"))
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "x.square.fill")
+                        .imageScale(.large)
+                        .foregroundColor(Color("AccentColor"))
+                }
             } // HStack
-            
-            TitleView()
             
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     
                     Section {
                         HelpBox(label: "Unicode is an international standard for encoding letters, characters, and symbols. Its adoption ensures that any device can properly interpret and display symbols from languages all around the world.", icon: nil)
-                        Text("WORD ART functions by converting your input into Unicode values, then manipulating those values to create interesting text effects.")
+                        Text("🅵🅰🅽🅲🅸🅵🆄🅻 🅵🅾🅽🆃🆂 functions by converting your input into Unicode values, then manipulating those values to create interesting text effects.")
                         
                         Link(destination: URL(string: "https://en.wikipedia.org/wiki/Unicode")!) {
                             HelpBox(label: "Learn more about Unicode", icon: "safari")

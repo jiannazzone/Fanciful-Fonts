@@ -19,8 +19,9 @@ struct ContentView: View {
         "f̶a̶n̶c̶y̶",
         "fancy"
     ]
-    @State private var bottomText = "Tap any button to copy."
+    @State private var bottomText = ""
     @State private var showHelpView = false
+    @State var inputPlaceholder = String()
     
     @FocusState private var inputIsFocused: Bool
     @Environment(\.colorScheme) var colorScheme
@@ -35,63 +36,78 @@ struct ContentView: View {
             // MARK: TITLE
             if outputModel.isFullApp || (!outputModel.isFullApp && !outputModel.isExpanded){
                 TitleView()
-            }
+            } // if
             
-            if outputModel.isExpanded {
-                // MARK: INPUT AREA
-                HStack {
-                    TextField("Type something...", text: $outputModel.userInput, axis: .vertical)
-                        .textFieldStyle(.roundedBorder)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
-                        .font(.title3)
-                        .focused($inputIsFocused)
-                        .onAppear {
-                            inputIsFocused = true
+            // MARK: INPUT AREA
+            HStack {
+                TextField(inputPlaceholder, text: $outputModel.userInput, axis: .vertical)
+                    .textFieldStyle(.roundedBorder)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                    .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
+                    .font(.title3)
+                    .focused($inputIsFocused)
+                    .onTapGesture {
+                        if !outputModel.isFullApp {
+                            outputModel.isExpanded = true
+                            outputModel.expand()
                         }
-                        .toolbar {
-                            ToolbarItemGroup(placement: .keyboard) {
-                                Spacer()
-                                Button("Done") {
-                                    inputIsFocused = false
-                                } // Button
-                            } // ToolbarItemGroup
-                        } // toolbar
-                    
-                    // Clear Button
-                    if (outputModel.userInput != String()) {
-                        Button {
-                            outputModel.userInput = String()
-                        } label: {
-                            Image(systemName: "x.square.fill")
-                                .imageScale(.large)
-                                .foregroundColor(Color("AccentColor"))
-                        } // Button
-                        .keyboardShortcut(.cancelAction)
-                    } // if
-                } // HStack
-                .padding(.bottom)
+                    }
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button("Done") {
+                                inputIsFocused = false
+                            } // Button
+                        } // ToolbarItemGroup
+                    } // toolbar
                 
-                // MARK: OUTPUT AREA
+                // Clear Button
+                if (outputModel.userInput != String()) {
+                    Button {
+                        outputModel.userInput = String()
+                    } label: {
+                        Image(systemName: "x.square.fill")
+                            .imageScale(.large)
+                            .foregroundColor(Color("AccentColor"))
+                    } // Button
+                    .keyboardShortcut(.cancelAction)
+                } // if
+            } // HStack
+            .padding(.bottom)
+            
+            // MARK: OUTPUT AREA
+            Section {
                 if outputModel.userInput != String() {
                     OutputView(outputModel: outputModel, bottomText: $bottomText)
-                } // if
-                
-                Spacer()
-                
-                // MARK: Footer and Help Button
-                ZStack {
-                    VStack {
-                        if outputModel.userInput != String() {
-                            Text(bottomText)
-                        } else {
+                } else if outputModel.isFullApp || outputModel.isExpanded {
+                        Spacer()
+                        VStack {
                             Text("Start typing to get ")
                                 .animation(nil)
                             Text(currentFancyText)
-                        } // if-else
-                    } // VStack
-                    
+                        }
+                        .bold()
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundStyle(LinearGradient(
+                                    colors: gradient,
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing))
+                        )
+                        .foregroundColor(Color("BackgroundColor"))
+                        .font(.largeTitle)
+                        .multilineTextAlignment(.center)
+                } // if-else
+            } // Section
+            
+            Spacer()
+            
+            // MARK: Notification and Help Button
+            if outputModel.isExpanded {
+                ZStack {
+                    Text(bottomText)
                     HStack {
                         Spacer()
                         Button {
@@ -99,51 +115,51 @@ struct ContentView: View {
                         } label: {
                             Image(systemName: "questionmark.circle.fill")
                                 .imageScale(.large)
+                                .padding(.trailing)
                         }
                     }
                 }
-                .multilineTextAlignment(.center)
+                .onAppear {
+                    inputIsFocused = true
+                }
                 .foregroundStyle(LinearGradient(
                     colors: gradient,
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing))
-
-            } else {
-                Button {
-                    outputModel.expand()
-                    outputModel.isExpanded = true
-                    inputIsFocused = true
-                } label: {
-                    OutputButton(label: "Tap to get \(currentFancyText)")
-                        .frame(maxHeight: 42)
-                }
-                .background(Color("BackgroundColor"), ignoresSafeAreaEdges: .all)
             }
             
         } // VStack
         .tint(Color("AccentColor"))
         .padding()
         .background(Color("BackgroundColor"), ignoresSafeAreaEdges: .all)
-        .transition(.slide)
         .onChange(of: outputModel.userInput) { _ in
             outputModel.convertText(outputModel.userInput)
+            if outputModel.userInput != String() {
+                bottomText = "Tap an icon to copy it to your clipboard."
+            } // if
         } // onChange
         .onAppear {
             var i = 0
             Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
                 withAnimation {
-                    currentFancyText = fancyText[i]
+                    
                 } // withAnimation
+                currentFancyText = fancyText[i]
                 if i == fancyText.count - 1 {
                     i = 0
                 } else {
                     i += 1
                 } // if-else
             } // Timer
+            if outputModel.isExpanded {
+                inputPlaceholder = "Type anything begin"
+            } else {
+                inputPlaceholder = "Tap to get started"
+            }
         } // onAppear
         .sheet(isPresented: $showHelpView) {
             HelpView()
-        }
+        } // Sheet
     } // View
     
 }

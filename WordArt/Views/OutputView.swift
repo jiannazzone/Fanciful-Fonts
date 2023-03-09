@@ -33,15 +33,15 @@ struct OutputView: View {
                         }
                         Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
                             withAnimation{
-                                bottomText = "Tap any icon to copy it to your clipboard."
+                                bottomText = "Tap an icon to copy it to your clipboard."
                             }
                         } // Timer
                     } label: {
-                        VStack (spacing: 5){
+                        VStack (spacing: 5) {
                             OutputButton(label: output.value)
                             Text(output.description)
                                 .font(.caption)
-                        }
+                        } // VStack
                     } // Button
                 } // ForEach
             } // LazyVGrid

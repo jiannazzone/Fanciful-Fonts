@@ -156,7 +156,7 @@ class FancyTextModel: ObservableObject {
         outputs.append(spongeText)
         
         // Slash Text
-        var xText = FancyText("Little Xs")
+        var xText = FancyText("Little X")
         for char in userInput {
             xText.value += String(char)
             xText.value += String(UnicodeScalar(829) ?? UnicodeScalar(0))
