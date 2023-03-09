@@ -19,7 +19,7 @@ struct ContentView: View {
         "f̶a̶n̶c̶y̶",
         "fancy"
     ]
-    @State private var bottomText = "Tap any icon to copy it to your clipboard."
+    @State private var bottomText = "Tap any button to copy."
     @State private var showHelpView = false
     
     @FocusState private var inputIsFocused: Bool
@@ -28,7 +28,9 @@ struct ContentView: View {
     
     var body: some View {
         
-        VStack {
+        let gradient = [Color("AccentColor"), Color("GradientEnd")]
+        
+        VStack (spacing: 10) {
             
             // MARK: TITLE
             if outputModel.isFullApp || (!outputModel.isFullApp && !outputModel.isExpanded){
@@ -42,7 +44,7 @@ struct ContentView: View {
                         .textFieldStyle(.roundedBorder)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
-                        .foregroundColor(colorScheme == .dark ? .accentColor : .black)
+                        .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
                         .font(.title3)
                         .focused($inputIsFocused)
                         .onAppear {
@@ -101,7 +103,10 @@ struct ContentView: View {
                     }
                 }
                 .multilineTextAlignment(.center)
-                .foregroundColor(colorScheme == .dark ? .accentColor : .black)
+                .foregroundStyle(LinearGradient(
+                    colors: gradient,
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing))
 
             } else {
                 Button {
@@ -112,11 +117,13 @@ struct ContentView: View {
                     OutputButton(label: "Tap to get \(currentFancyText)")
                         .frame(maxHeight: 42)
                 }
+                .background(Color("BackgroundColor"), ignoresSafeAreaEdges: .all)
             }
             
         } // VStack
+        .tint(Color("AccentColor"))
         .padding()
-        .background(Color("BackgroundColor"))
+        .background(Color("BackgroundColor"), ignoresSafeAreaEdges: .all)
         .transition(.slide)
         .onChange(of: outputModel.userInput) { _ in
             outputModel.convertText(outputModel.userInput)

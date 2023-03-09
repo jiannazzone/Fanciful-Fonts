@@ -94,7 +94,9 @@ class FancyTextModel: ObservableObject {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
             
-            if thisChar.isNumber {
+            if thisChar == "0" {
+                circleText.value += "⓪"
+            } else if thisChar.isNumber {
                 circleText.value += String(UnicodeScalar(num + 9263) ?? UnicodeScalar(0))
             } else if thisChar.isLowercase {
                 circleText.value += String(UnicodeScalar(num + 9327) ?? UnicodeScalar(0))
@@ -122,21 +124,21 @@ class FancyTextModel: ObservableObject {
         }
         outputs.append(sharpBox)
         
-        // Strikethrough Text
-        var strikethroughText = FancyText("Strikethrough")
-        for char in userInput {
-            strikethroughText.value += String(char)
-            strikethroughText.value += String(UnicodeScalar(822) ?? UnicodeScalar(0))
+        // Round Box Text
+        var roundBoxText = FancyText("Filled Boxes")
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+            
+            if thisChar.isLowercase {
+                roundBoxText.value += String(UnicodeScalar(num + 127247) ?? UnicodeScalar(0))
+            } else if thisChar.isUppercase {
+                roundBoxText.value += String(UnicodeScalar(num + 127279) ?? UnicodeScalar(0))
+            } else {
+                roundBoxText.value += String(thisChar)
+            }
         }
-        outputs.append(strikethroughText)
-        
-        // Underline Text
-        var underlineText = FancyText("Underline")
-        for char in userInput {
-            underlineText.value += String(char)
-            underlineText.value += String(UnicodeScalar(817) ?? UnicodeScalar(0))
-        }
-        outputs.append(underlineText)
+        outputs.append(roundBoxText)
         
         // Sponge Text
         var spongeText = FancyText("Sarcastic")
@@ -152,6 +154,30 @@ class FancyTextModel: ObservableObject {
             }
         }
         outputs.append(spongeText)
+        
+        // Slash Text
+        var xText = FancyText("Little Xs")
+        for char in userInput {
+            xText.value += String(char)
+            xText.value += String(UnicodeScalar(829) ?? UnicodeScalar(0))
+        }
+        outputs.append(xText)
+        
+        // Strikethrough Text
+        var strikethroughText = FancyText("Strikethrough")
+        for char in userInput {
+            strikethroughText.value += String(char)
+            strikethroughText.value += String(UnicodeScalar(822) ?? UnicodeScalar(0))
+        }
+        outputs.append(strikethroughText)
+        
+        // Underline Text
+        var underlineText = FancyText("Underline")
+        for char in userInput {
+            underlineText.value += String(char)
+            underlineText.value += String(UnicodeScalar(817) ?? UnicodeScalar(0))
+        }
+        outputs.append(underlineText)
         
         // Bold Text Serif
         var boldTextSerif = FancyText("Bold Serif")

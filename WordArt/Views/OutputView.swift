@@ -41,11 +41,11 @@ struct OutputView: View {
                             OutputButton(label: output.value)
                             Text(output.description)
                                 .font(.caption)
-                                .foregroundColor(colorScheme == .dark ? .accentColor : .black)
                         }
                     } // Button
                 } // ForEach
             } // LazyVGrid
+            .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
         } // ScrollView
     }
 }

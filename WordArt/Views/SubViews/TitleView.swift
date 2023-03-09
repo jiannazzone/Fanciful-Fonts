@@ -12,13 +12,14 @@ struct TitleView: View {
     let gradient = [Color("AccentColor"), Color("GradientEnd")]
     
     var body: some View {
-        Text("🆆🅾🆁🅳 🅰🆁🆃")
+        Text("🅵🅰🅽🅲🅸🅵🆄🅻 🅵🅾🅽🆃🆂")
             .font(.system(size: 42))
             .bold()
             .foregroundStyle(LinearGradient(
                 colors: gradient,
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing))
+            .multilineTextAlignment(.center)
     }
 }
 

@@ -20,6 +20,7 @@ struct HelpView: View {
                 Button("Done") {
                     presentationValue.wrappedValue.dismiss()
                 } // Button
+                .foregroundColor(Color("AccentColor"))
             } // HStack
             
             TitleView()
@@ -64,7 +65,7 @@ struct HelpView: View {
                 .multilineTextAlignment(.leading)
             } // ScrollView
         } // VStack
-        .foregroundColor(colorScheme == .dark ? .accentColor : .black)
+        .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
         .padding()
         .background(Color("BackgroundColor"))
     } // View
