@@ -18,7 +18,6 @@
 		663A83E629B919010003F2C8 /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FBCAC829B7EF3600B7600F /* HelpBox.swift */; };
 		663A83E729B919030003F2C8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921C929B786FC0026AF42 /* Helpers.swift */; };
 		663A83E829B919050003F2C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
-		663A83EA29B919260003F2C8 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663A83E929B919260003F2C8 /* MessageView.swift */; };
 		667921BC29B769E50026AF42 /* WordArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BB29B769E50026AF42 /* WordArtApp.swift */; };
 		667921BE29B769E50026AF42 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BD29B769E50026AF42 /* ContentView.swift */; };
 		667921C029B769E60026AF42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
@@ -60,7 +59,6 @@
 		663A83CF29B9189F0003F2C8 /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
 		663A83D229B9189F0003F2C8 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		663A83D929B918A00003F2C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		663A83E929B919260003F2C8 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		667921B829B769E50026AF42 /* WordArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		667921BB29B769E50026AF42 /* WordArtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordArtApp.swift; sourceTree = "<group>"; };
 		667921BD29B769E50026AF42 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				663A83D229B9189F0003F2C8 /* MessagesViewController.swift */,
-				663A83E929B919260003F2C8 /* MessageView.swift */,
 				663A83D929B918A00003F2C8 /* Info.plist */,
 			);
 			path = WordArtMessage;
@@ -277,7 +274,6 @@
 				663A83D329B9189F0003F2C8 /* MessagesViewController.swift in Sources */,
 				663A83E229B918FE0003F2C8 /* HelpView.swift in Sources */,
 				663A83E329B918FE0003F2C8 /* ContentView.swift in Sources */,
-				663A83EA29B919260003F2C8 /* MessageView.swift in Sources */,
 				663A83E729B919030003F2C8 /* Helpers.swift in Sources */,
 				663A83E129B918FE0003F2C8 /* OutputView.swift in Sources */,
 				663A83E529B919010003F2C8 /* OutputButton.swift in Sources */,

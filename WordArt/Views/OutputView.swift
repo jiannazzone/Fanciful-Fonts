@@ -10,15 +10,15 @@ import SwiftUI
 struct OutputView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    let outputs: [FancyText]
+    let outputModel: FancyTextModel
     @Binding var bottomText: String
 
-    
     var body: some View {
         ScrollView(showsIndicators: false){
             LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(outputs, id: \.id) { output in
+                ForEach(outputModel.outputs, id: \.id) { output in
                     Button {
+                        outputModel.finalOutput = output.value
                         UIPasteboard.general.string = output.value
                         withAnimation {
                             bottomText = "Copied to clipboard"
@@ -28,6 +28,10 @@ struct OutputView: View {
                                 bottomText = "Tap any icon to copy it to your clipboard."
                             }
                         } // Timer
+                        if !outputModel.isFullApp {
+                            outputModel.userInput = String()
+                            outputModel.dismiss()
+                        }
                     } label: {
                         VStack (spacing: 5){
                             OutputButton(label: output.value)

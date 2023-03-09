@@ -13,13 +13,14 @@ import Messages
 
 class MessagesViewController: MSMessagesAppViewController {
     
-    let observable = MessageViewObservable()
+    let outputModel = FancyTextModel(false)
+    var thisConversation = MSMessage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let detailViewController = UIHostingController(
-            rootView: MessageView(observable: observable)
+            rootView: ContentView(outputModel: outputModel)
         )
         
         self.addChild(detailViewController)
@@ -28,12 +29,12 @@ class MessagesViewController: MSMessagesAppViewController {
         detailViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         detailViewController.didMove(toParent: self)
         
-        observable.onButtonPress = { [weak self] in
-            self?.requestPresentationStyle(.expanded)
+        outputModel.expand = {
+            self.requestPresentationStyle(.expanded)
         }
         
-        observable.onItemSelect = { [weak self] in
-            self?.requestPresentationStyle(.compact)
+        outputModel.dismiss = {
+            self.dismiss()
         }
         
     }
@@ -45,6 +46,8 @@ class MessagesViewController: MSMessagesAppViewController {
         // This will happen when the extension is about to present UI.
         
         // Use this method to configure the extension and restore previously stored state.
+        thisConversation = conversation.selectedMessage ?? MSMessage()
+        print(thisConversation)
     }
     
     override func didResignActive(with conversation: MSConversation) {
@@ -66,6 +69,7 @@ class MessagesViewController: MSMessagesAppViewController {
     
     override func didStartSending(_ message: MSMessage, conversation: MSConversation) {
         // Called when the user taps the send button.
+        dismiss()
     }
     
     override func didCancelSending(_ message: MSMessage, conversation: MSConversation) {
@@ -78,12 +82,23 @@ class MessagesViewController: MSMessagesAppViewController {
         // Called before the extension transitions to a new presentation style.
     
         // Use this method to prepare for the change in presentation style.
+        
+        if presentationStyle == .expanded {
+            outputModel.isExpanded = false
+        } else {
+            outputModel.isExpanded = true
+        }
     }
     
     override func didTransition(to presentationStyle: MSMessagesAppPresentationStyle) {
         // Called after the extension transitions to a new presentation style.
 
         // Use this method to finalize any behaviors associated with the change in presentation style.
+        if presentationStyle == .expanded {
+            outputModel.isExpanded = true
+        } else {
+            outputModel.isExpanded = false
+        }
     }
 
 }

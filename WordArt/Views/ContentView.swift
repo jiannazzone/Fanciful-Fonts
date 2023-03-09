@@ -9,10 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @Environment(\.colorScheme) var colorScheme
-    
-    @State private var userInput = String()
-    @State private var outputs = [FancyText]()
+    @ObservedObject var outputModel: FancyTextModel
     @State private var currentFancyText = "fancy"
     let fancyText = [
         "ⓕⓐⓝⓒⓨ",
@@ -26,85 +23,101 @@ struct ContentView: View {
     @State private var showHelpView = false
     
     @FocusState private var inputIsFocused: Bool
-    @State var fullApp: Bool
+    
     
     var body: some View {
         
         VStack {
             
             // MARK: TITLE
-            if fullApp {
+            if outputModel.isFullApp || (!outputModel.isFullApp && !outputModel.isExpanded){
                 TitleView()
             }
             
-            // MARK: INPUT AREA
-            HStack {
-                TextField("Type something...", text: $userInput, axis: .vertical)
-                    .textFieldStyle(.roundedBorder)
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled()
-                    .foregroundColor(Color("AccentColor"))
-                    .font(.title3)
-                    .focused($inputIsFocused)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button("Done") {
-                                inputIsFocused = false
-                            } // Button
-                        } // ToolbarItemGroup
-                    } // toolbar
-                
-                if (userInput != String()) {
-                    Button {
-                        userInput = String()
-                    } label: {
-                        Image(systemName: "x.square.fill")
-                            .imageScale(.large)
-                            .foregroundColor(Color("AccentColor"))
-                    } // Button
-                    .keyboardShortcut(.cancelAction)
-                } // if
-            } // HStack
-            .padding(.bottom)
-            
-            // MARK: OUTPUT AREA
-            
-            if userInput != String() {
-                OutputView(outputs: outputs, bottomText: $bottomText)
-            } // if
-            
-            Spacer()
-            
-            ZStack {
-                VStack {
-                    if userInput != String() {
-                        Text(bottomText)
-                    } else {
-                        Text("Start typing to get ")
-                            .animation(nil)
-                        Text(currentFancyText)
-                    } // if-else
-                } // VStack
-                
+            if outputModel.isExpanded {
+                // MARK: INPUT AREA
                 HStack {
-                    Spacer()
-                    Button {
-                        showHelpView = true
-                    } label: {
-                        Image(systemName: "questionmark.circle.fill")
-                            .imageScale(.large)
+                    TextField("Type something...", text: $outputModel.userInput, axis: .vertical)
+                        .textFieldStyle(.roundedBorder)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .foregroundColor(Color("AccentColor"))
+                        .font(.title3)
+                        .focused($inputIsFocused)
+                        .onAppear {
+                            inputIsFocused = true
+                        }
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Spacer()
+                                Button("Done") {
+                                    inputIsFocused = false
+                                } // Button
+                            } // ToolbarItemGroup
+                        } // toolbar
+                    
+                    // Clear Button
+                    if (outputModel.userInput != String()) {
+                        Button {
+                            outputModel.userInput = String()
+                        } label: {
+                            Image(systemName: "x.square.fill")
+                                .imageScale(.large)
+                                .foregroundColor(Color("AccentColor"))
+                        } // Button
+                        .keyboardShortcut(.cancelAction)
+                    } // if
+                } // HStack
+                .padding(.bottom)
+                
+                // MARK: OUTPUT AREA
+                if outputModel.userInput != String() {
+                    OutputView(outputModel: outputModel, bottomText: $bottomText)
+                } // if
+                
+                Spacer()
+                
+                // MARK: Footer and Help Button
+                ZStack {
+                    VStack {
+                        if outputModel.userInput != String() {
+                            Text(bottomText)
+                        } else {
+                            Text("Start typing to get ")
+                                .animation(nil)
+                            Text(currentFancyText)
+                        } // if-else
+                    } // VStack
+                    
+                    HStack {
+                        Spacer()
+                        Button {
+                            showHelpView = true
+                        } label: {
+                            Image(systemName: "questionmark.circle.fill")
+                                .imageScale(.large)
+                        }
                     }
                 }
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color("AccentColor"))
+                
+            } else {
+                Button {
+                    outputModel.expand()
+                    outputModel.isExpanded = true
+                    inputIsFocused = true
+                } label: {
+                    OutputButton(label: "Tap to get \(currentFancyText)")
+                        .frame(maxHeight: 42)
+                }
             }
-            .multilineTextAlignment(.center)
-            .foregroundColor(Color("AccentColor"))
-            .frame(maxHeight: 34.0)
             
         } // VStack
         .padding()
-        .onChange(of: userInput) { _ in
-            outputs = convertText(userInput: userInput)
+        .transition(.slide)
+        .onChange(of: outputModel.userInput) { _ in
+            outputModel.convertText(outputModel.userInput)
         } // onChange
         .onAppear {
             var i = 0
@@ -118,7 +131,6 @@ struct ContentView: View {
                     i += 1
                 } // if-else
             } // Timer
-            inputIsFocused = true
         } // onAppear
         .sheet(isPresented: $showHelpView) {
             HelpView()
@@ -129,6 +141,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(fullApp: true)
+        ContentView(outputModel: FancyTextModel(true))
     }
 }
