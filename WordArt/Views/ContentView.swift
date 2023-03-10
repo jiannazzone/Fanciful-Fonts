@@ -106,17 +106,15 @@ struct ContentView: View {
             
             // MARK: Notification and Help Button
             if outputModel.isExpanded {
-                ZStack {
+                HStack {
                     Text(bottomText)
-                    HStack {
-                        Spacer()
-                        Button {
-                            showHelpView = true
-                        } label: {
-                            Image(systemName: "questionmark.circle.fill")
-                                .imageScale(.large)
-                                .padding(.trailing)
-                        }
+                    Spacer()
+                    Button {
+                        showHelpView = true
+                    } label: {
+                        Image(systemName: "questionmark.circle.fill")
+                            .imageScale(.large)
+                            .padding(.trailing)
                     }
                 }
                 .onAppear {
@@ -136,7 +134,9 @@ struct ContentView: View {
             outputModel.convertText(outputModel.userInput)
             if outputModel.userInput != String() {
                 bottomText = "Tap an icon to copy it to your clipboard."
-            } // if
+            } else {
+                bottomText = String()
+            } // if-else
         } // onChange
         .onAppear {
             var i = 0

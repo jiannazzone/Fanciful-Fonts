@@ -21,7 +21,7 @@ struct HelpView: View {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "x.square.fill")
+                    Image(systemName: "x.circle.fill")
                         .imageScale(.large)
                         .foregroundColor(Color("AccentColor"))
                 }
