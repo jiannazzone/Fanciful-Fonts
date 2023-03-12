@@ -20,7 +20,7 @@ class MessagesViewController: MSMessagesAppViewController {
         super.viewDidLoad()
         
         let detailViewController = UIHostingController(
-            rootView: ContentView(outputModel: outputModel)
+            rootView: ContentView(outputModel: self.outputModel)
         )
         
         self.addChild(detailViewController)

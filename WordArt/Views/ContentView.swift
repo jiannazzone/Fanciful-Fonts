@@ -78,28 +78,30 @@ struct ContentView: View {
             
             // MARK: OUTPUT AREA
             Section {
-                if outputModel.userInput != String() {
+//                if outputModel.userInput != String() {
+                if outputModel.isExpanded {
                     OutputView(outputModel: outputModel, bottomText: $bottomText)
-                } else if outputModel.isFullApp || outputModel.isExpanded {
-                        Spacer()
-                        VStack {
-                            Text("Start typing to get ")
-                                .animation(nil)
-                            Text(currentFancyText)
-                        }
-                        .bold()
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundStyle(LinearGradient(
-                                    colors: gradient,
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing))
-                        )
-                        .foregroundColor(Color("BackgroundColor"))
-                        .font(.largeTitle)
-                        .multilineTextAlignment(.center)
-                } // if-else
+                }
+//                else if outputModel.isFullApp || outputModel.isExpanded {
+//                        Spacer()
+//                        VStack {
+//                            Text("Start typing to get ")
+//                                .animation(nil)
+//                            Text(currentFancyText)
+//                        }
+//                        .bold()
+//                        .padding()
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 20)
+//                                .foregroundStyle(LinearGradient(
+//                                    colors: gradient,
+//                                    startPoint: .topLeading,
+//                                    endPoint: .bottomTrailing))
+//                        )
+//                        .foregroundColor(Color("BackgroundColor"))
+//                        .font(.largeTitle)
+//                        .multilineTextAlignment(.center)
+//                } // if-else
             } // Section
             
             Spacer()
@@ -131,7 +133,7 @@ struct ContentView: View {
         .padding()
         .background(Color("BackgroundColor"), ignoresSafeAreaEdges: .all)
         .onChange(of: outputModel.userInput) { _ in
-            outputModel.convertText(outputModel.userInput)
+            outputModel.createSpecialText(outputModel.userInput)
             if outputModel.userInput != String() {
                 bottomText = "Tap an icon to copy it to your clipboard."
             } else {

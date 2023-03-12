@@ -15,6 +15,119 @@ struct OutputView: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
+        
+        ScrollView(showsIndicators: false) {
+            VStack {
+                
+                // MARK: Stylized Output
+                Section {
+                    // Stylized Output and Clear Button
+                    HStack {
+                        Button {
+                            // Clipboard and iMessage logic
+                            outputModel.finalOutput = outputModel.styledOutput.value
+                            UIPasteboard.general.string = outputModel.styledOutput.value
+                            if !outputModel.isFullApp {
+                                outputModel.userInput = String()
+                                outputModel.insert()
+                            }
+                            
+                            // Animation
+                            withAnimation {
+                                bottomText = "Copied to clipboard"
+                            }
+                            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
+                                withAnimation{
+                                    bottomText = "Tap an icon to copy it to your clipboard."
+                                }
+                            } // Timer
+                        } label: {
+                            OutputButton(label: outputModel.styledOutput.value == String() ? "ⓞⓤⓣⓟⓤⓣ" : outputModel.styledOutput.value, isActive: false)
+                        } // Button
+                        
+                        // Clear button
+                        if (outputModel.styledOutput.value != outputModel.userInput) {
+                            Button {
+                                withAnimation {
+                                    for key in outputModel.fontStyles.keys {
+                                        outputModel.fontStyles[key] = false
+                                    }
+                                    for key in outputModel.activeCombiningMarks.keys {
+                                        outputModel.activeCombiningMarks[key] = false
+                                    }
+                                    outputModel.createStylizedText()
+                                }
+                            } label: {
+                                Image(systemName: "eraser.fill")
+                                    .imageScale(.large)
+                                    .foregroundColor(Color("AccentColor"))
+                            }
+                            
+                        }
+                    }
+                    
+                    // Bold/Italic/Serif Selectors
+                    HStack {
+                        // Bold Button
+                        Button {
+                            withAnimation {
+                                outputModel.fontStyles["Bold"]!.toggle()
+                            }
+                        } label: {
+                            OutputButton(label: "Bold", isActive: outputModel.fontStyles["Bold"]!)
+                        }
+                        
+                        // Italic Button
+                        Button {
+                            withAnimation {
+                                outputModel.fontStyles["Italic"]!.toggle()
+                            }
+                        } label: {
+                            OutputButton(label: "Italic", isActive: outputModel.fontStyles["Italic"]!)
+                        }
+                        
+                        // Serif Button
+                        if outputModel.fontStyles["Italic"]! || outputModel.fontStyles["Bold"]! {
+                            Button {
+                                outputModel.fontStyles["Serif"]!.toggle()
+                            } label: {
+                                OutputButton(label: "Serif", isActive: outputModel.fontStyles["Serif"]!)
+                            }
+                        }
+                    }
+                }
+                .disabled(outputModel.userInput == String())
+                
+                // Diacritic Selectors
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack {
+                        ForEach(Array(outputModel.combiningMarkDict.keys), id: \.self) { key in
+                            Button {
+                                withAnimation {
+                                    outputModel.activeCombiningMarks[key]!.toggle()
+                                }
+                            } label: {
+                                OutputButton(label: String(outputModel.combiningMarkDict[key] ?? UnicodeScalar(0)), isActive: outputModel.activeCombiningMarks[key]!)
+                                    .aspectRatio(1, contentMode: .fit)
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+        .onChange(of: outputModel.userInput) { _ in
+            outputModel.createStylizedText()
+        }
+        .onChange(of: outputModel.fontStyles) { _ in
+            outputModel.createStylizedText()
+        }
+        .onChange(of: outputModel.activeCombiningMarks) { _ in
+            outputModel.createStylizedText()
+        }
+        
+        
+        /*
         ScrollView(showsIndicators: false){
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(outputModel.outputs, id: \.id) { output in
@@ -47,5 +160,6 @@ struct OutputView: View {
             } // LazyVGrid
             .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
         } // ScrollView
+         */
     }
 }
