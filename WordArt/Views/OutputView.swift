@@ -42,7 +42,7 @@ struct OutputView: View {
                                 }
                             } // Timer
                         } label: {
-                            OutputButton(label: outputModel.styledOutput.value == String() ? "ⓞⓤⓣⓟⓤⓣ" : outputModel.styledOutput.value, isActive: false)
+                            OutputButton(label: outputModel.styledOutput.value == String() ? "ⓞⓤⓣⓟⓤⓣ" : outputModel.styledOutput.value)
                         } // Button
                         
                         // Clear button
@@ -74,7 +74,11 @@ struct OutputView: View {
                                 outputModel.fontStyles["Bold"]!.toggle()
                             }
                         } label: {
-                            OutputButton(label: "Bold", isActive: outputModel.fontStyles["Bold"]!)
+                            ZStack {
+                                OutputButton(label: "Bold")
+                                RoundedRectangle(cornerRadius: 10)
+                                    .strokeBorder(outputModel.fontStyles["Bold"]! ? .white : .clear, lineWidth: 2)
+                            }
                         }
                         
                         // Italic Button
@@ -83,7 +87,11 @@ struct OutputView: View {
                                 outputModel.fontStyles["Italic"]!.toggle()
                             }
                         } label: {
-                            OutputButton(label: "Italic", isActive: outputModel.fontStyles["Italic"]!)
+                            ZStack {
+                                OutputButton(label: "Italic")
+                                RoundedRectangle(cornerRadius: 10)
+                                    .strokeBorder(outputModel.fontStyles["Italic"]! ? .white : .clear, lineWidth: 2)
+                            }
                         }
                         
                         // Serif Button
@@ -91,7 +99,11 @@ struct OutputView: View {
                             Button {
                                 outputModel.fontStyles["Serif"]!.toggle()
                             } label: {
-                                OutputButton(label: "Serif", isActive: outputModel.fontStyles["Serif"]!)
+                                ZStack {
+                                    OutputButton(label: "Serif")
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .strokeBorder(outputModel.fontStyles["Serif"]! ? .white : .clear, lineWidth: 2)
+                                }
                             }
                         }
                     }
@@ -107,8 +119,12 @@ struct OutputView: View {
                                     outputModel.activeCombiningMarks[key]!.toggle()
                                 }
                             } label: {
-                                OutputButton(label: String(outputModel.combiningMarkDict[key] ?? UnicodeScalar(0)), isActive: outputModel.activeCombiningMarks[key]!)
-                                    .aspectRatio(1, contentMode: .fit)
+                                ZStack {
+                                    OutputButton(label: String(outputModel.combiningMarkDict[key] ?? UnicodeScalar(0)))
+                                        .aspectRatio(1, contentMode: .fit)
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .strokeBorder(outputModel.activeCombiningMarks[key]! ? .white : .clear, lineWidth: 2)
+                                }
                             }
                         }
                     }
