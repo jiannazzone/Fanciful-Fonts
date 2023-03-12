@@ -136,6 +136,7 @@ struct OutputView: View {
                 }
                 .disabled(outputModel.userInput == String())
 
+
                 Divider()
                     .overlay(LinearGradient(
                         colors: gradient,

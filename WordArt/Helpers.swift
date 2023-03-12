@@ -217,6 +217,10 @@ class FancyTextModel: ObservableObject {
         let roundBoxText = roundBoxText(stringAsUnicode)
         outputs.append(roundBoxText)
         
+        // Parenthetical Text
+        let parentheses = parenthesizedText(stringAsUnicode)
+        outputs.append(parentheses)
+        
         // Sponge Text
         let spongeText = spongeText(userInput)
         outputs.append(spongeText)
@@ -296,6 +300,25 @@ class FancyTextModel: ObservableObject {
         } // for
         return roundBoxText
     } // roundBoxText
+    
+    private func parenthesizedText(_ stringAsUnicode: [Int]) -> FancyText {
+        var parenthsizedText = FancyText("Parentheses")
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+            
+            if thisChar.isLowercase {
+                parenthsizedText.value += String(UnicodeScalar(num + 9275) ?? UnicodeScalar(0))
+            } else if thisChar.isUppercase {
+                parenthsizedText.value += String(UnicodeScalar(num + 9307) ?? UnicodeScalar(0))
+            } else if thisChar.isNumber {
+                parenthsizedText.value += String(UnicodeScalar(num + 9283) ?? UnicodeScalar(0))
+            } else {
+                parenthsizedText.value += String(thisChar)
+            } // if-else
+        } // for
+        return parenthsizedText
+    }
     
     private func spongeText(_ userInput: String) -> FancyText {
         var spongeText = FancyText("Sarcastic")
