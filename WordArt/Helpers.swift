@@ -437,3 +437,21 @@ class FancyTextModel: ObservableObject {
         return boldItalicSans
     } // boldItalicSans
 }
+
+class UserSettings: ObservableObject {
+    @Published var savedVersion: String {
+        didSet {
+            UserDefaults.standard.set(savedVersion, forKey: "savedVersion")
+        }
+    }
+    @Published var notFirstLaunch: Bool {
+        didSet {
+            UserDefaults.standard.set(notFirstLaunch, forKey: "notFirstLaunch")
+        }
+    }
+    
+    init() {
+        self.savedVersion = UserDefaults.standard.string(forKey: "savedVersion") ?? "1.0"
+        self.notFirstLaunch = UserDefaults.standard.bool(forKey: "notFirstLaunch")
+    }
+}

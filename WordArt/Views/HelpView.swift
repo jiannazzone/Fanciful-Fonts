@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HelpView: View {
     
-    @Environment(\.presentationMode) var presentationValue
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
     

@@ -10,17 +10,11 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var outputModel: FancyTextModel
+    var userSettings = UserSettings()
+    @State private var showSheet: sheetEnum?
+
     @State private var currentFancyText = "fancy"
-    let fancyText = [
-        "ⓕⓐⓝⓒⓨ",
-        "ｆａｎｃｙ",
-        "🄵🄰🄽🄲🅈",
-        "🅵🅰🅽🅲🆈",
-        "f̶a̶n̶c̶y̶",
-        "fancy"
-    ]
     @State private var bottomText = ""
-    @State private var showHelpView = false
     @State var inputPlaceholder = String()
     
     @FocusState private var inputIsFocused: Bool
@@ -89,7 +83,7 @@ struct ContentView: View {
             Spacer()
             
             // MARK: Notification and Help Button
-            if outputModel.isExpanded {
+            if outputModel.userInput != String() {
                 HStack {
                     ZStack {
                         OutputButton(label: bottomText)
@@ -98,20 +92,20 @@ struct ContentView: View {
                             .strokeBorder(
                                 Color("BorderColor"),
                                 lineWidth: 2)
-                    }
+                    } // ZStack
                     Spacer()
                     Button {
-                        showHelpView = true
+                        showSheet = .helpSheet
                     } label: {
                         Image(systemName: "questionmark.circle.fill")
                             .imageScale(.large)
                             .padding(.trailing)
-                    }
-                }
+                    } // Button
+                } // HStack
                 .frame(maxHeight: 42)
                 .onAppear {
                     inputIsFocused = true
-                }
+                } // onAppear
                 .foregroundStyle(LinearGradient(
                     colors: gradient,
                     startPoint: .topLeading,
@@ -131,28 +125,55 @@ struct ContentView: View {
             } // if-else
         } // onChange
         .onAppear {
-            var i = 0
-            Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
-                withAnimation {
-                    
-                } // withAnimation
-                currentFancyText = fancyText[i]
-                if i == fancyText.count - 1 {
-                    i = 0
-                } else {
-                    i += 1
-                } // if-else
-            } // Timer
+            checkForUpdate()
             if outputModel.isExpanded {
                 inputPlaceholder = "Type anything begin"
             } else {
                 inputPlaceholder = "Tap to get started"
             }
         } // onAppear
-        .sheet(isPresented: $showHelpView) {
-            HelpView()
-        } // Sheet
+        .sheet(item: $showSheet) { item in
+            switch item {
+            case .helpSheet:
+                HelpView()
+            case .whatsNewSheet:
+                if outputModel.isFullApp {
+                    WhatsNewView()
+                }
+            }
+        }
+        
     } // View
+    
+    // Get current version of the app bundle
+    func getCurrentAppVersion() -> String {
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
+        let version = (appVersion as! String)
+        return version
+    }
+    
+    // Check if app if app has been started after update
+    func checkForUpdate() {
+        let version = getCurrentAppVersion()
+        let savedVersion = UserDefaults.standard.string(forKey: "savedVersion")
+        print(savedVersion ?? "Error")
+        if savedVersion != version  && self.userSettings.notFirstLaunch {
+            // Toogle to show WhatsNew Screen as Modal
+            print("here")
+            inputIsFocused = false
+            showSheet = .whatsNewSheet
+        }
+        
+        UserDefaults.standard.set(version, forKey: "savedVersion")
+        self.userSettings.notFirstLaunch = true
+    }
+    
+    enum sheetEnum: Identifiable {
+        case helpSheet, whatsNewSheet
+        var id: Int {
+            hashValue
+        }
+    }
     
 }
 
