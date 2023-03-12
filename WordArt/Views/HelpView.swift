@@ -62,6 +62,10 @@ struct HelpView: View {
                     Link(destination: URL(string: "https://github.com/jiannazzone")!) {
                         HelpBox(label: "Check out my other work!", icon: "arrow.down.circle")
                     }
+                    
+                    Link(destination: URL(string: "mailto:calcuapps@iannaz.zone?subject=Fanciful%20Fonts")!) {
+                        HelpBox(label: "Send me an email", icon: "envelope")
+                    }
 
                 } // VStack
                 .multilineTextAlignment(.leading)

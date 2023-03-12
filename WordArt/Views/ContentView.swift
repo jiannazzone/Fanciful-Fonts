@@ -81,30 +81,9 @@ struct ContentView: View {
             
             // MARK: OUTPUT AREA
             Section {
-//                if outputModel.userInput != String() {
                 if outputModel.isExpanded {
                     OutputView(outputModel: outputModel, bottomText: $bottomText)
-                }
-//                else if outputModel.isFullApp || outputModel.isExpanded {
-//                        Spacer()
-//                        VStack {
-//                            Text("Start typing to get ")
-//                                .animation(nil)
-//                            Text(currentFancyText)
-//                        }
-//                        .bold()
-//                        .padding()
-//                        .background(
-//                            RoundedRectangle(cornerRadius: 20)
-//                                .foregroundStyle(LinearGradient(
-//                                    colors: gradient,
-//                                    startPoint: .topLeading,
-//                                    endPoint: .bottomTrailing))
-//                        )
-//                        .foregroundColor(Color("BackgroundColor"))
-//                        .font(.largeTitle)
-//                        .multilineTextAlignment(.center)
-//                } // if-else
+                } // if
             } // Section
             
             Spacer()
@@ -112,7 +91,14 @@ struct ContentView: View {
             // MARK: Notification and Help Button
             if outputModel.isExpanded {
                 HStack {
-                    Text(bottomText)
+                    ZStack {
+                        OutputButton(label: bottomText)
+                            .font(.caption)
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(
+                                Color("BorderColor"),
+                                lineWidth: 2)
+                    }
                     Spacer()
                     Button {
                         showHelpView = true
@@ -122,6 +108,7 @@ struct ContentView: View {
                             .padding(.trailing)
                     }
                 }
+                .frame(maxHeight: 42)
                 .onAppear {
                     inputIsFocused = true
                 }

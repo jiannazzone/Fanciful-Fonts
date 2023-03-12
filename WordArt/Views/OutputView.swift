@@ -11,7 +11,7 @@ struct OutputView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     let outputModel: FancyTextModel
-    @State var outputPlaceholder = "output"
+    @State var outputPlaceholder = "Your text here"
     var outputIndex = 0;
     @Binding var bottomText: String
     @Environment(\.colorScheme) var colorScheme
@@ -50,7 +50,7 @@ struct OutputView: View {
                                 OutputButton(label: outputModel.styledOutput.value == String() ? outputPlaceholder : outputModel.styledOutput.value)
                                 RoundedRectangle(cornerRadius: 10)
                                     .strokeBorder(
-                                        LinearGradient(colors: gradient, startPoint: .bottom, endPoint: .topLeading),
+                                        Color("BorderColor"),
                                         lineWidth: 2)
                             }
                         } // Button
@@ -169,27 +169,33 @@ struct OutputView: View {
                                 } // Timer
                             } label: {
                                 VStack (spacing: 5) {
-                                    OutputButton(label: output.value)
-                                    Text(output.description)
-                                        .font(.caption)
+                                    ZStack {
+                                        OutputButton(label: output.value)
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .strokeBorder(
+                                                Color("BorderColor"),
+                                                lineWidth: 2)
+                                    }
+//                                    Text(output.description)
+//                                        .font(.caption)
                                 } // VStack
                             } // Button
                         } // ForEach
                     } // LazyVGrid
-                    .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
+//                    .foregroundColor(Color("AccentColor"))
                 }
                 
             } // VStack
             .onAppear {
                 let outputPlaceholderOptions = [
-                    "ⓞⓤⓣⓟⓤⓣ",
-                    "ｏｕｔｐｕｔ",
-                    "🄾🅄🅃🄿🅄🅃",
-                    "🅾🆄🆃🅿🆄🆃",
-                    "output",
-                    "𝐨𝐮𝐭𝐩𝐮𝐭",
-                    "𝘰𝘶𝘵𝘱𝘶𝘵",
-                    "𝙤𝙪𝙩𝙥𝙪𝙩"
+                    "Ｙｏｕｒ　ｔｅｘｔ　ｈｅｒｅ",
+                    "🅈🄾🅄🅁 🅃🄴🅇🅃 🄷🄴🅁🄴",
+                    "🆈🅾🆄🆁 🆃🅴🆇🆃 🅷🅴🆁🅴",
+                    "ⓨⓞⓤⓡ ⓣⓔⓧⓣ ⓗⓔⓡⓔ",
+                    "𝐘𝐨𝐮𝐫 𝐭𝐞𝐱𝐭 𝐡𝐞𝐫𝐞",
+                    "𝘠𝘰𝘶𝘳 𝘵𝘦𝘹𝘵 𝘩𝘦𝘳𝘦",
+                    "𝙔𝙤𝙪𝙧 𝙩𝙚𝙭𝙩 𝙝𝙚𝙧𝙚",
+                    "Your text here"
                 ]
                 var i = 0
                 Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
