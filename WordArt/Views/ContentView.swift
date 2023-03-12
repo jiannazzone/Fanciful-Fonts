@@ -65,7 +65,10 @@ struct ContentView: View {
                 // Clear Button
                 if (outputModel.userInput != String()) {
                     Button {
-                        outputModel.userInput = String()
+                        withAnimation {
+                            outputModel.userInput = String()
+                            outputModel.clearAllOptions()
+                        }
                     } label: {
                         Image(systemName: "x.square.fill")
                             .imageScale(.large)

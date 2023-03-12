@@ -132,6 +132,15 @@ class FancyTextModel: ObservableObject {
         return .none
     }
     
+    func clearAllOptions() {
+        for key in fontStyles.keys {
+            fontStyles[key] = false
+        }
+        for key in activeCombiningMarks.keys {
+            activeCombiningMarks[key] = false
+        }
+    }
+    
     func createStylizedText() {
         
         activeFontStyle = updateActiveFontStyle()

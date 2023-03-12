@@ -11,10 +11,14 @@ struct OutputView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     let outputModel: FancyTextModel
+    @State var outputPlaceholder = "output"
+    var outputIndex = 0;
     @Binding var bottomText: String
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
+        
+        let gradient = [Color("AccentColor"), Color("GradientEnd")]
         
         ScrollView(showsIndicators: false) {
             VStack {
@@ -42,19 +46,20 @@ struct OutputView: View {
                                 }
                             } // Timer
                         } label: {
-                            OutputButton(label: outputModel.styledOutput.value == String() ? "ⓞⓤⓣⓟⓤⓣ" : outputModel.styledOutput.value)
+                            ZStack {
+                                OutputButton(label: outputModel.styledOutput.value == String() ? outputPlaceholder : outputModel.styledOutput.value)
+                                RoundedRectangle(cornerRadius: 10)
+                                    .strokeBorder(
+                                        LinearGradient(colors: gradient, startPoint: .bottom, endPoint: .topLeading),
+                                        lineWidth: 2)
+                            }
                         } // Button
                         
                         // Clear button
                         if (outputModel.styledOutput.value != outputModel.userInput) {
                             Button {
                                 withAnimation {
-                                    for key in outputModel.fontStyles.keys {
-                                        outputModel.fontStyles[key] = false
-                                    }
-                                    for key in outputModel.activeCombiningMarks.keys {
-                                        outputModel.activeCombiningMarks[key] = false
-                                    }
+                                    outputModel.clearAllOptions()
                                     outputModel.createStylizedText()
                                 }
                             } label: {
@@ -107,31 +112,95 @@ struct OutputView: View {
                             }
                         }
                     }
+                    
+                    // Diacritic Selectors
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEach(Array(outputModel.combiningMarkDict.keys).sorted(), id: \.self) { key in
+                                Button {
+                                    withAnimation {
+                                        outputModel.activeCombiningMarks[key]!.toggle()
+                                    }
+                                } label: {
+                                    ZStack {
+                                        OutputButton(label: String(outputModel.combiningMarkDict[key] ?? UnicodeScalar(0)))
+                                            .aspectRatio(1, contentMode: .fit)
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .strokeBorder(outputModel.activeCombiningMarks[key]! ? .white : .clear, lineWidth: 2)
+                                    } // ZStack
+                                } // Button
+                            } // ForEach
+                        } // LazyHStack
+                    } // ScrollView
+                    
                 }
                 .disabled(outputModel.userInput == String())
+
+                Divider()
+                    .overlay(LinearGradient(
+                        colors: gradient,
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing))
+                    .padding(.vertical)
+                    
                 
-                // Diacritic Selectors
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(Array(outputModel.combiningMarkDict.keys), id: \.self) { key in
+                // MARK: Other Options
+                if (outputModel.userInput != String()) {
+                    LazyVGrid(columns: columns, spacing: 10) {
+                        ForEach(outputModel.outputs, id: \.id) { output in
                             Button {
+                                // Clipboard and iMessage logic
+                                outputModel.finalOutput = output.value
+                                UIPasteboard.general.string = output.value
+                                if !outputModel.isFullApp {
+                                    outputModel.userInput = String()
+                                    outputModel.insert()
+                                }
+                                
+                                // Animation
                                 withAnimation {
-                                    outputModel.activeCombiningMarks[key]!.toggle()
+                                    bottomText = "Copied to clipboard"
                                 }
+                                Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
+                                    withAnimation{
+                                        bottomText = "Tap an icon to copy it to your clipboard."
+                                    }
+                                } // Timer
                             } label: {
-                                ZStack {
-                                    OutputButton(label: String(outputModel.combiningMarkDict[key] ?? UnicodeScalar(0)))
-                                        .aspectRatio(1, contentMode: .fit)
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .strokeBorder(outputModel.activeCombiningMarks[key]! ? .white : .clear, lineWidth: 2)
-                                }
-                            }
-                        }
-                    }
+                                VStack (spacing: 5) {
+                                    OutputButton(label: output.value)
+                                    Text(output.description)
+                                        .font(.caption)
+                                } // VStack
+                            } // Button
+                        } // ForEach
+                    } // LazyVGrid
+                    .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
                 }
                 
+            } // VStack
+            .onAppear {
+                let outputPlaceholderOptions = [
+                    "ⓞⓤⓣⓟⓤⓣ",
+                    "ｏｕｔｐｕｔ",
+                    "🄾🅄🅃🄿🅄🅃",
+                    "🅾🆄🆃🅿🆄🆃",
+                    "output",
+                    "𝐨𝐮𝐭𝐩𝐮𝐭",
+                    "𝘰𝘶𝘵𝘱𝘶𝘵",
+                    "𝙤𝙪𝙩𝙥𝙪𝙩"
+                ]
+                var i = 0
+                Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
+                    outputPlaceholder = outputPlaceholderOptions[i]
+                    if i == outputPlaceholderOptions.count - 1 {
+                        i = 0
+                    } else {
+                        i += 1
+                    } // if-else
+                } // Timer
             }
-        }
+        } // ScrollView
         .onChange(of: outputModel.userInput) { _ in
             outputModel.createStylizedText()
         }
@@ -141,41 +210,5 @@ struct OutputView: View {
         .onChange(of: outputModel.activeCombiningMarks) { _ in
             outputModel.createStylizedText()
         }
-        
-        
-        /*
-        ScrollView(showsIndicators: false){
-            LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(outputModel.outputs, id: \.id) { output in
-                    Button {
-                        // Clipboard and iMessage logic
-                        outputModel.finalOutput = output.value
-                        UIPasteboard.general.string = output.value
-                        if !outputModel.isFullApp {
-                            outputModel.userInput = String()
-                            outputModel.insert()
-                        }
-                        
-                        // Animation
-                        withAnimation {
-                            bottomText = "Copied to clipboard"
-                        }
-                        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
-                            withAnimation{
-                                bottomText = "Tap an icon to copy it to your clipboard."
-                            }
-                        } // Timer
-                    } label: {
-                        VStack (spacing: 5) {
-                            OutputButton(label: output.value)
-                            Text(output.description)
-                                .font(.caption)
-                        } // VStack
-                    } // Button
-                } // ForEach
-            } // LazyVGrid
-            .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
-        } // ScrollView
-         */
     }
 }
