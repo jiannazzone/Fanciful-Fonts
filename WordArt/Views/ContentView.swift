@@ -74,11 +74,9 @@ struct ContentView: View {
             .padding(.bottom)
             
             // MARK: OUTPUT AREA
-            Section {
-                if outputModel.isExpanded {
-                    OutputView(outputModel: outputModel, bottomText: $bottomText)
-                } // if
-            } // Section
+            if outputModel.isExpanded {
+                OutputView(outputModel: outputModel, bottomText: $bottomText)
+            } // if
             
             Spacer()
             
@@ -125,6 +123,7 @@ struct ContentView: View {
             } // if-else
         } // onChange
         .onAppear {
+            outputModel.userInput = String()
             checkForUpdate()
             if outputModel.isExpanded {
                 inputPlaceholder = "Type anything begin"
@@ -139,9 +138,9 @@ struct ContentView: View {
             case .whatsNewSheet:
                 if outputModel.isFullApp {
                     WhatsNewView()
-                }
-            }
-        }
+                } // if
+            } // switch
+        } // sheet
         
     } // View
     
@@ -159,9 +158,10 @@ struct ContentView: View {
         print(savedVersion ?? "Error")
         if savedVersion != version  && self.userSettings.notFirstLaunch {
             // Toogle to show WhatsNew Screen as Modal
-            print("here")
             inputIsFocused = false
             showSheet = .whatsNewSheet
+        } else {
+            inputIsFocused = true
         }
         
         UserDefaults.standard.set(version, forKey: "savedVersion")
