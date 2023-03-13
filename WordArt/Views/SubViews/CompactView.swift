@@ -26,6 +26,7 @@ struct CompactView: View {
                     OutputButton(label: "Tap to get started")
                         .frame(maxHeight: 17)
                         .background(Color("BackgroundColor"), ignoresSafeAreaEdges: .all)
+                        .padding(.bottom)
                 } // Button
             } // VStack
     } // View

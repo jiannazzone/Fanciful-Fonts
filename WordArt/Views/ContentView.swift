@@ -27,7 +27,7 @@ struct ContentView: View {
         VStack (spacing: 10) {
             
             if outputModel.isExpanded {
-                
+                //MARK: Full App View
                 if outputModel.isFullApp {
                     TitleView()
                 }
@@ -97,12 +97,13 @@ struct ContentView: View {
                             .padding(.trailing)
                     } // Button
                 } // HStack
-                .frame(maxHeight: 42)
+                .frame(maxHeight: 34)
                 .foregroundStyle(LinearGradient(
                     colors: gradient,
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing))
             } else {
+                // MARK: Compact View
                 CompactView()
                     .environmentObject(outputModel)
             }
