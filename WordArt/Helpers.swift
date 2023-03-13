@@ -239,6 +239,8 @@ class FancyTextModel: ObservableObject {
                 fullWidth.value += "　"
             } else if thisChar == "." {
                 fullWidth.value += "．"
+            } else if !thisChar.isLetter {
+                fullWidth.value += String(thisChar)
             } else {
                 fullWidth.value += String(UnicodeScalar(num + 65248) ?? UnicodeScalar(0))
             } // if-else
