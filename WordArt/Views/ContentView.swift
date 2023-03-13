@@ -77,17 +77,16 @@ struct ContentView: View {
                 Spacer()
                 
                 // MARK: Notification and Help Button
+                if !inputIsFocused && outputModel.userInput != String() {
                 HStack {
-                    if outputModel.userInput != String() {
-                        ZStack {
-                            OutputButton(label: bottomText)
-                                .font(.caption)
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(
-                                    Color("BorderColor"),
-                                    lineWidth: 2)
-                        } // ZStack
-                    } // if
+                    ZStack {
+                        OutputButton(label: bottomText)
+                            .font(.caption)
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(
+                                Color("BorderColor"),
+                                lineWidth: 2)
+                    } // ZStack
                     Spacer()
                     Button {
                         showSheet = .helpSheet
@@ -102,6 +101,7 @@ struct ContentView: View {
                     colors: gradient,
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing))
+                } // if
             } else {
                 // MARK: Compact View
                 CompactView()
