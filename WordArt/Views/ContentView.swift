@@ -63,7 +63,15 @@ struct ContentView: View {
                                 .foregroundColor(Color("AccentColor"))
                         } // Button
                         .keyboardShortcut(.cancelAction)
-                    } // if
+                    } else {
+                        Button {
+                            showSheet = .helpSheet
+                        } label: {
+                            Image(systemName: "questionmark.circle.fill")
+                                .imageScale(.large)
+                                .padding(.trailing)
+                        } // Button
+                    }
                 } // HStack
                 .padding(.bottom)
                 
@@ -88,13 +96,6 @@ struct ContentView: View {
                                 lineWidth: 2)
                     } // ZStack
                     Spacer()
-                    Button {
-                        showSheet = .helpSheet
-                    } label: {
-                        Image(systemName: "questionmark.circle.fill")
-                            .imageScale(.large)
-                            .padding(.trailing)
-                    } // Button
                 } // HStack
                 .frame(maxHeight: 34)
                 .foregroundStyle(LinearGradient(
