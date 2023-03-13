@@ -30,7 +30,7 @@ struct ContentView: View {
                 //MARK: Full App View
                 if outputModel.isFullApp {
                     TitleView()
-                }
+                } // if
                 
                 // MARK: INPUT AREA
                 HStack {
@@ -87,7 +87,7 @@ struct ContentView: View {
                                     Color("BorderColor"),
                                     lineWidth: 2)
                         } // ZStack
-                    }
+                    } // if
                     Spacer()
                     Button {
                         showSheet = .helpSheet

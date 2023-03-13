@@ -35,16 +35,16 @@ struct OutputView: View {
                             if !outputModel.isFullApp {
                                 outputModel.userInput = String()
                                 outputModel.insert()
-                            }
+                            } // if
                             
                             // Animation
                             withAnimation {
                                 bottomText = "Copied to clipboard"
-                            }
+                            } // withAnimation
                             Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
                                 withAnimation{
                                     bottomText = "Tap an icon to copy it to your clipboard."
-                                }
+                                } // withAnimation
                             } // Timer
                         } label: {
                             ZStack {
@@ -53,7 +53,7 @@ struct OutputView: View {
                                     .strokeBorder(
                                         Color("BorderColor"),
                                         lineWidth: 2)
-                            }
+                            } // ZStack
                         } // Button
                         
                         // Clear button
@@ -62,15 +62,14 @@ struct OutputView: View {
                                 withAnimation {
                                     outputModel.clearAllOptions()
                                     outputModel.createStylizedText()
-                                }
+                                } // withAnimation
                             } label: {
                                 Image(systemName: "eraser.fill")
                                     .imageScale(.large)
                                     .foregroundColor(Color("AccentColor"))
-                            }
-                            
-                        }
-                    }
+                            } // Button
+                        } // if
+                    } // HStack
                     
                     // Bold/Italic/Serif Selectors
                     HStack {
@@ -78,27 +77,27 @@ struct OutputView: View {
                         Button {
                             withAnimation {
                                 outputModel.fontStyles["Bold"]!.toggle()
-                            }
+                            } // withAnimation
                         } label: {
                             ZStack {
                                 OutputButton(label: "Bold")
                                 RoundedRectangle(cornerRadius: 10)
                                     .strokeBorder(outputModel.fontStyles["Bold"]! ? .white : .clear, lineWidth: 2)
-                            }
-                        }
+                            } // ZStack
+                        } // Button
                         
                         // Italic Button
                         Button {
                             withAnimation {
                                 outputModel.fontStyles["Italic"]!.toggle()
-                            }
+                            } // withAnimation
                         } label: {
                             ZStack {
                                 OutputButton(label: "Italic")
                                 RoundedRectangle(cornerRadius: 10)
                                     .strokeBorder(outputModel.fontStyles["Italic"]! ? .white : .clear, lineWidth: 2)
-                            }
-                        }
+                            } // ZStack
+                        } // Button
                         
                         // Serif Button
                         if outputModel.fontStyles["Italic"]! || outputModel.fontStyles["Bold"]! {
@@ -109,20 +108,19 @@ struct OutputView: View {
                                     OutputButton(label: "Serif")
                                     RoundedRectangle(cornerRadius: 10)
                                         .strokeBorder(outputModel.fontStyles["Serif"]! ? .white : .clear, lineWidth: 2)
-                                }
-                            }
-                        }
-                    }
+                                } // ZStack
+                            } // Button
+                        } // if
+                    } // HStack
                     
                     // Diacritic Selectors
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
-                            Spacer()
                             ForEach(Array(outputModel.combiningMarkDict.keys).sorted(), id: \.self) { key in
                                 Button {
                                     withAnimation {
                                         outputModel.activeCombiningMarks[key]!.toggle()
-                                    }
+                                    } // withAnimation
                                 } label: {
                                     ZStack {
                                         OutputButton(label: String(outputModel.combiningMarkDict[key] ?? UnicodeScalar(0)))
@@ -132,7 +130,6 @@ struct OutputView: View {
                                     } // ZStack
                                 } // Button
                             } // ForEach
-                            Spacer()
                         } // LazyHStack
                     } // ScrollView
                     
