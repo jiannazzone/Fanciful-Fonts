@@ -10,7 +10,8 @@ import SwiftUI
 struct OutputView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    let outputModel: FancyTextModel
+//    let outputModel: FancyTextModel
+    @EnvironmentObject var outputModel: FancyTextModel
     @State var outputPlaceholder = "Your text here"
     var outputIndex = 0;
     @Binding var bottomText: String
