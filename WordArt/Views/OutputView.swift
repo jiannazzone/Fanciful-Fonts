@@ -116,7 +116,8 @@ struct OutputView: View {
                     
                     // Diacritic Selectors
                     ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack {
+                        HStack {
+                            Spacer()
                             ForEach(Array(outputModel.combiningMarkDict.keys).sorted(), id: \.self) { key in
                                 Button {
                                     withAnimation {
@@ -131,23 +132,22 @@ struct OutputView: View {
                                     } // ZStack
                                 } // Button
                             } // ForEach
+                            Spacer()
                         } // LazyHStack
                     } // ScrollView
                     
                 }
                 .disabled(outputModel.userInput == String())
 
-
-                Divider()
-                    .overlay(LinearGradient(
-                        colors: gradient,
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing))
-                    .padding(.vertical)
-                    
-                
                 // MARK: Other Options
                 if (outputModel.userInput != String()) {
+                    Divider()
+                        .overlay(LinearGradient(
+                            colors: gradient,
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing))
+                        .padding(.vertical)
+                    
                     LazyVGrid(columns: columns, spacing: 10) {
                         ForEach(outputModel.outputs, id: \.id) { output in
                             Button {
