@@ -12,10 +12,10 @@ struct ContentView: View {
     @ObservedObject var outputModel: FancyTextModel
     let userSettings = UserSettings()
     @State private var showSheet: sheetEnum?
-
+    
     @State private var currentFancyText = "fancy"
     @State private var bottomText = ""
-//    @State var inputPlaceholder = "Tap to get started"
+    //    @State var inputPlaceholder = "Tap to get started"
     
     @FocusState private var inputIsFocused: Bool
     @Environment(\.colorScheme) var colorScheme
@@ -42,13 +42,6 @@ struct ContentView: View {
                         .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
                         .font(.title3)
                         .focused($inputIsFocused)
-//                        .disabled(!outputModel.isExpanded)
-//                        .onTapGesture {
-//                            if !outputModel.isFullApp {
-//                                outputModel.isExpanded = true
-//                                outputModel.expand()
-//                            }
-//                        }
                         .toolbar {
                             ToolbarItemGroup(placement: .keyboard) {
                                 Spacer()
@@ -76,20 +69,17 @@ struct ContentView: View {
                 .padding(.bottom)
                 
                 // MARK: OUTPUT AREA
-                if outputModel.isExpanded {
-                    OutputView(bottomText: $bottomText)
-                        .environmentObject(outputModel)
-                        .onAppear {
-//                            inputPlaceholder = "Type anything begin"
-                            inputIsFocused = true
-                        }
-                } // if
+                OutputView(bottomText: $bottomText)
+                    .environmentObject(outputModel)
+                    .onAppear {
+                        inputIsFocused = true
+                    }
                 
                 Spacer()
                 
                 // MARK: Notification and Help Button
-                if outputModel.userInput != String() {
-                    HStack {
+                HStack {
+                    if outputModel.userInput != String() {
                         ZStack {
                             OutputButton(label: bottomText)
                                 .font(.caption)
@@ -98,21 +88,21 @@ struct ContentView: View {
                                     Color("BorderColor"),
                                     lineWidth: 2)
                         } // ZStack
-                        Spacer()
-                        Button {
-                            showSheet = .helpSheet
-                        } label: {
-                            Image(systemName: "questionmark.circle.fill")
-                                .imageScale(.large)
-                                .padding(.trailing)
-                        } // Button
-                    } // HStack
-                    .frame(maxHeight: 42)
-                    .foregroundStyle(LinearGradient(
-                        colors: gradient,
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing))
-                }
+                    }
+                    Spacer()
+                    Button {
+                        showSheet = .helpSheet
+                    } label: {
+                        Image(systemName: "questionmark.circle.fill")
+                            .imageScale(.large)
+                            .padding(.trailing)
+                    } // Button
+                } // HStack
+                .frame(maxHeight: 42)
+                .foregroundStyle(LinearGradient(
+                    colors: gradient,
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing))
             } else {
                 CompactView()
                     .environmentObject(outputModel)
