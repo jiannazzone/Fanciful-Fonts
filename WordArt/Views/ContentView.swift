@@ -10,12 +10,12 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var outputModel: FancyTextModel
-    var userSettings = UserSettings()
+    let userSettings = UserSettings()
     @State private var showSheet: sheetEnum?
 
     @State private var currentFancyText = "fancy"
     @State private var bottomText = ""
-    @State var inputPlaceholder = String()
+    @State var inputPlaceholder = "Tap to get started"
     
     @FocusState private var inputIsFocused: Bool
     @Environment(\.colorScheme) var colorScheme
@@ -41,6 +41,7 @@ struct ContentView: View {
                     .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
                     .font(.title3)
                     .focused($inputIsFocused)
+                    .disabled(!outputModel.isExpanded)
                     .onTapGesture {
                         if !outputModel.isFullApp {
                             outputModel.isExpanded = true
@@ -76,6 +77,10 @@ struct ContentView: View {
             // MARK: OUTPUT AREA
             if outputModel.isExpanded {
                 OutputView(outputModel: outputModel, bottomText: $bottomText)
+                    .onAppear {
+                        inputPlaceholder = "Type anything begin"
+                        inputIsFocused = true
+                    }
             } // if
             
             Spacer()
@@ -101,9 +106,6 @@ struct ContentView: View {
                     } // Button
                 } // HStack
                 .frame(maxHeight: 42)
-                .onAppear {
-                    inputIsFocused = true
-                } // onAppear
                 .foregroundStyle(LinearGradient(
                     colors: gradient,
                     startPoint: .topLeading,
@@ -125,11 +127,6 @@ struct ContentView: View {
         .onAppear {
             outputModel.userInput = String()
             checkForUpdate()
-            if outputModel.isExpanded {
-                inputPlaceholder = "Type anything begin"
-            } else {
-                inputPlaceholder = "Tap to get started"
-            }
         } // onAppear
         .sheet(item: $showSheet) { item in
             switch item {
@@ -155,7 +152,6 @@ struct ContentView: View {
     func checkForUpdate() {
         let version = getCurrentAppVersion()
         let savedVersion = UserDefaults.standard.string(forKey: "savedVersion")
-        print(savedVersion ?? "Error")
         if savedVersion != version  && self.userSettings.notFirstLaunch {
             // Toogle to show WhatsNew Screen as Modal
             inputIsFocused = false

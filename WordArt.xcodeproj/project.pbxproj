@@ -19,7 +19,6 @@
 		663A83E529B919010003F2C8 /* OutputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CC29B78F350026AF42 /* OutputButton.swift */; };
 		663A83E629B919010003F2C8 /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FBCAC829B7EF3600B7600F /* HelpBox.swift */; };
 		663A83E729B919030003F2C8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921C929B786FC0026AF42 /* Helpers.swift */; };
-		663A83E829B919050003F2C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
 		667921BC29B769E50026AF42 /* WordArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BB29B769E50026AF42 /* WordArtApp.swift */; };
 		667921BE29B769E50026AF42 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BD29B769E50026AF42 /* ContentView.swift */; };
 		667921C029B769E60026AF42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
@@ -29,6 +28,7 @@
 		667921CF29B7D6270026AF42 /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CE29B7D6270026AF42 /* OutputView.swift */; };
 		667921D129B7E0FA0026AF42 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D029B7E0FA0026AF42 /* HelpView.swift */; };
 		667921D429B7E4A10026AF42 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D329B7E4A10026AF42 /* TitleView.swift */; };
+		66BB571129BEA827000B561E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
 		66FBCAC929B7EF3600B7600F /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FBCAC829B7EF3600B7600F /* HelpBox.swift */; };
 /* End PBXBuildFile section */
 
@@ -255,7 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				663A83E829B919050003F2C8 /* Assets.xcassets in Resources */,
+				66BB571129BEA827000B561E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +318,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_ENTITLEMENTS = WordArtMessage/WordArtMessage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4KVDEM64KR;
@@ -344,6 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CODE_SIGN_ENTITLEMENTS = WordArtMessage/WordArtMessage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4KVDEM64KR;
@@ -486,6 +488,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WordArt/WordArt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WordArt/Preview Content\"";
@@ -521,6 +524,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WordArt/WordArt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WordArt/Preview Content\"";

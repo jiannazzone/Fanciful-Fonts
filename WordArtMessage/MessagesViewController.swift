@@ -14,8 +14,8 @@ import Messages
 class MessagesViewController: MSMessagesAppViewController {
     
     let outputModel = FancyTextModel(false)
-    var thisConversation = MSMessage()
-    
+    let userSettings = UserSettings()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,8 +51,6 @@ class MessagesViewController: MSMessagesAppViewController {
         // This will happen when the extension is about to present UI.
         
         // Use this method to configure the extension and restore previously stored state.
-        thisConversation = conversation.selectedMessage ?? MSMessage()
-        print(thisConversation)
     }
     
     override func didResignActive(with conversation: MSConversation) {
