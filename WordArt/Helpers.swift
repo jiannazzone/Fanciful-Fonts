@@ -181,8 +181,10 @@ class FancyTextModel: ObservableObject {
         var newText = String()
         for char in styledOutput.value {
             newText += String(char)
-            for mark in activeMarks {
-                newText += String(mark)
+            if char.isNumber || char.isLetter {
+                for mark in activeMarks {
+                    newText += String(mark)
+                }
             }
         } // for
         styledOutput.value = newText
