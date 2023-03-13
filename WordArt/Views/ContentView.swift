@@ -15,7 +15,6 @@ struct ContentView: View {
     
     @State private var currentFancyText = "fancy"
     @State private var bottomText = ""
-    //    @State var inputPlaceholder = "Tap to get started"
     
     @FocusState private var inputIsFocused: Bool
     @Environment(\.colorScheme) var colorScheme
@@ -134,6 +133,15 @@ struct ContentView: View {
                 } // if
             } // switch
         } // sheet
+        .onChange(of: outputModel.activeCombiningMarks) { _ in
+            inputIsFocused = false
+        }
+        .onChange(of: outputModel.finalOutput) { _ in
+            inputIsFocused = false
+        }
+        .onChange(of: outputModel.activeFontStyle) { _ in
+            inputIsFocused = false
+        }
         
     } // View
     
