@@ -60,6 +60,12 @@ class FancyTextModel: ObservableObject {
         "tilde": false,
         "x": false,
         "carat": false,
+        "acute accent": false,
+        "candrabindu": false,
+        "double arch below": false,
+        "tilde overlay": false,
+        "vertical tilde": false,
+        "almost above": false
     ]
     let combiningMarkDict: [String:UnicodeScalar] = [
         "underline": UnicodeScalar(817) ?? UnicodeScalar(0),
@@ -69,6 +75,12 @@ class FancyTextModel: ObservableObject {
         "tilde": UnicodeScalar(771) ?? UnicodeScalar(0),
         "x": UnicodeScalar(829) ?? UnicodeScalar(0),
         "carat": UnicodeScalar(770) ?? UnicodeScalar(0),
+        "acute accent": UnicodeScalar(769) ?? UnicodeScalar(0),
+        "candrabindu": UnicodeScalar(784) ?? UnicodeScalar(0),
+        "double arch below": UnicodeScalar(811) ?? UnicodeScalar(0),
+        "tilde overlay": UnicodeScalar(820) ?? UnicodeScalar(0),
+        "vertical tilde": UnicodeScalar(830) ?? UnicodeScalar(0),
+        "almost above": UnicodeScalar(844) ?? UnicodeScalar(0)
     ]
     
     // Styles

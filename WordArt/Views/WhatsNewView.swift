@@ -41,6 +41,20 @@ struct WhatsNewView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     
+                    // Version 1.1.1
+                    Section {
+                        Text("🆅🅴🆁🆂🅸🅾🅽 ①.①.①")
+                            .font(.title)
+                            .foregroundStyle(LinearGradient(
+                                colors: gradient,
+                                startPoint: .bottomTrailing,
+                                endPoint: .topLeading))
+                        HelpBox(label: "Fixed an issue where ｆｕｌｌ　ｗｉｄｔｈ wouldn't properly display punctuation.", icon: nil)
+                        HelpBox(label: "Combining marks now skip punctuation and spaces for better readability.", icon: nil)
+                        HelpBox(label: "Added additional combining marks.", icon: nil)
+                    }
+                    .multilineTextAlignment(.leading)
+                    
                     // Version 1.1
                     Section {
                         Text("🆅🅴🆁🆂🅸🅾🅽 ①.①")
