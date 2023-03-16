@@ -50,6 +50,7 @@ struct WhatsNewView: View {
                                 startPoint: .bottomTrailing,
                                 endPoint: .topLeading))
                         HelpBox(label: "Fixed an issue where ｆｕｌｌ　ｗｉｄｔｈ wouldn't properly display punctuation.", icon: nil)
+                        HelpBox(label: "Full width characters now include digits and punctuation.", icon: nil)
                         HelpBox(label: "Combining marks now skip punctuation and spaces for better readability.", icon: nil)
                         HelpBox(label: "Added additional combining marks.", icon: nil)
                     }
