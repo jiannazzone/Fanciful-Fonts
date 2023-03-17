@@ -40,6 +40,16 @@ struct WhatsNewView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
+                    // Version 1.1.2
+                    Section {
+                        Text("🆅🅴🆁🆂🅸🅾🅽 ①.①.②")
+                            .font(.title)
+                            .foregroundStyle(LinearGradient(
+                                colors: gradient,
+                                startPoint: .bottomTrailing,
+                                endPoint: .topLeading))
+                        HelpBox(label: "Update 1.1.1 broke the space in ｆｕｌｌ　ｗｉｄｔｈ text. That has been fixed. Sorry!", icon: nil)
+                    }
                     
                     // Version 1.1.1
                     Section {

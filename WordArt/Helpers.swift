@@ -249,7 +249,9 @@ class FancyTextModel: ObservableObject {
         for i in 0..<stringAsUnicode.count {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
-            if thisChar.isASCII {
+            if thisChar == " " {
+                fullWidth.value += String(UnicodeScalar(12288) ?? UnicodeScalar(0))
+            } else if thisChar.isASCII {
                 fullWidth.value += String(UnicodeScalar(num + 65248) ?? UnicodeScalar(0))
             } else {
                 fullWidth.value += String(thisChar)
