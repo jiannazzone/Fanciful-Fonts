@@ -61,7 +61,7 @@ struct CombiningMark: Identifiable, Hashable {
 
 }
 
-enum CombiningCategory {
+enum CombiningCategory: String {
     case under, over, through
 }
 

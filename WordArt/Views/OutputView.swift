@@ -111,13 +111,11 @@ struct OutputView: View {
                 } // HStack
                 
                 // Diacritic Selectors
-                ScrollView(.horizontal, showsIndicators: false) {
-                    VStack {
-                        CombiningMarkRow(thisType: .over)
-                        CombiningMarkRow(thisType: .through)
-                        CombiningMarkRow(thisType: .under)
-                    } // VStack
-                } // ScrollView
+                VStack {
+                    CombiningMarkRow(thisType: .over)
+                    CombiningMarkRow(thisType: .through)
+                    CombiningMarkRow(thisType: .under)
+                } // VStack
                 .environmentObject(outputModel)
                 
             }
