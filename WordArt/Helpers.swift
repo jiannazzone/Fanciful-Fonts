@@ -58,10 +58,11 @@ struct CombiningMark: Identifiable, Hashable {
         name = tempName
         unicode = UnicodeScalar(tempUnicode) ?? UnicodeScalar(0)
     }
-    
-    enum CombiningCategory {
-        case under, over, through
-    }
+
+}
+
+enum CombiningCategory {
+    case under, over, through
 }
 
 class FancyTextModel: ObservableObject {

@@ -112,23 +112,13 @@ struct OutputView: View {
                 
                 // Diacritic Selectors
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(0..<outputModel.combiningMarks.count, id: \.self) { i in
-                            Button {
-                                withAnimation {
-                                    outputModel.combiningMarks[i].isActive.toggle()
-                                }
-                            } label: {
-                                ZStack {
-                                    OutputButton(label: String(outputModel.combiningMarks[i].unicode))
-                                        .aspectRatio(1, contentMode: .fit)
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .strokeBorder(outputModel.combiningMarks[i].isActive ? .white : .clear, lineWidth: 2)
-                                }
-                            }
-                        }
-                    }
-                }
+                    VStack {
+                        CombiningMarkRow(thisType: .over)
+                        CombiningMarkRow(thisType: .through)
+                        CombiningMarkRow(thisType: .under)
+                    } // VStack
+                } // ScrollView
+                .environmentObject(outputModel)
                 
             }
             .disabled(outputModel.userInput == String())
