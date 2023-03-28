@@ -113,6 +113,7 @@ struct OutputView: View {
                 // Diacritic Selectors
                 VStack {
                     CombiningMarkRow(thisType: .over)
+                    CombiningMarkRow(thisType: .superscript)
                     CombiningMarkRow(thisType: .through)
                     CombiningMarkRow(thisType: .under)
                 } // VStack

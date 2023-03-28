@@ -28,7 +28,7 @@ struct CombiningMarkRow: View {
                                 }
                             } label: {
                                 ZStack {
-                                    let thisLabel = "a" + String(outputModel.combiningMarks[i].unicode)
+                                    let thisLabel = "x" + String(outputModel.combiningMarks[i].unicode)
                                     OutputButton(label: thisLabel)
                                     RoundedRectangle(cornerRadius: 10)
                                         .strokeBorder(outputModel.combiningMarks[i].isActive ? .white : .clear, lineWidth: 2)

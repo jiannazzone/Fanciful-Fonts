@@ -62,7 +62,7 @@ struct CombiningMark: Identifiable, Hashable {
 }
 
 enum CombiningCategory: String {
-    case under, over, through
+    case under, over, through, superscript
 }
 
 class FancyTextModel: ObservableObject {
@@ -73,19 +73,51 @@ class FancyTextModel: ObservableObject {
     
     // Diacritics
     @Published var combiningMarks: [CombiningMark] = [
-        CombiningMark("overline", .over, 773),
-        CombiningMark("tilde", .over, 771),
-        CombiningMark("x", .over, 829),
+        // Overmarks
         CombiningMark("carat", .over, 770),
+        CombiningMark("tilde", .over, 771),
+        CombiningMark("overline", .over, 773),
         CombiningMark("acute accent", .over, 769),
+        CombiningMark("diaeresis", .over, 776),
+        CombiningMark("hook above", .over, 777),
         CombiningMark("candrabindu", .over, 784),
+        CombiningMark("x", .over, 829),
         CombiningMark("vertical tilde", .over, 830),
+        CombiningMark("dialytika", .over, 836),
         CombiningMark("almost above", .over, 844),
+        CombiningMark("zigzag above", .over, 859),
+        
+        // Superscript Letters
+        CombiningMark("super a", .superscript, 867),
+        CombiningMark("super e", .superscript, 868),
+        CombiningMark("super i", .superscript, 869),
+        CombiningMark("super o", .superscript, 870),
+        CombiningMark("super u", .superscript, 871),
+        CombiningMark("super c", .superscript, 872),
+        CombiningMark("super d", .superscript, 873),
+        CombiningMark("super h", .superscript, 874),
+        CombiningMark("super m", .superscript, 875),
+        CombiningMark("super r", .superscript, 876),
+        CombiningMark("super t", .superscript, 877),
+        CombiningMark("super v", .superscript, 878),
+        CombiningMark("super x", .superscript, 879),
+        
+        // Throughmarks
+        CombiningMark("tilde overlay", .through, 820),
         CombiningMark("strikethrough", .through, 822),
         CombiningMark("slash", .through, 824),
-        CombiningMark("tilde overlay", .through, 820),
+        
+        // Undermarks
+        CombiningMark("ogonek", .under, 808),
+        CombiningMark("vertical line below", .under, 809),
         CombiningMark("double arch below", .under, 811),
-        CombiningMark("underline", .under, 817)
+        CombiningMark("underline", .under, 817),
+        CombiningMark("equals below", .under, 839),
+        CombiningMark("left-right arrow below", .under, 845),
+        CombiningMark("up arrow below", .under, 846),
+        CombiningMark("asterisk below", .under, 857),
+        CombiningMark("double ring below", .under, 858)
+        
     ]
     
     // Styles
