@@ -45,6 +45,25 @@ struct FancyText: Identifiable {
     }
 }
 
+struct CombiningMark: Identifiable, Hashable {
+    let id = UUID()
+    var isActive = false
+    
+    let type: CombiningCategory
+    let name: String
+    let unicode: UnicodeScalar
+    
+    init (_ tempName: String, _ tempType: CombiningCategory, _ tempUnicode: Int) {
+        type = tempType
+        name = tempName
+        unicode = UnicodeScalar(tempUnicode) ?? UnicodeScalar(0)
+    }
+    
+    enum CombiningCategory {
+        case under, over, through
+    }
+}
+
 class FancyTextModel: ObservableObject {
     @Published var userInput = String()
     @Published var outputs = [FancyText]()
@@ -52,35 +71,20 @@ class FancyTextModel: ObservableObject {
     @Published var finalOutput = String()
     
     // Diacritics
-    @Published var activeCombiningMarks: [String:Bool] = [
-        "underline": false,
-        "overline": false,
-        "striekthrough": false,
-        "slash": false,
-        "tilde": false,
-        "x": false,
-        "carat": false,
-        "acute accent": false,
-        "candrabindu": false,
-        "double arch below": false,
-        "tilde overlay": false,
-        "vertical tilde": false,
-        "almost above": false
-    ]
-    let combiningMarkDict: [String:UnicodeScalar] = [
-        "underline": UnicodeScalar(817) ?? UnicodeScalar(0),
-        "overline": UnicodeScalar(773) ?? UnicodeScalar(0),
-        "striekthrough": UnicodeScalar(822) ?? UnicodeScalar(0),
-        "slash": UnicodeScalar(824) ?? UnicodeScalar(0),
-        "tilde": UnicodeScalar(771) ?? UnicodeScalar(0),
-        "x": UnicodeScalar(829) ?? UnicodeScalar(0),
-        "carat": UnicodeScalar(770) ?? UnicodeScalar(0),
-        "acute accent": UnicodeScalar(769) ?? UnicodeScalar(0),
-        "candrabindu": UnicodeScalar(784) ?? UnicodeScalar(0),
-        "double arch below": UnicodeScalar(811) ?? UnicodeScalar(0),
-        "tilde overlay": UnicodeScalar(820) ?? UnicodeScalar(0),
-        "vertical tilde": UnicodeScalar(830) ?? UnicodeScalar(0),
-        "almost above": UnicodeScalar(844) ?? UnicodeScalar(0)
+    @Published var combiningMarks: [CombiningMark] = [
+        CombiningMark("overline", .over, 773),
+        CombiningMark("tilde", .over, 771),
+        CombiningMark("x", .over, 829),
+        CombiningMark("carat", .over, 770),
+        CombiningMark("acute accent", .over, 769),
+        CombiningMark("candrabindu", .over, 784),
+        CombiningMark("vertical tilde", .over, 830),
+        CombiningMark("almost above", .over, 844),
+        CombiningMark("strikethrough", .through, 822),
+        CombiningMark("slash", .through, 824),
+        CombiningMark("tilde overlay", .through, 820),
+        CombiningMark("double arch below", .under, 811),
+        CombiningMark("underline", .under, 817)
     ]
     
     // Styles
@@ -148,8 +152,9 @@ class FancyTextModel: ObservableObject {
         for key in fontStyles.keys {
             fontStyles[key] = false
         }
-        for key in activeCombiningMarks.keys {
-            activeCombiningMarks[key] = false
+        
+        for i in 0..<combiningMarks.count {
+            combiningMarks[i].isActive = false
         }
     }
     
@@ -184,22 +189,19 @@ class FancyTextModel: ObservableObject {
         } // switch
         
         // Apply combining marks
-        var activeMarks = [UnicodeScalar]()
-        for key in activeCombiningMarks.keys {
-            if activeCombiningMarks[key]! {
-                activeMarks.append(combiningMarkDict[key]!)
-            }
-        } // for
         var newText = String()
         for char in styledOutput.value {
-            newText += String(char)
+            newText.append(char)
             if char.isNumber || char.isLetter {
-                for mark in activeMarks {
-                    newText += String(mark)
+                for mark in combiningMarks {
+                    if mark.isActive {
+                        newText.append(String(mark.unicode))
+                    }
                 }
             }
-        } // for
+        }
         styledOutput.value = newText
+        
     } // createStylizedText
     
     func createSpecialText(_ userInput: String) {

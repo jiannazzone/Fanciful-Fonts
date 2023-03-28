@@ -113,22 +113,22 @@ struct OutputView: View {
                 // Diacritic Selectors
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(Array(outputModel.combiningMarkDict.keys).sorted(), id: \.self) { key in
+                        ForEach(0..<outputModel.combiningMarks.count, id: \.self) { i in
                             Button {
                                 withAnimation {
-                                    outputModel.activeCombiningMarks[key]!.toggle()
-                                } // withAnimation
+                                    outputModel.combiningMarks[i].isActive.toggle()
+                                }
                             } label: {
                                 ZStack {
-                                    OutputButton(label: String(outputModel.combiningMarkDict[key] ?? UnicodeScalar(0)))
+                                    OutputButton(label: String(outputModel.combiningMarks[i].unicode))
                                         .aspectRatio(1, contentMode: .fit)
                                     RoundedRectangle(cornerRadius: 10)
-                                        .strokeBorder(outputModel.activeCombiningMarks[key]! ? .white : .clear, lineWidth: 2)
-                                } // ZStack
-                            } // Button
-                        } // ForEach
-                    } // LazyHStack
-                } // ScrollView
+                                        .strokeBorder(outputModel.combiningMarks[i].isActive ? .white : .clear, lineWidth: 2)
+                                }
+                            }
+                        }
+                    }
+                }
                 
             }
             .disabled(outputModel.userInput == String())
@@ -187,7 +187,7 @@ struct OutputView: View {
         .onChange(of: outputModel.fontStyles) { _ in
             outputModel.createStylizedText()
         }
-        .onChange(of: outputModel.activeCombiningMarks) { _ in
+        .onChange(of: outputModel.combiningMarks) { _ in
             outputModel.createStylizedText()
         }
         .onAppear {

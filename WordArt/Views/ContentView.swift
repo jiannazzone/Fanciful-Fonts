@@ -135,7 +135,7 @@ struct ContentView: View {
                 } // if
             } // switch
         } // sheet
-        .onChange(of: outputModel.activeCombiningMarks) { _ in
+        .onChange(of: outputModel.combiningMarks) { _ in
             inputIsFocused = false
         }
         .onChange(of: outputModel.finalOutput) { _ in
