@@ -263,8 +263,16 @@ class FancyTextModel: ObservableObject {
         outputs.append(scriptText)
         
         // Circle Text
+        let triangleText = triangleText(stringAsUnicode)
+        outputs.append(triangleText)
+        
+        // Circle Text
         let circleText = circleText(stringAsUnicode)
         outputs.append(circleText)
+        
+        // Circle Slash Text
+        let circleSlashText = circleSlashText(stringAsUnicode)
+        outputs.append(circleSlashText)
         
         // Sharp Box Text
         let sharpBox = sharpBoxText(stringAsUnicode)
@@ -341,8 +349,19 @@ class FancyTextModel: ObservableObject {
         return scriptText
     } // scriptText
     
+    private func triangleText(_ stringAsUnicode: [Int]) -> FancyText {
+        var triangleText = FancyText("Triangle")
+        var newText = String()
+        for char in userInput {
+            newText.append(char)
+            newText.append(String(UnicodeScalar(8420) ?? UnicodeScalar(0)))
+        }
+        triangleText.value = newText
+        return triangleText
+    } // circleSlashText
+    
     private func circleText(_ stringAsUnicode: [Int]) -> FancyText {
-        var circleText = FancyText("Circles")
+        var circleText = FancyText("CircleSlash")
         for i in 0..<stringAsUnicode.count {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
@@ -361,6 +380,17 @@ class FancyTextModel: ObservableObject {
         } // for
         return circleText
     } // circleText
+    
+    private func circleSlashText(_ stringAsUnicode: [Int]) -> FancyText {
+        var circleSlashText = FancyText("Circles")
+        var newText = String()
+        for char in userInput {
+            newText.append(char)
+            newText.append(String(UnicodeScalar(8416) ?? UnicodeScalar(0)))
+        }
+        circleSlashText.value = newText
+        return circleSlashText
+    } // circleSlashText
     
     private func sharpBoxText(_ stringAsUnicode: [Int]) -> FancyText {
         var sharpBox = FancyText("Boxes")
