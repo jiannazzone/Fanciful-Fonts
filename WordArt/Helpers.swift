@@ -255,8 +255,12 @@ class FancyTextModel: ObservableObject {
         outputs.append(fullWidthText)
         
         // Monospace
-        let monoText = monospaceFont(stringAsUnicode)
+        let monoText = monospaceText(stringAsUnicode)
         outputs.append(monoText)
+        
+        // Script
+        let scriptText = scriptText(stringAsUnicode)
+        outputs.append(scriptText)
         
         // Circle Text
         let circleText = circleText(stringAsUnicode)
@@ -299,7 +303,7 @@ class FancyTextModel: ObservableObject {
         return fullWidth
     } // fullWidth
     
-    private func monospaceFont(_ stringAsUnicode: [Int]) -> FancyText {
+    private func monospaceText(_ stringAsUnicode: [Int]) -> FancyText {
         var monoText = FancyText("Monospace")
         for i in 0..<stringAsUnicode.count {
             let num = stringAsUnicode[i]
@@ -316,7 +320,26 @@ class FancyTextModel: ObservableObject {
             } // if-else
         } // for
         return monoText
-    }
+    } // monospaceText
+    
+    private func scriptText(_ stringAsUnicode: [Int]) -> FancyText {
+        var scriptText = FancyText("Script")
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+
+            if thisChar.isNumber {
+                scriptText.value += String(UnicodeScalar(num + 120773) ?? UnicodeScalar(0))
+            } else if thisChar.isLowercase {
+                scriptText.value += String(UnicodeScalar(num + 119945) ?? UnicodeScalar(0))
+            } else if thisChar.isUppercase {
+                scriptText.value += String(UnicodeScalar(num + 119951) ?? UnicodeScalar(0))
+            } else {
+                scriptText.value += String(thisChar)
+            } // if-else
+        } // for
+        return scriptText
+    } // scriptText
     
     private func circleText(_ stringAsUnicode: [Int]) -> FancyText {
         var circleText = FancyText("Circles")
