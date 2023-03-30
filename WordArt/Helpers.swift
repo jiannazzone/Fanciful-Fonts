@@ -356,8 +356,14 @@ class FancyTextModel: ObservableObject {
         var triangleText = FancyText("Triangle")
         var newText = String()
         for char in userInput {
-            newText.append(char)
-            newText.append(String(UnicodeScalar(8420) ?? UnicodeScalar(0)))
+            if char == " " {
+                newText.append(String(UnicodeScalar(12288) ?? UnicodeScalar(0)))
+            } else if char.isLetter || char.isNumber {
+                newText.append(char)
+                newText.append(String(UnicodeScalar(8420) ?? UnicodeScalar(0)))
+            } else {
+                newText.append(char)
+            }
         }
         triangleText.value = newText
         return triangleText
@@ -388,8 +394,14 @@ class FancyTextModel: ObservableObject {
         var circleSlashText = FancyText("Circles")
         var newText = String()
         for char in userInput {
-            newText.append(char)
-            newText.append(String(UnicodeScalar(8416) ?? UnicodeScalar(0)))
+            if char == " " {
+                newText.append(String(UnicodeScalar(12288) ?? UnicodeScalar(0)))
+            } else if char.isLetter || char.isNumber {
+                newText.append(char)
+                newText.append(String(UnicodeScalar(8416) ?? UnicodeScalar(0)))
+            } else {
+                newText.append(char)
+            }
         }
         circleSlashText.value = newText
         return circleSlashText
