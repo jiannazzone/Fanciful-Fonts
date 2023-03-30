@@ -254,6 +254,10 @@ class FancyTextModel: ObservableObject {
         let fullWidthText = fullWidth(stringAsUnicode)
         outputs.append(fullWidthText)
         
+        // Monospace
+        let monoText = monospaceFont(stringAsUnicode)
+        outputs.append(monoText)
+        
         // Circle Text
         let circleText = circleText(stringAsUnicode)
         outputs.append(circleText)
@@ -295,26 +299,24 @@ class FancyTextModel: ObservableObject {
         return fullWidth
     } // fullWidth
     
-//    private func monospaceFont(_ stringAsUnicode: [Int]) -> FancyText {
-//        var monoText = FancyText("Circles")
-//        for i in 0..<stringAsUnicode.count {
-//            let num = stringAsUnicode[i]
-//            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
-//
-//            if thisChar == "0" {
-//                monoText.value += "⓪"
-//            } else if thisChar.isNumber {
-//                monoText.value += String(UnicodeScalar(num + 9263) ?? UnicodeScalar(0))
-//            } else if thisChar.isLowercase {
-//                monoText.value += String(UnicodeScalar(num + 9327) ?? UnicodeScalar(0))
-//            } else if thisChar.isUppercase {
-//                monoText.value += String(UnicodeScalar(num + 9333) ?? UnicodeScalar(0))
-//            } else {
-//                monoText.value += String(thisChar)
-//            } // if-else
-//        } // for
-//        return monoText
-//    }
+    private func monospaceFont(_ stringAsUnicode: [Int]) -> FancyText {
+        var monoText = FancyText("Monospace")
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+
+            if thisChar.isNumber {
+                monoText.value += String(UnicodeScalar(num + 120773) ?? UnicodeScalar(0))
+            } else if thisChar.isLowercase {
+                monoText.value += String(UnicodeScalar(num + 120361) ?? UnicodeScalar(0))
+            } else if thisChar.isUppercase {
+                monoText.value += String(UnicodeScalar(num + 120367) ?? UnicodeScalar(0))
+            } else {
+                monoText.value += String(thisChar)
+            } // if-else
+        } // for
+        return monoText
+    }
     
     private func circleText(_ stringAsUnicode: [Int]) -> FancyText {
         var circleText = FancyText("Circles")
