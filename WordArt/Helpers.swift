@@ -106,6 +106,9 @@ class FancyTextModel: ObservableObject {
         CombiningMark("tilde overlay", .through, 820),
         CombiningMark("strikethrough", .through, 822),
         CombiningMark("slash", .through, 824),
+        CombiningMark("reverse solidus overlay", .through, 8421),
+        CombiningMark("double vertical overlay", .through, 8422),
+        CombiningMark("left arrow overlay", .through, 8426),
         
         // Undermarks
         CombiningMark("ogonek", .under, 808),
@@ -116,7 +119,9 @@ class FancyTextModel: ObservableObject {
         CombiningMark("left-right arrow below", .under, 845),
         CombiningMark("up arrow below", .under, 846),
         CombiningMark("asterisk below", .under, 857),
-        CombiningMark("double ring below", .under, 858)
+        CombiningMark("double ring below", .under, 858),
+        CombiningMark("right harpoon", .under, 8428),
+        CombiningMark("left harpoon", .under, 8429)
         
     ]
     
@@ -262,7 +267,7 @@ class FancyTextModel: ObservableObject {
         let scriptText = scriptText(stringAsUnicode)
         outputs.append(scriptText)
         
-        // Circle Text
+        // Triangle Text
         let triangleText = triangleText(stringAsUnicode)
         outputs.append(triangleText)
         
