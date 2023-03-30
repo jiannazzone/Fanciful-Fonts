@@ -341,9 +341,7 @@ class FancyTextModel: ObservableObject {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
 
-            if thisChar.isNumber {
-                scriptText.value += String(UnicodeScalar(num + 120773) ?? UnicodeScalar(0))
-            } else if thisChar.isLowercase {
+            if thisChar.isLowercase {
                 scriptText.value += String(UnicodeScalar(num + 119945) ?? UnicodeScalar(0))
             } else if thisChar.isUppercase {
                 scriptText.value += String(UnicodeScalar(num + 119951) ?? UnicodeScalar(0))
