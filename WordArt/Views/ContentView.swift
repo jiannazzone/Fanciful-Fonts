@@ -158,7 +158,7 @@ struct ContentView: View {
     func checkForUpdate() {
         let version = getCurrentAppVersion()
         let savedVersion = UserDefaults.standard.string(forKey: "savedVersion")
-        if savedVersion != version  && self.userSettings.notFirstLaunch {
+        if savedVersion != version && self.userSettings.notFirstLaunch && outputModel.isFullApp {
             // Toogle to show WhatsNew Screen as Modal
             inputIsFocused = false
             showSheet = .whatsNewSheet

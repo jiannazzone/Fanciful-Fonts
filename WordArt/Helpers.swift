@@ -295,6 +295,27 @@ class FancyTextModel: ObservableObject {
         return fullWidth
     } // fullWidth
     
+//    private func monospaceFont(_ stringAsUnicode: [Int]) -> FancyText {
+//        var monoText = FancyText("Circles")
+//        for i in 0..<stringAsUnicode.count {
+//            let num = stringAsUnicode[i]
+//            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+//
+//            if thisChar == "0" {
+//                monoText.value += "⓪"
+//            } else if thisChar.isNumber {
+//                monoText.value += String(UnicodeScalar(num + 9263) ?? UnicodeScalar(0))
+//            } else if thisChar.isLowercase {
+//                monoText.value += String(UnicodeScalar(num + 9327) ?? UnicodeScalar(0))
+//            } else if thisChar.isUppercase {
+//                monoText.value += String(UnicodeScalar(num + 9333) ?? UnicodeScalar(0))
+//            } else {
+//                monoText.value += String(thisChar)
+//            } // if-else
+//        } // for
+//        return monoText
+//    }
+    
     private func circleText(_ stringAsUnicode: [Int]) -> FancyText {
         var circleText = FancyText("Circles")
         for i in 0..<stringAsUnicode.count {
@@ -392,6 +413,8 @@ class FancyTextModel: ObservableObject {
                 boldTextSerif += String(UnicodeScalar(num + 119743) ?? UnicodeScalar(0))
             } else if thisChar.isLowercase {
                 boldTextSerif += String(UnicodeScalar(num + 119737) ?? UnicodeScalar(0))
+            } else if thisChar.isNumber {
+                boldTextSerif += String(UnicodeScalar(num + 120733) ?? UnicodeScalar (0))
             } else {
                 boldTextSerif += String(thisChar)
             } // if-else
@@ -409,6 +432,8 @@ class FancyTextModel: ObservableObject {
                 boldTextSans += String(UnicodeScalar(num + 120211) ?? UnicodeScalar(0))
             } else if thisChar.isLowercase {
                 boldTextSans += String(UnicodeScalar(num + 120205) ?? UnicodeScalar(0))
+            } else if thisChar.isNumber {
+                boldTextSans += String(UnicodeScalar(num + 120763) ?? UnicodeScalar(0))
             } else {
                 boldTextSans += String(thisChar)
             }

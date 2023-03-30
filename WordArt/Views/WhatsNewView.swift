@@ -40,6 +40,20 @@ struct WhatsNewView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
+                    
+                    // Version 1.2
+                    Section {
+                        Text("🆅🅴🆁🆂🅸🅾🅽 ①.②")
+                            .font(.title)
+                            .foregroundStyle(LinearGradient(
+                                colors: gradient,
+                                startPoint: .bottomTrailing,
+                                endPoint: .topLeading))
+                        HelpBox(label: "Added over 20 new combining marks.", icon: nil)
+                        HelpBox(label: "Added superscript letter combining marks.", icon: nil)
+                        HelpBox(label: "With all of the new combining marks, it was getting hard to find the ones that you wanted. They're now separated by category.", icon: nil)
+                    }
+                    
                     // Version 1.1.2
                     Section {
                         Text("🆅🅴🆁🆂🅸🅾🅽 ①.①.②")
