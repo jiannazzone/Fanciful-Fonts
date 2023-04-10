@@ -13,12 +13,5 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>MessagesViewController</string>
 	</dict>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<true/>
-		<key>UISceneConfigurations</key>
-		<dict/>
-	</dict>
 </dict>
 </plist>

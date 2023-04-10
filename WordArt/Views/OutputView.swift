@@ -120,7 +120,6 @@ struct OutputView: View {
                 .environmentObject(outputModel)
                 
             }
-            .disabled(outputModel.userInput == String())
             
             // MARK: Other Options
             if (outputModel.userInput != String()) {

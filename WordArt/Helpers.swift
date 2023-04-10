@@ -256,7 +256,7 @@ class FancyTextModel: ObservableObject {
         // MARK: Specialized Text
         
         // Full-Width Romaji
-        let fullWidthText = fullWidth(stringAsUnicode)
+        let fullWidthText = fullWidthText(stringAsUnicode)
         outputs.append(fullWidthText)
         
         // Monospace
@@ -299,7 +299,7 @@ class FancyTextModel: ObservableObject {
     
     // MARK: Fancy Text Methods
     
-    private func fullWidth(_ stringAsUnicode: [Int]) -> FancyText {
+    private func fullWidthText(_ stringAsUnicode: [Int]) -> FancyText {
         // Full-Width Romaji
         var fullWidth = FancyText("Full Width")
         for i in 0..<stringAsUnicode.count {
@@ -314,7 +314,7 @@ class FancyTextModel: ObservableObject {
             }// if-else
         } // for
         return fullWidth
-    } // fullWidth
+    } // fullWidthText
     
     private func monospaceText(_ stringAsUnicode: [Int]) -> FancyText {
         var monoText = FancyText("Monospace")
@@ -367,7 +367,7 @@ class FancyTextModel: ObservableObject {
         }
         triangleText.value = newText
         return triangleText
-    } // circleSlashText
+    } // triangleText
     
     private func circleText(_ stringAsUnicode: [Int]) -> FancyText {
         var circleText = FancyText("CircleSlash")
@@ -458,7 +458,7 @@ class FancyTextModel: ObservableObject {
             } // if-else
         } // for
         return parenthsizedText
-    }
+    } // parenthesizedText
     
     private func spongeText(_ userInput: String) -> FancyText {
         var spongeText = FancyText("Sarcastic")

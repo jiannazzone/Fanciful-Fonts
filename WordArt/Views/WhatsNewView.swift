@@ -41,6 +41,22 @@ struct WhatsNewView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     
+                    // Version 1.3
+                    Section {
+                        Text("🆅🅴🆁🆂🅸🅾🅽 ①.③")
+                            .font(.title)
+                            .foregroundStyle(LinearGradient(
+                                colors: gradient,
+                                startPoint: .bottomTrailing,
+                                endPoint: .topLeading))
+                        HelpBox(label: "Added 𝚖𝚘𝚗𝚘𝚜𝚙𝚊𝚌𝚎 text.", icon: nil)
+                        HelpBox(label: "Added 𝓫𝓸𝓵𝓭 𝓼𝓬𝓻𝓲𝓹𝓽 text.", icon: nil)
+                        HelpBox(label: "Added t⃤r⃤i⃤a⃤n⃤g⃤l⃤e⃤ enclosed text.", icon: nil)
+                        HelpBox(label: "Added c⃠i⃠r⃠c⃠l⃠e⃠-s⃠l⃠a⃠s⃠h⃠ enclosed text.", icon: nil)
+                        HelpBox(label: "Added 5 additional combining marks.", icon: nil)
+                        HelpBox(label: "The combining marks view is now interactive even without any text input.", icon: nil)
+                    }
+                    
                     // Version 1.2
                     Section {
                         Text("🆅🅴🆁🆂🅸🅾🅽 ①.②")
@@ -96,6 +112,7 @@ struct WhatsNewView: View {
                     Text("Thank you for using Fanciful Fonts! If you enjoy it, please consider leaving a review.")
 
                 } // VStack
+                .multilineTextAlignment(.center)
 
             } // ScrollView
         } // VStack
