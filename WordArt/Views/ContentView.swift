@@ -56,6 +56,7 @@ struct ContentView: View {
                             withAnimation {
                                 outputModel.userInput = String()
                                 outputModel.clearAllOptions()
+                                inputIsFocused = true
                             }
                         } label: {
                             Image(systemName: "x.square.fill")
@@ -81,6 +82,7 @@ struct ContentView: View {
                     .onAppear {
                         inputIsFocused = true
                     }
+                    .scrollDismissesKeyboard(.immediately)
                 
                 Spacer()
                 
