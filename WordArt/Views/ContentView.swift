@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var outputModel: FancyTextModel
-    @State var userSettings = UserSettings()
+    @StateObject var userSettings = UserSettings()
     @State private var showSheet: sheetEnum?
     
     @State private var currentFancyText = "fancy"
@@ -126,7 +126,7 @@ struct ContentView: View {
         .onAppear {
             outputModel.userInput = String()
             checkForUpdate()
-            print("Autocorrect enabled: \(userSettings.enableAutocorrect)")
+            print("Autocorrect Diabled: \(!userSettings.enableAutocorrect)")
         } // onAppear
         .sheet(item: $showSheet) { item in
             switch item {
@@ -136,6 +136,12 @@ struct ContentView: View {
             case .whatsNewSheet:
                 if outputModel.isFullApp {
                     WhatsNewView()
+                        .onAppear {
+                            inputIsFocused = false
+                        }
+                        .onDisappear {
+                            inputIsFocused = true
+                        }
                 } // if
             } // switch
         } // sheet
@@ -164,7 +170,6 @@ struct ContentView: View {
         let savedVersion = UserDefaults.standard.string(forKey: "savedVersion")
         if savedVersion != version && self.userSettings.notFirstLaunch && outputModel.isFullApp {
             // Toogle to show WhatsNew Screen as Modal
-            inputIsFocused = false
             showSheet = .whatsNewSheet
         } else {
             inputIsFocused = true

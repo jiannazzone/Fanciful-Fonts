@@ -50,6 +50,7 @@ struct WhatsNewView: View {
                                 startPoint: .bottomTrailing,
                                 endPoint: .topLeading))
                         HelpBox(label: "Added ʇxǝʇ pǝddılɟ", icon: nil)
+                        HelpBox(label: "You can now toggle autocorrect. Tap the ? icon next to the input field to access app options.", icon: nil)
                         HelpBox(label: "Scrolling down now automatically dismisses the keyboard.", icon: nil)
                         HelpBox(label: "Tapping the clear button next to the text input field will automatically refocus on the text field and bring up the keyboard for quicker input.", icon: nil)
                     }
