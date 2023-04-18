@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var outputModel: FancyTextModel
-    let userSettings = UserSettings()
+    @State var userSettings = UserSettings()
     @State private var showSheet: sheetEnum?
     
     @State private var currentFancyText = "fancy"
@@ -37,7 +37,7 @@ struct ContentView: View {
                     TextField("Type anything to begin", text: $outputModel.userInput, axis: .vertical)
                         .textFieldStyle(.roundedBorder)
                         .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
+                        .autocorrectionDisabled(!userSettings.enableAutocorrect)
                         .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
                         .font(.title3)
                         .focused($inputIsFocused)
@@ -126,11 +126,13 @@ struct ContentView: View {
         .onAppear {
             outputModel.userInput = String()
             checkForUpdate()
+            print("Autocorrect enabled: \(userSettings.enableAutocorrect)")
         } // onAppear
         .sheet(item: $showSheet) { item in
             switch item {
             case .helpSheet:
                 HelpView()
+                    .environmentObject(userSettings)
             case .whatsNewSheet:
                 if outputModel.isFullApp {
                     WhatsNewView()

@@ -11,6 +11,8 @@ struct HelpView: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var userSettings: UserSettings
+    let gradient = [Color("AccentColor"), Color("GradientEnd")]
     
     var body: some View {
         VStack(spacing: 10) {
@@ -27,7 +29,49 @@ struct HelpView: View {
             } // HStack
             
             ScrollView(showsIndicators: false) {
+                
                 VStack(alignment: .leading, spacing: 10) {
+                    
+                    Text("🅾🅿🆃🅸🅾🅽🆂")
+                        .font(.title)
+                        .bold()
+                        .foregroundStyle(LinearGradient(
+                            colors: gradient,
+                            startPoint: .bottomTrailing,
+                            endPoint: .topLeading))
+                    
+                    HStack {
+                        Text("Enable Autocorrect")
+                        Spacer()
+                        Button {
+                            userSettings.enableAutocorrect.toggle()
+                        } label: {
+                            if userSettings.enableAutocorrect {
+                                Image(systemName: "checkmark.square")
+                            } else {
+                                Image(systemName: "square")
+                            } // if-else
+                        } // Button
+                    } // HStack
+                    .font(.title3)
+                } // VStack
+                .foregroundColor(Color("AccentColor"))
+                
+                Divider()
+                    .overlay(LinearGradient(
+                        colors: gradient,
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing))
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    
+                    Text("🅰🅱🅾🆄🆃")
+                        .font(.title)
+                        .bold()
+                        .foregroundStyle(LinearGradient(
+                            colors: gradient,
+                            startPoint: .bottomTrailing,
+                            endPoint: .topLeading))
                     
                     Section {
                         HelpBox(label: "Unicode is an international standard for encoding letters, characters, and symbols. Its adoption ensures that any device can properly interpret and display symbols from languages all around the world.", icon: nil)
@@ -65,7 +109,7 @@ struct HelpView: View {
                     Link(destination: URL(string: "mailto:calcuapps@iannaz.zone?subject=Fanciful%20Fonts")!) {
                         HelpBox(label: "Send me an email", icon: "envelope")
                     }
-
+                    
                 } // VStack
                 .multilineTextAlignment(.leading)
             } // ScrollView
@@ -79,5 +123,6 @@ struct HelpView: View {
 struct HelpView_Previews: PreviewProvider {
     static var previews: some View {
         HelpView()
+            .environmentObject(UserSettings())
     }
 }

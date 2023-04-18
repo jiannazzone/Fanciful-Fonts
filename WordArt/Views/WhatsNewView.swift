@@ -41,6 +41,19 @@ struct WhatsNewView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     
+                    // Version 1.3.1
+                    Section {
+                        Text("🆅🅴🆁🆂🅸🅾🅽 ①.③.①")
+                            .font(.title)
+                            .foregroundStyle(LinearGradient(
+                                colors: gradient,
+                                startPoint: .bottomTrailing,
+                                endPoint: .topLeading))
+                        HelpBox(label: "Added ʇxǝʇ pǝddılɟ", icon: nil)
+                        HelpBox(label: "Scrolling down now automatically dismisses the keyboard.", icon: nil)
+                        HelpBox(label: "Tapping the clear button next to the text input field will automatically refocus on the text field and bring up the keyboard for quicker input.", icon: nil)
+                    }
+                    
                     // Version 1.3
                     Section {
                         Text("🆅🅴🆁🆂🅸🅾🅽 ①.③")

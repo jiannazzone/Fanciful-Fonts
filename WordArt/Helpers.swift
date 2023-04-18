@@ -123,6 +123,8 @@ class FancyTextModel: ObservableObject {
         "!": "\u{00A1}",
     ]
      */
+    
+    // Thank you to https://www.reddit.com/user/sovok/ for help with flip180
     let flip180Map: [String:UnicodeScalar] = [
         "a": "\u{0250}",
         "b": "q",
@@ -147,6 +149,7 @@ class FancyTextModel: ObservableObject {
         "u": "n",
         "v": "\u{028C}",
         "w": "\u{028D}",
+        "x": "x",
         "y": "\u{028E}",
         "z": "z",
         "A": "\u{2200}",
@@ -183,7 +186,8 @@ class FancyTextModel: ObservableObject {
         "(": ")",
         "{": "}",
         "?": "\u{00BF}",
-        "!": "\u{00A1}"
+        "!": "\u{00A1}",
+        " ": " "
     ]
     
     // Diacritics
@@ -743,8 +747,15 @@ class UserSettings: ObservableObject {
         }
     }
     
+    @Published var enableAutocorrect: Bool {
+        didSet {
+            UserDefaults.standard.set(enableAutocorrect, forKey: "enableAutocorrect")
+        }
+    }
+    
     init() {
         self.savedVersion = UserDefaults.standard.string(forKey: "savedVersion") ?? "1.0"
         self.notFirstLaunch = UserDefaults.standard.bool(forKey: "notFirstLaunch")
+        self.enableAutocorrect = UserDefaults.standard.bool(forKey: "enableAutocorrect")
     }
 }
