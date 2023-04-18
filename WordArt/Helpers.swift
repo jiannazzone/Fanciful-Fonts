@@ -71,6 +71,56 @@ class FancyTextModel: ObservableObject {
     @Published var styledOutput = FancyText("Stylized")
     @Published var finalOutput = String()
     
+    let upsideDownLookup: [String:UnicodeScalar] = [
+        "a" : "\u{0250}",
+        "b" : "q",
+        "c" : "\u{0254}",
+        "d" : "p",
+        "e" : "\u{01DD}",
+        "f" : "\u{025F}",
+        "g" : "\u{0253}",
+        "h" : "\u{0265}",
+        "i" : "\u{0131}",
+        "j" : "\u{027E}",
+        "k" : "\u{029E}",
+        "l" : "\u{006C}",
+        "m" : "\u{026F}",
+        "n" : "u",
+        "r" : "\u{0279}",
+        "t" : "\u{0287}",
+        "v" : "\u{028C}",
+        "w" : "\u{028D}",
+        "y" : "\u{028E}",
+        "A" : "\u{2200}",
+        "B" : "ᙠ",
+        "C" : "\u{0186}",
+        "D" : "ᗡ",
+        "E" : "\u{018e}",
+        "F" : "\u{2132}",
+        "G" : "\u{2141}",
+        "J" : "\u{017f}",
+        "K" : "\u{22CA}",
+        "L" : "\u{02e5}",
+        "M" : "W",
+        "P" : "\u{0500}",
+        "Q" : "\u{038C}",
+        "R" : "\u{1D1A}",
+        "T" : "\u{22a5}",
+        "U" : "\u{2229}",
+        "V" : "\u{039B}",
+        "W" : "M",
+        "Y" : "\u{2144}",
+        "&" : "\u{214b}",
+        "." : "\u{02D9}",
+        "\"" : "\u{201e}",
+        ";" : "\u{061b}",
+        "[" : "]",
+        "(" : ")",
+        "{" : "}",
+        "?" : "\u{00BF}",
+        "!" : "\u{00A1}",
+    ]
+    
     // Diacritics
     @Published var combiningMarks: [CombiningMark] = [
         // Overmarks
@@ -263,6 +313,14 @@ class FancyTextModel: ObservableObject {
         let monoText = monospaceText(stringAsUnicode)
         outputs.append(monoText)
         
+        // Upsidedown
+        let upsideDown = upsideDownText(sanitizedInput)
+        outputs.append(upsideDown)
+        
+        // Upsidedown and Reversed
+        let flip180 = flip180Text(sanitizedInput)
+        outputs.append(flip180)
+        
         // Script
         let scriptText = scriptText(stringAsUnicode)
         outputs.append(scriptText)
@@ -334,6 +392,30 @@ class FancyTextModel: ObservableObject {
         } // for
         return monoText
     } // monospaceText
+    
+    private func upsideDownText(_ sanitizedInput: String) -> FancyText {
+        var upsideDown = FancyText("Upside Down")
+        for char in sanitizedInput {
+            if upsideDownLookup.keys.contains(String(char)) {
+                upsideDown.value += String(upsideDownLookup[String(char)] ?? UnicodeScalar(0))
+            } else {
+                upsideDown.value += String(char)
+            }
+        }
+        return upsideDown
+    }
+    
+    private func flip180Text(_ sanitizedInput: String) -> FancyText {
+        var flip180 = FancyText("Flip 180")
+        for char in sanitizedInput.reversed() {
+            if upsideDownLookup.keys.contains(String(char)) {
+                flip180.value += String(upsideDownLookup[String(char)] ?? UnicodeScalar(0))
+            } else {
+                flip180.value += String(char)
+            }
+        }
+        return flip180
+    }
     
     private func scriptText(_ stringAsUnicode: [Int]) -> FancyText {
         var scriptText = FancyText("Script")
