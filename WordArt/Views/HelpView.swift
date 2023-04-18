@@ -13,6 +13,7 @@ struct HelpView: View {
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var userSettings: UserSettings
     let gradient = [Color("AccentColor"), Color("GradientEnd")]
+    @State var showWhatsNew = false
     
     var body: some View {
         VStack(spacing: 10) {
@@ -40,19 +41,19 @@ struct HelpView: View {
                             startPoint: .bottomTrailing,
                             endPoint: .topLeading))
                     
-                    HStack {
-                        Text("Enable Autocorrect")
-                        Spacer()
-                        Button {
-                            userSettings.enableAutocorrect.toggle()
-                        } label: {
+                    Button {
+                        userSettings.enableAutocorrect.toggle()
+                    } label: {
+                        HStack {
+                            Text("Enable Autocorrect")
+                            Spacer()
                             if userSettings.enableAutocorrect {
                                 Image(systemName: "checkmark.square")
                             } else {
                                 Image(systemName: "square")
                             } // if-else
-                        } // Button
-                    } // HStack
+                        } // HStack
+                    } // Button
                     .font(.title3)
                 } // VStack
                 .foregroundColor(Color("AccentColor"))
@@ -110,6 +111,12 @@ struct HelpView: View {
                         HelpBox(label: "Send me an email", icon: "envelope")
                     }
                     
+                    Button {
+                        showWhatsNew = true
+                    } label: {
+                        HelpBox(label: "Version \(makeVersionCircle(userSettings.savedVersion))", icon: nil)
+                    }
+                    
                 } // VStack
                 .multilineTextAlignment(.leading)
             } // ScrollView
@@ -117,7 +124,35 @@ struct HelpView: View {
         .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
         .padding()
         .background(Color("BackgroundColor"))
+        .sheet(isPresented: $showWhatsNew) {
+            WhatsNewView()
+                .environmentObject(userSettings)
+        }
     } // View
+    
+    func makeVersionCircle(_ version: String) -> String {
+        var newString = String()
+        var stringAsUnicode = [Int]()
+        for char in version.unicodeScalars {
+            stringAsUnicode.append(Int(char.value))
+        }
+        
+        for i in 0..<stringAsUnicode.count {
+            let num = stringAsUnicode[i]
+            let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
+            
+            if thisChar == "0" {
+                newString += "⓪"
+            } else if thisChar.isNumber {
+                newString += String(UnicodeScalar(num + 9263) ?? UnicodeScalar(0))
+            } else {
+                newString += String(thisChar)
+            }
+        }
+        
+        return newString
+    }
+    
 }
 
 struct HelpView_Previews: PreviewProvider {

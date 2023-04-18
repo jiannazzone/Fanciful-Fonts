@@ -136,6 +136,7 @@ struct ContentView: View {
             case .whatsNewSheet:
                 if outputModel.isFullApp {
                     WhatsNewView()
+                        .environmentObject(userSettings)
                         .onAppear {
                             inputIsFocused = false
                         }
@@ -171,8 +172,6 @@ struct ContentView: View {
         if savedVersion != version && self.userSettings.notFirstLaunch && outputModel.isFullApp {
             // Toogle to show WhatsNew Screen as Modal
             showSheet = .whatsNewSheet
-        } else {
-            inputIsFocused = true
         }
         
         UserDefaults.standard.set(version, forKey: "savedVersion")

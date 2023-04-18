@@ -11,6 +11,7 @@ struct WhatsNewView: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var userSettings: UserSettings
     let gradient = [Color("AccentColor"), Color("GradientEnd")]
     
     var body: some View {
@@ -53,6 +54,7 @@ struct WhatsNewView: View {
                         HelpBox(label: "You can now toggle autocorrect. Tap the ? icon next to the input field to access app options.", icon: nil)
                         HelpBox(label: "Scrolling down now automatically dismisses the keyboard.", icon: nil)
                         HelpBox(label: "Tapping the clear button next to the text input field will automatically refocus on the text field and bring up the keyboard for quicker input.", icon: nil)
+                        HelpBox(label: "Fixed a bug where the keyboard would appear when app updated, obscuring the changelog.", icon: nil)
                     }
                     
                     // Version 1.3
