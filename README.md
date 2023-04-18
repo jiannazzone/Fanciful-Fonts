@@ -1,7 +1,7 @@
 # Fanciful Fonts
 ## Amaze your friends and family with custom fonts in iMessage, Discord, WhatsApp, and more.
 
-![Fanficul Fonts Icon](WordArt/Assets.xcassets/AppIcon.appiconset/1024x1024.png)
+![Fanficul Fonts Icon](WordArt/Assets.xcassets/iMessage%20App%20Icon.stickersiconset/87x87.png)
 
 Fanciful Fonts uses [Unicode](https://home.unicode.org/) to manipulate your text. From there, you can can copy and paste the fancified message into any app of your choosing.
 
