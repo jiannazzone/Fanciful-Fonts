@@ -42,6 +42,17 @@ struct WhatsNewView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     
+                    // Version 1.3.2
+                    Section {
+                        Text("🆅🅴🆁🆂🅸🅾🅽 ①.③.②")
+                            .font(.title)
+                            .foregroundStyle(LinearGradient(
+                                colors: gradient,
+                                startPoint: .bottomTrailing,
+                                endPoint: .topLeading))
+                        HelpBox(label: "Fixed a bug where numbers could be shifted by 1.", icon: nil)
+                    }
+                    
                     // Version 1.3.1
                     Section {
                         Text("🆅🅴🆁🆂🅸🅾🅽 ①.③.①")

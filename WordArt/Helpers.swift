@@ -71,59 +71,6 @@ class FancyTextModel: ObservableObject {
     @Published var styledOutput = FancyText("Stylized")
     @Published var finalOutput = String()
     
-    /*
-    let verticalMirrorDict: [String:UnicodeScalar] = [
-        "a": "\u{0250}",
-        "b": "p",
-        "d": "q",
-        "e": "\u{01DD}",
-        "f": "\u{025F}",
-        "g": "\u{0253}",
-        "h": "\u{0265}",
-        "i": "\u{0131}",
-        "j": "\u{027E}",
-        "k": "\u{029E}",
-        "l": "\u{006C}",
-        "m": "\u{026F}",
-        "n": "u",
-        "p": "d",
-        "q": "b",
-        "r": "\u{0279}",
-        "t": "\u{0287}",
-        "v": "\u{028C}",
-        "w": "\u{028D}",
-        "y": "\u{028E}",
-        "A": "\u{2200}",
-        "B": "ᙠ",
-        "C": "\u{0186}",
-        "D": "ᗡ",
-        "E": "\u{018e}",
-        "F": "\u{2132}",
-        "G": "\u{2141}",
-        "J": "\u{017f}",
-        "K": "\u{22CA}",
-        "L": "\u{02e5}",
-        "M": "W",
-        "P": "\u{0500}",
-        "Q": "\u{038C}",
-        "R": "\u{1D1A}",
-        "T": "\u{22a5}",
-        "U": "\u{2229}",
-        "V": "\u{039B}",
-        "W": "M",
-        "Y": "\u{2144}",
-        "&": "\u{214b}",
-        ".": "\u{02D9}",
-        "\"": "\u{201e}",
-        ";": "\u{061b}",
-        "[": "]",
-        "(": ")",
-        "{": "}",
-        "?": "\u{00BF}",
-        "!": "\u{00A1}",
-    ]
-     */
-    
     // Thank you to https://www.reddit.com/user/sovok/ for help with flip180
     let flip180Map: [String:UnicodeScalar] = [
         "a": "\u{0250}",
@@ -382,10 +329,6 @@ class FancyTextModel: ObservableObject {
         let monoText = monospaceText(stringAsUnicode)
         outputs.append(monoText)
         
-//        // Upsidedown
-//        let upsideDown = upsideDownText(sanitizedInput)
-//        outputs.append(upsideDown)
-        
         // Upsidedown and Reversed
         let flip180 = flip180Text(sanitizedInput)
         outputs.append(flip180)
@@ -450,7 +393,7 @@ class FancyTextModel: ObservableObject {
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
 
             if thisChar.isNumber {
-                monoText.value += String(UnicodeScalar(num + 120773) ?? UnicodeScalar(0))
+                monoText.value += String(UnicodeScalar(num + 120774) ?? UnicodeScalar(0))
             } else if thisChar.isLowercase {
                 monoText.value += String(UnicodeScalar(num + 120361) ?? UnicodeScalar(0))
             } else if thisChar.isUppercase {
@@ -462,27 +405,13 @@ class FancyTextModel: ObservableObject {
         return monoText
     } // monospaceText
     
-    /*
-    private func upsideDownText(_ sanitizedInput: String) -> FancyText {
-        var upsideDown = FancyText("Upside Down")
-        for char in sanitizedInput {
-            if verticalMirrorDict.keys.contains(String(char)) {
-                upsideDown.value += String(verticalMirrorDict[String(char)] ?? UnicodeScalar(0))
-            } else {
-                upsideDown.value += String(char)
-            }
-        }
-        return upsideDown
-    }
-     */
-    
     private func flip180Text(_ sanitizedInput: String) -> FancyText {
         var flip180 = FancyText("Flip 180")
         for char in sanitizedInput.reversed() {
             if flip180Map.keys.contains(String(char)) {
                 flip180.value += String(flip180Map[String(char)] ?? UnicodeScalar(0))
             } else {
-//                flip180.value += String(char)
+                flip180.value += String(char)
             }
         }
         return flip180
@@ -604,7 +533,7 @@ class FancyTextModel: ObservableObject {
                 parenthsizedText.value += String(UnicodeScalar(num + 9275) ?? UnicodeScalar(0))
             } else if thisChar.isUppercase {
                 parenthsizedText.value += String(UnicodeScalar(num + 9307) ?? UnicodeScalar(0))
-            } else if thisChar.isNumber {
+            } else if thisChar.isNumber && thisChar != "0" {
                 parenthsizedText.value += String(UnicodeScalar(num + 9283) ?? UnicodeScalar(0))
             } else {
                 parenthsizedText.value += String(thisChar)
@@ -637,7 +566,7 @@ class FancyTextModel: ObservableObject {
             } else if thisChar.isLowercase {
                 boldTextSerif += String(UnicodeScalar(num + 119737) ?? UnicodeScalar(0))
             } else if thisChar.isNumber {
-                boldTextSerif += String(UnicodeScalar(num + 120733) ?? UnicodeScalar (0))
+                boldTextSerif += String(UnicodeScalar(num + 120734) ?? UnicodeScalar (0))
             } else {
                 boldTextSerif += String(thisChar)
             } // if-else
@@ -656,7 +585,7 @@ class FancyTextModel: ObservableObject {
             } else if thisChar.isLowercase {
                 boldTextSans += String(UnicodeScalar(num + 120205) ?? UnicodeScalar(0))
             } else if thisChar.isNumber {
-                boldTextSans += String(UnicodeScalar(num + 120763) ?? UnicodeScalar(0))
+                boldTextSans += String(UnicodeScalar(num + 120764) ?? UnicodeScalar(0))
             } else {
                 boldTextSans += String(thisChar)
             }
