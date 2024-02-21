@@ -55,6 +55,7 @@ struct ContentView: View {
                         Button {
                             withAnimation {
                                 outputModel.userInput = String()
+                                outputModel.styledOutput.value = String()
                                 outputModel.clearAllOptions()
                                 inputIsFocused = true
                             }
