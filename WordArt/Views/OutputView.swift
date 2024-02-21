@@ -37,11 +37,11 @@ struct OutputView: View {
                         
                         // Animation
                         withAnimation {
-                            bottomText = "Copied to clipboard"
+                            outputDisplayText = "Copied to clipboard"
                         } // withAnimation
                         Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
                             withAnimation{
-                                bottomText = "Tap an icon to copy it to your clipboard."
+                                outputDisplayText = outputModel.styledOutput.value
                             } // withAnimation
                         } // Timer
                     } label: {
