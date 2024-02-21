@@ -42,6 +42,18 @@ struct WhatsNewView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     
+                    // Version 1.4
+                    Section {
+                        Text("🆅🅴🆁🆂🅸🅾🅽 ①.④")
+                            .font(.title)
+                            .foregroundStyle(LinearGradient(
+                                colors: gradient,
+                                startPoint: .bottomTrailing,
+                                endPoint: .topLeading))
+                        HelpBox(label: "UI adjustments! Hopefully things are a little easier to find.", icon: nil)
+                        HelpBox(label: "Removed the notifcation popup on the bottom of the screen. Notifications are now displayed directly on the button that has been tapped.", icon: nil)
+                    }
+                    
                     // Version 1.3.2
                     Section {
                         Text("🆅🅴🆁🆂🅸🅾🅽 ①.③.②")

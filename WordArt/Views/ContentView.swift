@@ -22,8 +22,6 @@ struct ContentView: View {
     
     var body: some View {
         
-//        let gradient = [Color("AccentColor"), Color("GradientEnd")]
-        
         VStack (spacing: 10) {
             
             if outputModel.isExpanded {
