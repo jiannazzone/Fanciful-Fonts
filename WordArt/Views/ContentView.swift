@@ -22,7 +22,7 @@ struct ContentView: View {
     
     var body: some View {
         
-        let gradient = [Color("AccentColor"), Color("GradientEnd")]
+//        let gradient = [Color("AccentColor"), Color("GradientEnd")]
         
         VStack (spacing: 10) {
             
@@ -88,6 +88,7 @@ struct ContentView: View {
                 Spacer()
                 
                 // MARK: Notification and Help Button
+                /*
                 if !inputIsFocused && outputModel.userInput != String() {
                 HStack {
                     ZStack {
@@ -106,6 +107,7 @@ struct ContentView: View {
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing))
                 } // if
+                 */
             } else {
                 // MARK: Compact View
                 CompactView()
@@ -127,7 +129,6 @@ struct ContentView: View {
         .onAppear {
             outputModel.userInput = String()
             checkForUpdate()
-            print("Autocorrect Diabled: \(!userSettings.enableAutocorrect)")
         } // onAppear
         .sheet(item: $showSheet) { item in
             switch item {

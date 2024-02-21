@@ -39,7 +39,7 @@ struct OutputView: View {
                         withAnimation {
                             outputDisplayText = "Copied to clipboard"
                         } // withAnimation
-                        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
+                        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) {_ in
                             withAnimation{
                                 outputDisplayText = outputModel.styledOutput.value
                             } // withAnimation
@@ -132,11 +132,13 @@ struct OutputView: View {
                     .padding(.vertical)
                 
                 LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(outputModel.outputs, id: \.id) { output in
+                    ForEach(0..<outputModel.outputs.count, id: \.self) { i in
+                        let thisOutput = outputModel.outputs[i]
+                        let thisLabel = thisOutput.value
                         Button {
                             // Clipboard and iMessage logic
-                            outputModel.finalOutput = output.value
-                            UIPasteboard.general.string = output.value
+                            outputModel.finalOutput = thisOutput.value
+                            UIPasteboard.general.string = thisOutput.value
                             if !outputModel.isFullApp {
                                 outputModel.userInput = String()
                                 outputModel.insert()
@@ -144,29 +146,26 @@ struct OutputView: View {
                             
                             // Animation
                             withAnimation {
-                                bottomText = "Copied to clipboard"
-                            }
-                            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) {_ in
+                                outputModel.outputs[i].value = "Copied"
+                            } // withAnimation
+                            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) {_ in
                                 withAnimation{
-                                    bottomText = "Tap an icon to copy it to your clipboard."
+                                    outputModel.outputs[i].value = thisLabel
                                 }
                             } // Timer
                         } label: {
                             VStack (spacing: 5) {
                                 ZStack {
-                                    OutputButton(label: output.value)
+                                    OutputButton(label: thisOutput.value)
                                     RoundedRectangle(cornerRadius: 10)
                                         .strokeBorder(
                                             Color("BorderColor"),
                                             lineWidth: 2)
-                                }
-                                //                                    Text(output.description)
-                                //                                        .font(.caption)
+                                } // ZStack
                             } // VStack
                         } // Button
                     } // ForEach
                 } // LazyVGrid
-                //                    .foregroundColor(Color("AccentColor"))
             } // if
             
         } // ScrollView
