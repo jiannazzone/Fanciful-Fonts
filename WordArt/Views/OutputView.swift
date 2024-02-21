@@ -11,7 +11,7 @@ struct OutputView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     @EnvironmentObject var outputModel: FancyTextModel
-    @State var outputPlaceholder = "Your text here"
+    @State var outputDisplayText = "Your text here"
     var outputIndex = 0;
     @Binding var bottomText: String
     @Environment(\.colorScheme) var colorScheme
@@ -24,6 +24,7 @@ struct OutputView: View {
             // MARK: Stylized Output
             Section {
                 // Stylized Output and Clear Button
+                
                 HStack {
                     Button {
                         // Clipboard and iMessage logic
@@ -45,7 +46,7 @@ struct OutputView: View {
                         } // Timer
                     } label: {
                         ZStack {
-                            OutputButton(label: outputModel.styledOutput.value == String() ? outputPlaceholder : outputModel.styledOutput.value)
+                            OutputButton(label: outputDisplayText)
                             RoundedRectangle(cornerRadius: 10)
                                 .strokeBorder(
                                     Color("BorderColor"),
@@ -170,13 +171,24 @@ struct OutputView: View {
             
         } // ScrollView
         .onChange(of: outputModel.userInput) { _ in
-            outputModel.createStylizedText()
+            if outputModel.userInput == String() {
+                outputDisplayText = "Your Text Here"
+            } else {
+                outputModel.createStylizedText()
+                outputDisplayText = outputModel.styledOutput.value
+            }
         }
         .onChange(of: outputModel.fontStyles) { _ in
-            outputModel.createStylizedText()
+            if outputModel.userInput != String() {
+                outputModel.createStylizedText()
+                outputDisplayText = outputModel.styledOutput.value
+            }
         }
         .onChange(of: outputModel.combiningMarks) { _ in
-            outputModel.createStylizedText()
+            if outputModel.userInput != String() {
+                outputModel.createStylizedText()
+                outputDisplayText = outputModel.styledOutput.value
+            }
         }
         .onAppear {
             let outputPlaceholderOptions = [
@@ -191,12 +203,14 @@ struct OutputView: View {
             ]
             var i = 0
             Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
-                outputPlaceholder = outputPlaceholderOptions[i]
-                if i == outputPlaceholderOptions.count - 1 {
-                    i = 0
-                } else {
-                    i += 1
-                } // if-else
+                if outputModel.userInput == String() {
+                    outputDisplayText = outputPlaceholderOptions[i]
+                    if i == outputPlaceholderOptions.count - 1 {
+                        i = 0
+                    } else {
+                        i += 1
+                    } // if-else
+                }
             } // Timer
         }
     }
