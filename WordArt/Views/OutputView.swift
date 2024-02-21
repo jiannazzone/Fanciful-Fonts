@@ -24,7 +24,6 @@ struct OutputView: View {
             // MARK: Stylized Output
             Section {
                 // Stylized Output and Clear Button
-                
                 HStack {
                     Button {
                         // Clipboard and iMessage logic
@@ -68,6 +67,19 @@ struct OutputView: View {
                         } // Button
                     } // if
                 } // HStack
+                
+                // Font Style Buttons
+                Divider()
+                    .overlay(LinearGradient(
+                        colors: gradient,
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing))
+                    .padding(.vertical)
+                
+                Text("Tap any button below to add font styles")
+                    .font(.footnote)
+                    .bold()
+                    .foregroundColor(Color("AccentColor"))
                 
                 // Bold/Italic/Serif Selectors
                 HStack {
@@ -130,6 +142,11 @@ struct OutputView: View {
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing))
                     .padding(.vertical)
+                
+                Text("Tap any button below to copy")
+                    .font(.footnote)
+                    .bold()
+                    .foregroundColor(Color("AccentColor"))
                 
                 LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(0..<outputModel.outputs.count, id: \.self) { i in
