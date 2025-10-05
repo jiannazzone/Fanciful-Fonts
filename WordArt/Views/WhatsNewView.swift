@@ -41,6 +41,17 @@ struct WhatsNewView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
+                    // Version 1.4.1
+                    Section {
+                        Text("🆅🅴🆁🆂🅸🅾🅽 ①.④")
+                            .font(.title)
+                            .foregroundStyle(LinearGradient(
+                                colors: gradient,
+                                startPoint: .bottomTrailing,
+                                endPoint: .topLeading))
+                        HelpBox(label: "Update for iOS 26!", icon: nil)
+                    }
+                    
                     
                     // Version 1.4
                     Section {
