@@ -24,7 +24,7 @@ struct ContentView: View {
         
         VStack (spacing: 10) {
             
-            if outputModel.isExpanded {
+//            if outputModel.isExpanded {
                 //MARK: Full App View
                 if outputModel.isFullApp {
                     TitleView()
@@ -106,11 +106,11 @@ struct ContentView: View {
                     endPoint: .bottomTrailing))
                 } // if
                  */
-            } else {
-                // MARK: Compact View
-                CompactView()
-                    .environmentObject(outputModel)
-            }
+//            } else {
+//                // MARK: Compact View
+//                CompactView()
+//                    .environmentObject(outputModel)
+//            }
             
         } // VStack
         .tint(Color("AccentColor"))
