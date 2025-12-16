@@ -88,38 +88,38 @@ struct OutputView: View {
                     // Bold Button
                     Button {
                         withAnimation {
-                            outputModel.fontStyles["Bold"]!.toggle()
+                            outputModel.fontStyles["Bold", default: false].toggle()
                         } // withAnimation
                     } label: {
                         ZStack {
                             OutputButton(label: "Bold")
                             RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(outputModel.fontStyles["Bold"]! ? .white : .clear, lineWidth: 2)
+                                .strokeBorder(outputModel.fontStyles["Bold", default: false] ? .white : .clear, lineWidth: 2)
                         } // ZStack
                     } // Button
                     
                     // Italic Button
                     Button {
                         withAnimation {
-                            outputModel.fontStyles["Italic"]!.toggle()
+                            outputModel.fontStyles["Italic", default: false].toggle()
                         } // withAnimation
                     } label: {
                         ZStack {
                             OutputButton(label: "Italic")
                             RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(outputModel.fontStyles["Italic"]! ? .white : .clear, lineWidth: 2)
+                                .strokeBorder(outputModel.fontStyles["Italic", default: false] ? .white : .clear, lineWidth: 2)
                         } // ZStack
                     } // Button
                     
                     // Serif Button
-                    if outputModel.fontStyles["Italic"]! || outputModel.fontStyles["Bold"]! {
+                    if outputModel.fontStyles["Italic", default: false] || outputModel.fontStyles["Bold", default: false] {
                         Button {
-                            outputModel.fontStyles["Serif"]!.toggle()
+                            outputModel.fontStyles["Serif", default: false].toggle()
                         } label: {
                             ZStack {
                                 OutputButton(label: "Serif")
                                 RoundedRectangle(cornerRadius: 10)
-                                    .strokeBorder(outputModel.fontStyles["Serif"]! ? .white : .clear, lineWidth: 2)
+                                    .strokeBorder(outputModel.fontStyles["Serif", default: false] ? .white : .clear, lineWidth: 2)
                             } // ZStack
                         } // Button
                     } // if
