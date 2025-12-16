@@ -12,6 +12,8 @@ struct OutputView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     @EnvironmentObject var outputModel: FancyTextModel
     @State var outputDisplayText = "Your text here"
+    @State private var placeholderTimer: Timer?
+    
     var outputIndex = 0;
     @Binding var bottomText: String
     @Environment(\.colorScheme) var colorScheme
@@ -207,7 +209,16 @@ struct OutputView: View {
             }
         }
         .onAppear {
-            let outputPlaceholderOptions = [
+                startPlaceholderCycling()
+            }
+        .onDisappear {
+            placeholderTimer?.invalidate()
+            placeholderTimer = nil
+        }
+    }
+    
+    private func startPlaceholderCycling() {
+            let options = [
                 "Ｙｏｕｒ　ｔｅｘｔ　ｈｅｒｅ",
                 "🅈🄾🅄🅁 🅃🄴🅇🅃 🄷🄴🅁🄴",
                 "🆈🅾🆄🆁 🆃🅴🆇🆃 🅷🅴🆁🅴",
@@ -218,16 +229,12 @@ struct OutputView: View {
                 "Your text here"
             ]
             var i = 0
-            Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
-                if outputModel.userInput == String() {
-                    outputDisplayText = outputPlaceholderOptions[i]
-                    if i == outputPlaceholderOptions.count - 1 {
-                        i = 0
-                    } else {
-                        i += 1
-                    } // if-else
+            placeholderTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
+                if outputModel.userInput.isEmpty {
+                    outputDisplayText = options[i]
+                    i = (i + 1) % options.count
                 }
-            } // Timer
+            }
         }
-    }
+    
 }
