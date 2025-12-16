@@ -216,9 +216,9 @@ class FancyTextModel: ObservableObject {
     }
     
     private func updateActiveFontStyle() -> BoldItalicSerif {
-        let serifVal = fontStyles["Serif"]!
-        let boldVal = fontStyles["Bold"]!
-        let italicVal = fontStyles["Italic"]!
+        let serifVal = fontStyles["Serif", default: false]
+        let boldVal = fontStyles["Bold", default: false]
+        let italicVal = fontStyles["Italic", default: false]
         
         // All options on
         if (serifVal && boldVal && italicVal) {
@@ -452,7 +452,7 @@ class FancyTextModel: ObservableObject {
     } // triangleText
     
     private func circleText(_ stringAsUnicode: [Int]) -> FancyText {
-        var circleText = FancyText("CircleSlash")
+        var circleText = FancyText("Circles")
         for i in 0..<stringAsUnicode.count {
             let num = stringAsUnicode[i]
             let thisChar = Character(UnicodeScalar(num) ?? UnicodeScalar(0))
@@ -473,7 +473,7 @@ class FancyTextModel: ObservableObject {
     } // circleText
     
     private func circleSlashText(_ stringAsUnicode: [Int]) -> FancyText {
-        var circleSlashText = FancyText("Circles")
+        var circleSlashText = FancyText("CircleSlash")
         var newText = String()
         for char in userInput {
             if char == " " {
