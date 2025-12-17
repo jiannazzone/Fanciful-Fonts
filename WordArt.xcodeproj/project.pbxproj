@@ -15,10 +15,6 @@
 		663A83E129B918FE0003F2C8 /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CE29B7D6270026AF42 /* OutputView.swift */; };
 		663A83E229B918FE0003F2C8 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D029B7E0FA0026AF42 /* HelpView.swift */; };
 		663A83E329B918FE0003F2C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BD29B769E50026AF42 /* ContentView.swift */; };
-		663A83E429B919010003F2C8 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D329B7E4A10026AF42 /* TitleView.swift */; };
-		663A83E529B919010003F2C8 /* OutputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CC29B78F350026AF42 /* OutputButton.swift */; };
-		663A83E629B919010003F2C8 /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FBCAC829B7EF3600B7600F /* HelpBox.swift */; };
-		663A83E729B919030003F2C8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921C929B786FC0026AF42 /* Helpers.swift */; };
 		663B4C0B29D322A700850D94 /* CombiningMarkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B4C0A29D322A700850D94 /* CombiningMarkRow.swift */; };
 		663B4C0C29D322A700850D94 /* CombiningMarkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663B4C0A29D322A700850D94 /* CombiningMarkRow.swift */; };
 		6654732B29BEB36B00D83C70 /* CompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6654732A29BEB36B00D83C70 /* CompactView.swift */; };
@@ -27,13 +23,15 @@
 		667921BE29B769E50026AF42 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921BD29B769E50026AF42 /* ContentView.swift */; };
 		667921C029B769E60026AF42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
 		667921C329B769E60026AF42 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921C229B769E60026AF42 /* Preview Assets.xcassets */; };
-		667921CA29B786FC0026AF42 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921C929B786FC0026AF42 /* Helpers.swift */; };
-		667921CD29B78F350026AF42 /* OutputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CC29B78F350026AF42 /* OutputButton.swift */; };
 		667921CF29B7D6270026AF42 /* OutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921CE29B7D6270026AF42 /* OutputView.swift */; };
 		667921D129B7E0FA0026AF42 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D029B7E0FA0026AF42 /* HelpView.swift */; };
-		667921D429B7E4A10026AF42 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667921D329B7E4A10026AF42 /* TitleView.swift */; };
+		667E0CA32EF234FD0048EED1 /* FancyTextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E0CA22EF234FD0048EED1 /* FancyTextModel.swift */; };
+		667E0CA42EF234FD0048EED1 /* FancyTextModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E0CA22EF234FD0048EED1 /* FancyTextModel.swift */; };
+		667E0CA62EF235030048EED1 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E0CA52EF235030048EED1 /* UserSettings.swift */; };
+		667E0CA72EF235030048EED1 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E0CA52EF235030048EED1 /* UserSettings.swift */; };
+		667E0CA92EF235210048EED1 /* UIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E0CA82EF235210048EED1 /* UIComponents.swift */; };
+		667E0CAA2EF235210048EED1 /* UIComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667E0CA82EF235210048EED1 /* UIComponents.swift */; };
 		66BB571129BEA827000B561E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 667921BF29B769E60026AF42 /* Assets.xcassets */; };
-		66FBCAC929B7EF3600B7600F /* HelpBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FBCAC829B7EF3600B7600F /* HelpBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,13 +71,12 @@
 		667921BD29B769E50026AF42 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		667921BF29B769E60026AF42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		667921C229B769E60026AF42 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		667921C929B786FC0026AF42 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		667921CB29B78A750026AF42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		667921CC29B78F350026AF42 /* OutputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputButton.swift; sourceTree = "<group>"; };
 		667921CE29B7D6270026AF42 /* OutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputView.swift; sourceTree = "<group>"; };
 		667921D029B7E0FA0026AF42 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
-		667921D329B7E4A10026AF42 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
-		66FBCAC829B7EF3600B7600F /* HelpBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpBox.swift; sourceTree = "<group>"; };
+		667E0CA22EF234FD0048EED1 /* FancyTextModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextModel.swift; sourceTree = "<group>"; };
+		667E0CA52EF235030048EED1 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		667E0CA82EF235210048EED1 /* UIComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,11 +101,9 @@
 		663A83C829B9143C0003F2C8 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				667921D329B7E4A10026AF42 /* TitleView.swift */,
-				667921CC29B78F350026AF42 /* OutputButton.swift */,
-				66FBCAC829B7EF3600B7600F /* HelpBox.swift */,
 				6654732A29BEB36B00D83C70 /* CompactView.swift */,
 				663B4C0A29D322A700850D94 /* CombiningMarkRow.swift */,
+				667E0CA82EF235210048EED1 /* UIComponents.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -155,9 +150,10 @@
 				667921CB29B78A750026AF42 /* Info.plist */,
 				667921BB29B769E50026AF42 /* WordArtApp.swift */,
 				667921D229B7E1050026AF42 /* Views */,
-				667921C929B786FC0026AF42 /* Helpers.swift */,
 				667921BF29B769E60026AF42 /* Assets.xcassets */,
 				667921C129B769E60026AF42 /* Preview Content */,
+				667E0CA22EF234FD0048EED1 /* FancyTextModel.swift */,
+				667E0CA52EF235030048EED1 /* UserSettings.swift */,
 			);
 			path = WordArt;
 			sourceTree = "<group>";
@@ -229,7 +225,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					663A83CC29B9189F0003F2C8 = {
 						CreatedOnToolsVersion = 14.2;
@@ -283,17 +279,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				667E0CA92EF235210048EED1 /* UIComponents.swift in Sources */,
+				667E0CA42EF234FD0048EED1 /* FancyTextModel.swift in Sources */,
+				667E0CA62EF235030048EED1 /* UserSettings.swift in Sources */,
 				663B4C0C29D322A700850D94 /* CombiningMarkRow.swift in Sources */,
 				6654732C29BEB36B00D83C70 /* CompactView.swift in Sources */,
 				663A83D329B9189F0003F2C8 /* MessagesViewController.swift in Sources */,
 				663A83E229B918FE0003F2C8 /* HelpView.swift in Sources */,
 				663A83E329B918FE0003F2C8 /* ContentView.swift in Sources */,
-				663A83E729B919030003F2C8 /* Helpers.swift in Sources */,
 				663A83E129B918FE0003F2C8 /* OutputView.swift in Sources */,
 				663A3C3829BE7E3C008B42AC /* WhatsNewView.swift in Sources */,
-				663A83E529B919010003F2C8 /* OutputButton.swift in Sources */,
-				663A83E629B919010003F2C8 /* HelpBox.swift in Sources */,
-				663A83E429B919010003F2C8 /* TitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,16 +296,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				667E0CAA2EF235210048EED1 /* UIComponents.swift in Sources */,
+				667E0CA32EF234FD0048EED1 /* FancyTextModel.swift in Sources */,
+				667E0CA72EF235030048EED1 /* UserSettings.swift in Sources */,
 				663B4C0B29D322A700850D94 /* CombiningMarkRow.swift in Sources */,
 				6654732B29BEB36B00D83C70 /* CompactView.swift in Sources */,
 				667921CF29B7D6270026AF42 /* OutputView.swift in Sources */,
 				667921D129B7E0FA0026AF42 /* HelpView.swift in Sources */,
-				66FBCAC929B7EF3600B7600F /* HelpBox.swift in Sources */,
 				667921BE29B769E50026AF42 /* ContentView.swift in Sources */,
-				667921D429B7E4A10026AF42 /* TitleView.swift in Sources */,
 				66038F8F29BE793D00C85A5C /* WhatsNewView.swift in Sources */,
-				667921CA29B786FC0026AF42 /* Helpers.swift in Sources */,
-				667921CD29B78F350026AF42 /* OutputButton.swift in Sources */,
 				667921BC29B769E50026AF42 /* WordArtApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,19 +326,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CODE_SIGN_ENTITLEMENTS = WordArtMessage/WordArtMessage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 4KVDEM64KR;
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordArtMessage/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Fancy Fonts";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ianazzone.WordArt.WordArtMessage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -360,19 +354,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
 				CODE_SIGN_ENTITLEMENTS = WordArtMessage/WordArtMessage.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 4KVDEM64KR;
+				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordArtMessage/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Fancy Fonts";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ianazzone.WordArt.WordArtMessage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -417,6 +411,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4KVDEM64KR;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -439,6 +434,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -479,6 +475,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4KVDEM64KR;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -494,6 +491,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -503,14 +501,12 @@
 		667921C729B769E60026AF42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WordArt/WordArt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WordArt/Preview Content\"";
-				DEVELOPMENT_TEAM = 4KVDEM64KR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordArt/Info.plist;
@@ -519,11 +515,12 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ianazzone.WordArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -538,14 +535,12 @@
 		667921C829B769E60026AF42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WordArt/WordArt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WordArt/Preview Content\"";
-				DEVELOPMENT_TEAM = 4KVDEM64KR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordArt/Info.plist;
@@ -554,11 +549,12 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ianazzone.WordArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

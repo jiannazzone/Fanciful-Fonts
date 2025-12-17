@@ -2,193 +2,152 @@
 //  ContentView.swift
 //  WordArt
 //
-//  Created by Joseph Adam Iannazzone on 3/7/23.
-//  https://www.colourlovers.com/palette/3636765/seapunk_vaporwave
+//  Refactored for iOS 17+ - Fixed onChange warning
+//
 
 import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject var outputModel: FancyTextModel
-    @StateObject var userSettings = UserSettings()
-    @State private var showSheet: sheetEnum?
-    
-    @State private var currentFancyText = "fancy"
-    @State private var bottomText = ""
+    @Bindable var outputModel: FancyTextModel
+    @State private var userSettings = UserSettings()
+    @State private var activeSheet: SheetType?
     
     @FocusState private var inputIsFocused: Bool
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) private var colorScheme
     
+    // Computed property - no state update cascade
+    private var bottomText: String {
+        outputModel.userInput.isEmpty ? "" : "Tap an icon to copy it to your clipboard."
+    }
     
     var body: some View {
-        
-        VStack (spacing: 10) {
-            
-//            if outputModel.isExpanded {
-                //MARK: Full App View
-                if outputModel.isFullApp {
-                    TitleView()
-                } // if
-                
-                // MARK: INPUT AREA
-                HStack {
-                    TextField("Type anything to begin", text: $outputModel.userInput, axis: .vertical)
-                        .textFieldStyle(.roundedBorder)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled(!userSettings.enableAutocorrect)
-                        .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
-                        .font(.title3)
-                        .focused($inputIsFocused)
-                        .toolbar {
-                            ToolbarItemGroup(placement: .keyboard) {
-                                Spacer()
-                                Button("Done") {
-                                    inputIsFocused = false
-                                } // Button
-                            } // ToolbarItemGroup
-                        } // toolbar
-                    
-                    // Clear Button
-                    if (outputModel.userInput != String()) {
-                        Button {
-                            withAnimation {
-                                outputModel.userInput = String()
-                                outputModel.styledOutput.value = String()
-                                outputModel.clearAllOptions()
-                                inputIsFocused = true
-                            }
-                        } label: {
-                            Image(systemName: "x.square.fill")
-                                .imageScale(.large)
-                                .foregroundColor(Color("AccentColor"))
-                        } // Button
-                        .keyboardShortcut(.cancelAction)
-                    } else {
-                        Button {
-                            showSheet = .helpSheet
-                        } label: {
-                            Image(systemName: "questionmark.circle.fill")
-                                .imageScale(.large)
-                                .padding(.trailing)
-                        } // Button
-                    }
-                } // HStack
-                .padding(.bottom)
-                
-                // MARK: OUTPUT AREA
-                OutputView(bottomText: $bottomText)
-                    .environmentObject(outputModel)
-                    .onAppear {
-                        inputIsFocused = true
-                    }
-                    .scrollDismissesKeyboard(.immediately)
-                
-                Spacer()
-                
-                // MARK: Notification and Help Button
-                /*
-                if !inputIsFocused && outputModel.userInput != String() {
-                HStack {
-                    ZStack {
-                        OutputButton(label: bottomText)
-                            .font(.caption)
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(
-                                Color("BorderColor"),
-                                lineWidth: 2)
-                    } // ZStack
-                    Spacer()
-                } // HStack
-                .frame(maxHeight: 34)
-                .foregroundStyle(LinearGradient(
-                    colors: gradient,
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing))
-                } // if
-                 */
-//            } else {
-//                // MARK: Compact View
-//                CompactView()
-//                    .environmentObject(outputModel)
-//            }
-            
-        } // VStack
+        VStack(spacing: 10) {
+            if outputModel.isExpanded {
+                expandedView
+            } else {
+                CompactView(outputModel: outputModel)
+            }
+        }
         .tint(Color("AccentColor"))
         .padding()
         .background(Color("BackgroundColor"), ignoresSafeAreaEdges: .all)
-        .onChange(of: outputModel.userInput) { _ in
-            outputModel.createSpecialText(outputModel.userInput)
-            if outputModel.userInput != String() {
-                bottomText = "Tap an icon to copy it to your clipboard."
-            } else {
-                bottomText = String()
-            } // if-else
-        } // onChange
         .onAppear {
-            outputModel.userInput = String()
+            outputModel.userInput = ""
             checkForUpdate()
-        } // onAppear
-        .sheet(item: $showSheet) { item in
-            switch item {
-            case .helpSheet:
-                HelpView()
-                    .environmentObject(userSettings)
-            case .whatsNewSheet:
-                if outputModel.isFullApp {
-                    WhatsNewView()
-                        .environmentObject(userSettings)
-                        .onAppear {
-                            inputIsFocused = false
-                        }
-                        .onDisappear {
-                            inputIsFocused = true
-                        }
-                } // if
-            } // switch
-        } // sheet
-        .onChange(of: outputModel.combiningMarks) { _ in
-            inputIsFocused = false
         }
-        .onChange(of: outputModel.finalOutput) { _ in
-            inputIsFocused = false
+        .sheet(item: $activeSheet) { sheet in
+            sheetContent(for: sheet)
         }
-        .onChange(of: outputModel.activeFontStyle) { _ in
-            inputIsFocused = false
+    }
+    
+    // MARK: - Expanded View
+    
+    @ViewBuilder
+    private var expandedView: some View {
+        if outputModel.isFullApp {
+            TitleView()
         }
         
-    } // View
-    
-    // Get current version of the app bundle
-    func getCurrentAppVersion() -> String {
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"]
-        let version = (appVersion as! String)
-        return version
+        inputArea
+        
+        OutputView(outputModel: outputModel, bottomText: bottomText)
+            .scrollDismissesKeyboard(.immediately)
+        
+        Spacer()
     }
     
-    // Check if app if app has been started after update
-    func checkForUpdate() {
-        let version = getCurrentAppVersion()
-        let savedVersion = UserDefaults.standard.string(forKey: "savedVersion")
-        if savedVersion != version && self.userSettings.notFirstLaunch && outputModel.isFullApp {
-            // Toogle to show WhatsNew Screen as Modal
-            showSheet = .whatsNewSheet
+    // MARK: - Input Area
+    
+    private var inputArea: some View {
+        HStack {
+            TextField("Type anything to begin", text: $outputModel.userInput, axis: .vertical)
+                .textFieldStyle(.roundedBorder)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled(!userSettings.enableAutocorrect)
+                .foregroundColor(colorScheme == .dark ? Color("AccentColor") : .black)
+                .font(.title3)
+                .focused($inputIsFocused)
+                .onChange(of: outputModel.userInput) { _, _ in
+                    // Single point of update - tells model to process
+                    outputModel.inputDidChange()
+                }
+            
+            if outputModel.userInput.isEmpty {
+                helpButton
+            } else {
+                clearButton
+            }
+        }
+        .padding(.bottom)
+    }
+    
+    private var clearButton: some View {
+        Button {
+            withAnimation {
+                outputModel.clearInput()
+                inputIsFocused = true
+            }
+        } label: {
+            Image(systemName: "x.square.fill")
+                .imageScale(.large)
+                .foregroundColor(Color("AccentColor"))
+        }
+        .keyboardShortcut(.cancelAction)
+    }
+    
+    private var helpButton: some View {
+        Button {
+            activeSheet = .help
+        } label: {
+            Image(systemName: "questionmark.circle.fill")
+                .imageScale(.large)
+                .padding(.trailing)
+        }
+    }
+    
+    // MARK: - Sheet Content
+    
+    @ViewBuilder
+    private func sheetContent(for sheet: SheetType) -> some View {
+        switch sheet {
+        case .help:
+            HelpView(userSettings: userSettings)
+            
+        case .whatsNew:
+            if outputModel.isFullApp {
+                WhatsNewView(userSettings: userSettings)
+                    .onAppear { inputIsFocused = false }
+                    .onDisappear { inputIsFocused = true }
+            }
+        }
+    }
+    
+    // MARK: - Version Check
+    
+    private func checkForUpdate() {
+        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        
+        if userSettings.savedVersion != currentVersion && userSettings.notFirstLaunch && outputModel.isFullApp {
+            activeSheet = .whatsNew
         }
         
-        UserDefaults.standard.set(version, forKey: "savedVersion")
-        self.userSettings.notFirstLaunch = true
+        userSettings.savedVersion = currentVersion
+        userSettings.notFirstLaunch = true
     }
-    
-    enum sheetEnum: Identifiable {
-        case helpSheet, whatsNewSheet
-        var id: Int {
-            hashValue
-        }
-    }
-    
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(outputModel: FancyTextModel(true))
-    }
+// MARK: - Sheet Type
+
+enum SheetType: Identifiable {
+    case help
+    case whatsNew
+    
+    var id: Int { hashValue }
+}
+
+// MARK: - Preview
+
+#Preview {
+    ContentView(outputModel: FancyTextModel(isFullApp: true))
 }

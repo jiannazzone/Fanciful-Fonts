@@ -2,239 +2,293 @@
 //  OutputView.swift
 //  WordArt
 //
-//  Created by Joseph Adam Iannazzone on 3/7/23.
+//  Refactored for iOS 17+ - Fixed onChange warning and timer leak
 //
 
 import SwiftUI
 
 struct OutputView: View {
     
-    let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    @EnvironmentObject var outputModel: FancyTextModel
-    @State var outputDisplayText = "Your text here"
-    @State private var placeholderTimer: Timer?
+    @Bindable var outputModel: FancyTextModel
+    let bottomText: String  // Now passed in, not bound
     
-    var outputIndex = 0;
-    @Binding var bottomText: String
-    @Environment(\.colorScheme) var colorScheme
+    @State private var outputDisplayText = "Your text here"
+    @State private var placeholderTimer: Timer?
+    @State private var placeholderIndex = 0
+    
+    @Environment(\.colorScheme) private var colorScheme
+    
+    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    private let gradient = [Color("AccentColor"), Color("GradientEnd")]
+    
+    private let placeholderOptions = [
+        "Ｙｏｕｒ　ｔｅｘｔ　ｈｅｒｅ",
+        "🅈🄾🅄🅁 🅃🄴🅇🅃 🄷🄴🅁🄴",
+        "🆈🅾🆄🆁 🆃🅴🆇🆃 🅷🅴🆁🅴",
+        "ⓨⓞⓤⓡ ⓣⓔⓧⓣ ⓗⓔⓡⓔ",
+        "𝐘𝐨𝐮𝐫 𝐭𝐞𝐱𝐭 𝐡𝐞𝐫𝐞",
+        "𝘠𝘰𝘶𝘳 𝘵𝘦𝘹𝘵 𝘩𝘦𝘳𝘦",
+        "𝙔𝙤𝙪𝙧 𝙩𝙚𝙭𝙩 𝙝𝙚𝙧𝙚",
+        "Your text here"
+    ]
     
     var body: some View {
-        
-        let gradient = [Color("AccentColor"), Color("GradientEnd")]
-        
         ScrollView(showsIndicators: false) {
-            // MARK: Stylized Output
-            Section {
-                // Stylized Output and Clear Button
-                HStack {
-                    Button {
-                        // Clipboard and iMessage logic
-                        outputModel.finalOutput = outputModel.styledOutput.value
-                        UIPasteboard.general.string = outputModel.styledOutput.value
-                        if !outputModel.isFullApp {
-                            outputModel.userInput = String()
-                            outputModel.insert()
-                        } // if
-                        
-                        // Animation
-                        withAnimation {
-                            outputDisplayText = "Copied to clipboard"
-                        } // withAnimation
-                        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) {_ in
-                            withAnimation{
-                                outputDisplayText = outputModel.styledOutput.value
-                            } // withAnimation
-                        } // Timer
-                    } label: {
-                        ZStack {
-                            OutputButton(label: outputDisplayText)
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(
-                                    Color("BorderColor"),
-                                    lineWidth: 2)
-                        } // ZStack
-                    } // Button
-                    
-                    // Clear button
-                    if (outputModel.styledOutput.value != outputModel.userInput) {
-                        Button {
-                            withAnimation {
-                                outputModel.clearAllOptions()
-                                outputModel.createStylizedText()
-                            } // withAnimation
-                        } label: {
-                            Image(systemName: "eraser.fill")
-                                .imageScale(.large)
-                                .foregroundColor(Color("AccentColor"))
-                        } // Button
-                    } // if
-                } // HStack
+            VStack(spacing: 0) {
+                stylizedOutputSection
                 
-                // Font Style Buttons
-                Divider()
-                    .overlay(LinearGradient(
-                        colors: gradient,
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing))
-                    .padding(.vertical)
-                
-                Text("Tap any button below to add font styles")
-                    .font(.footnote)
-                    .bold()
-                    .foregroundColor(Color("AccentColor"))
-                
-                // Bold/Italic/Serif Selectors
-                HStack {
-                    // Bold Button
-                    Button {
-                        withAnimation {
-                            outputModel.fontStyles["Bold", default: false].toggle()
-                        } // withAnimation
-                    } label: {
-                        ZStack {
-                            OutputButton(label: "Bold")
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(outputModel.fontStyles["Bold", default: false] ? .white : .clear, lineWidth: 2)
-                        } // ZStack
-                    } // Button
-                    
-                    // Italic Button
-                    Button {
-                        withAnimation {
-                            outputModel.fontStyles["Italic", default: false].toggle()
-                        } // withAnimation
-                    } label: {
-                        ZStack {
-                            OutputButton(label: "Italic")
-                            RoundedRectangle(cornerRadius: 10)
-                                .strokeBorder(outputModel.fontStyles["Italic", default: false] ? .white : .clear, lineWidth: 2)
-                        } // ZStack
-                    } // Button
-                    
-                    // Serif Button
-                    if outputModel.fontStyles["Italic", default: false] || outputModel.fontStyles["Bold", default: false] {
-                        Button {
-                            outputModel.fontStyles["Serif", default: false].toggle()
-                        } label: {
-                            ZStack {
-                                OutputButton(label: "Serif")
-                                RoundedRectangle(cornerRadius: 10)
-                                    .strokeBorder(outputModel.fontStyles["Serif", default: false] ? .white : .clear, lineWidth: 2)
-                            } // ZStack
-                        } // Button
-                    } // if
-                } // HStack
-                
-                // Diacritic Selectors
-                VStack {
-                    CombiningMarkRow(thisType: .over)
-                    CombiningMarkRow(thisType: .superscript)
-                    CombiningMarkRow(thisType: .through)
-                    CombiningMarkRow(thisType: .under)
-                } // VStack
-                .environmentObject(outputModel)
-                
-            }
-            
-            // MARK: Other Options
-            if (outputModel.userInput != String()) {
-                Divider()
-                    .overlay(LinearGradient(
-                        colors: gradient,
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing))
-                    .padding(.vertical)
-                
-                Text("Tap any button below to copy")
-                    .font(.footnote)
-                    .bold()
-                    .foregroundColor(Color("AccentColor"))
-                
-                LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(0..<outputModel.outputs.count, id: \.self) { i in
-                        let thisOutput = outputModel.outputs[i]
-                        let thisLabel = thisOutput.value
-                        Button {
-                            // Clipboard and iMessage logic
-                            outputModel.finalOutput = thisOutput.value
-                            UIPasteboard.general.string = thisOutput.value
-                            if !outputModel.isFullApp {
-                                outputModel.userInput = String()
-                                outputModel.insert()
-                            }
-                            
-                            // Animation
-                            withAnimation {
-                                outputModel.outputs[i].value = "Copied"
-                            } // withAnimation
-                            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) {_ in
-                                withAnimation{
-                                    outputModel.outputs[i].value = thisLabel
-                                }
-                            } // Timer
-                        } label: {
-                            VStack (spacing: 5) {
-                                ZStack {
-                                    OutputButton(label: thisOutput.value)
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .strokeBorder(
-                                            Color("BorderColor"),
-                                            lineWidth: 2)
-                                } // ZStack
-                            } // VStack
-                        } // Button
-                    } // ForEach
-                } // LazyVGrid
-            } // if
-            
-        } // ScrollView
-        .onChange(of: outputModel.userInput) { _ in
-            if outputModel.userInput == String() {
-                outputDisplayText = "Your Text Here"
-            } else {
-                outputModel.createStylizedText()
-                outputDisplayText = outputModel.styledOutput.value
-            }
-        }
-        .onChange(of: outputModel.fontStyles) { _ in
-            if outputModel.userInput != String() {
-                outputModel.createStylizedText()
-                outputDisplayText = outputModel.styledOutput.value
-            }
-        }
-        .onChange(of: outputModel.combiningMarks) { _ in
-            if outputModel.userInput != String() {
-                outputModel.createStylizedText()
-                outputDisplayText = outputModel.styledOutput.value
-            }
-        }
-        .onAppear {
-                startPlaceholderCycling()
-            }
-        .onDisappear {
-            placeholderTimer?.invalidate()
-            placeholderTimer = nil
-        }
-    }
-    
-    private func startPlaceholderCycling() {
-            let options = [
-                "Ｙｏｕｒ　ｔｅｘｔ　ｈｅｒｅ",
-                "🅈🄾🅄🅁 🅃🄴🅇🅃 🄷🄴🅁🄴",
-                "🆈🅾🆄🆁 🆃🅴🆇🆃 🅷🅴🆁🅴",
-                "ⓨⓞⓤⓡ ⓣⓔⓧⓣ ⓗⓔⓡⓔ",
-                "𝐘𝐨𝐮𝐫 𝐭𝐞𝐱𝐭 𝐡𝐞𝐫𝐞",
-                "𝘠𝘰𝘶𝘳 𝘵𝘦𝘹𝘵 𝘩𝘦𝘳𝘦",
-                "𝙔𝙤𝙪𝙧 𝙩𝙚𝙭𝙩 𝙝𝙚𝙧𝙚",
-                "Your text here"
-            ]
-            var i = 0
-            placeholderTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
-                if outputModel.userInput.isEmpty {
-                    outputDisplayText = options[i]
-                    i = (i + 1) % options.count
+                if !outputModel.userInput.isEmpty {
+                    otherOptionsSection
                 }
             }
         }
+        // FIXED: Single task instead of multiple onChange handlers
+        .task(id: outputModel.styledOutput.value) {
+            updateDisplayText()
+        }
+        .onAppear {
+            startPlaceholderCycling()
+        }
+        .onDisappear {
+            stopPlaceholderCycling()
+        }
+    }
     
+    // MARK: - Display Update
+    
+    private func updateDisplayText() {
+        if outputModel.userInput.isEmpty {
+            // Let placeholder cycling handle it
+            return
+        }
+        outputDisplayText = outputModel.styledOutput.value
+    }
+    
+    // MARK: - Stylized Output Section
+    
+    private var stylizedOutputSection: some View {
+        Section {
+            // Main output button with clear option
+            HStack {
+                Button(action: copyStylizedOutput) {
+                    ZStack {
+                        OutputButton(label: outputDisplayText)
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(Color("BorderColor"), lineWidth: 2)
+                    }
+                }
+                
+                if outputModel.styledOutput.value != outputModel.userInput && !outputModel.userInput.isEmpty {
+                    clearStylesButton
+                }
+            }
+            
+            gradientDivider
+            
+            Text("Tap any button below to add font styles")
+                .font(.footnote)
+                .bold()
+                .foregroundColor(Color("AccentColor"))
+            
+            fontStyleButtons
+            combiningMarkRows
+        }
+    }
+    
+    private var clearStylesButton: some View {
+        Button {
+            withAnimation {
+                outputModel.clearAllOptions()
+            }
+        } label: {
+            Image(systemName: "eraser.fill")
+                .imageScale(.large)
+                .foregroundColor(Color("AccentColor"))
+        }
+    }
+    
+    // MARK: - Font Style Buttons
+    
+    private var fontStyleButtons: some View {
+        HStack {
+            StyleToggleButton(
+                label: "Bold",
+                isActive: outputModel.fontStyle.bold
+            ) {
+                withAnimation {
+                    outputModel.fontStyle.bold.toggle()
+                    outputModel.styleDidChange()
+                }
+            }
+            
+            StyleToggleButton(
+                label: "Italic",
+                isActive: outputModel.fontStyle.italic
+            ) {
+                withAnimation {
+                    outputModel.fontStyle.italic.toggle()
+                    outputModel.styleDidChange()
+                }
+            }
+            
+            if outputModel.fontStyle.showSerifOption {
+                StyleToggleButton(
+                    label: "Serif",
+                    isActive: outputModel.fontStyle.serif
+                ) {
+                    outputModel.fontStyle.serif.toggle()
+                    outputModel.styleDidChange()
+                }
+            }
+        }
+    }
+    
+    // MARK: - Combining Marks
+    
+    private var combiningMarkRows: some View {
+        VStack {
+            ForEach(CombiningCategory.allCases, id: \.self) { category in
+                CombiningMarkRow(outputModel: outputModel, category: category)
+            }
+        }
+    }
+    
+    // MARK: - Other Options Section
+    
+    private var otherOptionsSection: some View {
+        Group {
+            gradientDivider
+            
+            Text("Tap any button below to copy")
+                .font(.footnote)
+                .bold()
+                .foregroundColor(Color("AccentColor"))
+            
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(outputModel.outputs) { output in
+                    OutputGridButton(output: output) { text in
+                        outputModel.copyToClipboard(text)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Helper Views
+    
+    private var gradientDivider: some View {
+        Divider()
+            .overlay(LinearGradient(
+                colors: gradient,
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing))
+            .padding(.vertical)
+    }
+    
+    // MARK: - Actions
+    
+    private func copyStylizedOutput() {
+        guard !outputModel.styledOutput.value.isEmpty else { return }
+        
+        let originalText = outputModel.styledOutput.value
+        outputModel.copyToClipboard(originalText)
+        
+        withAnimation {
+            outputDisplayText = "Copied to clipboard"
+        }
+        
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            await MainActor.run {
+                withAnimation {
+                    if outputModel.userInput.isEmpty {
+                        // Will be handled by placeholder
+                    } else {
+                        outputDisplayText = outputModel.styledOutput.value
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Timer Management
+    
+    private func startPlaceholderCycling() {
+        placeholderTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
+            Task { @MainActor in
+                guard outputModel.userInput.isEmpty else { return }
+                outputDisplayText = placeholderOptions[placeholderIndex]
+                placeholderIndex = (placeholderIndex + 1) % placeholderOptions.count
+            }
+        }
+    }
+    
+    private func stopPlaceholderCycling() {
+        placeholderTimer?.invalidate()
+        placeholderTimer = nil
+    }
+}
+
+// MARK: - Style Toggle Button
+
+struct StyleToggleButton: View {
+    let label: String
+    let isActive: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                OutputButton(label: label)
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(isActive ? .white : .clear, lineWidth: 2)
+            }
+        }
+    }
+}
+
+// MARK: - Output Grid Button
+
+struct OutputGridButton: View {
+    let output: FancyText
+    let onCopy: (String) -> Void
+    
+    @State private var showCopied = false
+    
+    var body: some View {
+        Button {
+            onCopy(output.value)
+            showCopiedFeedback()
+        } label: {
+            ZStack {
+                OutputButton(label: showCopied ? "Copied" : output.value)
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(Color("BorderColor"), lineWidth: 2)
+            }
+        }
+    }
+    
+    private func showCopiedFeedback() {
+        withAnimation {
+            showCopied = true
+        }
+        
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            await MainActor.run {
+                withAnimation {
+                    showCopied = false
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Preview
+
+#Preview {
+    OutputView(
+        outputModel: FancyTextModel(isFullApp: true),
+        bottomText: ""
+    )
 }
