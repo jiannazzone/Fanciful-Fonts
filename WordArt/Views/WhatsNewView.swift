@@ -62,6 +62,13 @@ struct WhatsNewView: View {
     
     private var versionSections: some View {
         Group {
+            
+            // Version 1.4.2
+            VersionSection(title: "🆅🅴🆁🆂🅸🅾🅽 ①.⑤", gradient: gradient) {
+                HelpBox(label: "Updates across the app for performance.", icon: nil)
+                HelpBox(label: "Changes to the compact/Messages logic for better animation and UX.", icon: nil)
+            }
+            
             // Version 1.4.1
             VersionSection(title: "🆅🅴🆁🆂🅸🅾🅽 ①.④.①", gradient: gradient) {
                 HelpBox(label: "Update for iOS 26!", icon: nil)
