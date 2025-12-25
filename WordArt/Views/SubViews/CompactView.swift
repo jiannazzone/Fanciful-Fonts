@@ -20,10 +20,8 @@ struct CompactView: View {
             
             Button {
                 if !outputModel.isFullApp {
-                    withAnimation {
-                        outputModel.isExpanded = true
-                        outputModel.expand?()
-                    }
+                    outputModel.expand?()
+                    // isExpanded will be set by didTransition
                 }
             } label: {
                 OutputButton(label: "Tap to get started")
